@@ -1882,8 +1882,13 @@ bool8 ScrCmd_dowildbattle(struct ScriptContext *ctx)
 bool8 ScrCmd_pokemart(struct ScriptContext *ctx)
 {
     const void *ptr = (void *)ScriptReadWord(ctx);
+	u8 tmShopId = ScriptReadByte(ctx);	//start tm shops
 
+    //CreatePokemartMenu(ptr);
+    if(!tmShopId)
     CreatePokemartMenu(ptr);
+    else
+        CreateTMShopMenu(ptr, tmShopId);	//end tm shops
     ScriptContext1_Stop();
     return TRUE;
 }
@@ -2298,4 +2303,17 @@ bool8 ScrCmd_warpsootopolislegend(struct ScriptContext *ctx)
     DoSootopolisLegendWarp();
     ResetInitialPlayerAvatarState();
     return TRUE;
+}
+
+// Item Descriptions On First Obtain
+bool8 ScrCmd_showitemdesc(struct ScriptContext *ctx)
+{
+    DrawHeaderBox();
+    return FALSE;
+}
+
+bool8 ScrCmd_hideitemdesc(struct ScriptContext *ctx)
+{
+    HideHeaderBox();
+    return FALSE;
 }

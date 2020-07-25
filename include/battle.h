@@ -17,6 +17,8 @@
 #define GET_BATTLER_SIDE(battler)         (GetBattlerPosition(battler) & BIT_SIDE)
 #define GET_BATTLER_SIDE2(battler)        (GET_BATTLER_POSITION(battler) & BIT_SIDE)
 
+#define BATTLE_HISTORY ((struct BattleHistory *)(gBattleResources->battleHistory)) //more trainer items
+
 // Battle Actions
 // These determine what each battler will do in a turn
 #define B_ACTION_USE_MOVE               0
@@ -271,6 +273,7 @@ struct BattleHistory
     u8 itemEffects[MAX_BATTLERS_COUNT];
     u16 trainerItems[MAX_BATTLERS_COUNT];
     u8 itemsNo;
+	u8 trainerItemCounts[MAX_BATTLERS_COUNT];	//more trainer items
 };
 
 struct BattleScriptsStack
@@ -642,7 +645,10 @@ struct BattleAnimationInfo
     u8 field_5;
     u8 field_6;
     u8 field_7;
-    u8 ballThrowCaseId;
+    //u8 ballThrowCaseId;	//add critical capture
+    u8 ballThrowCaseId:6;
+    u8 isCriticalCapture:1;
+    u8 criticalCaptureSuccess:1;
     u8 field_9_x1:1;
     u8 field_9_x2:1;
     u8 field_9_x1C:3;

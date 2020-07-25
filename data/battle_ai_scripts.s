@@ -1194,15 +1194,15 @@ AI_CV_PerishSong_ShadowTag:
 	goto AI_CV_PerishSongCheckTrap
 	
 AI_CV_Hazards:
-	if_ability AI_TARGET, ABILITY_MAGIC_BOUNCE, AI_CV_HzardsEnd
+	if_ability AI_TARGET, ABILITY_MAGIC_BOUNCE, AI_CV_HazardsEnd
 	is_first_turn_for AI_USER
-	if_equal 0, AI_CV_HzardsEnd
+	if_equal 0, AI_CV_HazardsEnd
 	score +2
-AI_CV_HzardsEnd:
+AI_CV_HazardsEnd:
 	end
 AI_CV_StealthRock2:
 	score -2
-	goto AI_CV_HzardsEnd
+	goto AI_CV_HazardsEnd
 	
 AI_CV_MistyTerrain:
 	call AI_CV_TerrainExpander

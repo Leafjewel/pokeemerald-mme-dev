@@ -726,7 +726,8 @@ static void Task_EvolutionScene(u8 taskID)
     case 15: // check if it wants to learn a new move
         if (!IsTextPrinterActive(0))
         {
-            var = MonTryLearningNewMove(mon, gTasks[taskID].tLearnsFirstMove);
+            //var = MonTryLearningNewMove(mon, gTasks[taskID].tLearnsFirstMove);
+			var = MonTryLearningNewMove(mon, gTasks[taskID].tLearnsFirstMove, 1); //allows learning moves upon evolution
             if (var != 0 && !gTasks[taskID].tEvoWasStopped)
             {
                 u8 text[20];
@@ -914,10 +915,10 @@ static void Task_EvolutionScene(u8 taskID)
                 {
                     gTasks[taskID].tLearnMoveState = 10;
                 }
-                else
+                else	//edits to make HMs deletable
                 {
                     u16 move = GetMonData(mon, var + MON_DATA_MOVE1);
-                    if (IsHMMove2(move))
+                    /* if (IsHMMove2(move))
                     {
                         BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_HMMOVESCANTBEFORGOTTEN - BATTLESTRINGS_ID_ADDER]);
                         BattlePutTextOnWindow(gDisplayedStringBattle, 0);
@@ -930,7 +931,13 @@ static void Task_EvolutionScene(u8 taskID)
                         RemoveMonPPBonus(mon, var);
                         SetMonMoveSlot(mon, gMoveToLearn, var);
                         gTasks[taskID].tLearnMoveState++;
-                    }
+                    } */
+					
+					PREPARE_MOVE_BUFFER(gBattleTextBuff2, move)
+
+                    RemoveMonPPBonus(mon, var);
+                    SetMonMoveSlot(mon, gMoveToLearn, var);
+                    gTasks[taskID].tLearnMoveState++;
                 }
             }
             break;
@@ -1089,7 +1096,8 @@ static void Task_TradeEvolutionScene(u8 taskID)
     case 13:
         if (!IsTextPrinterActive(0) && IsFanfareTaskInactive() == TRUE)
         {
-            var = MonTryLearningNewMove(mon, gTasks[taskID].tLearnsFirstMove);
+            //var = MonTryLearningNewMove(mon, gTasks[taskID].tLearnsFirstMove);
+			var = MonTryLearningNewMove(mon, gTasks[taskID].tLearnsFirstMove, 1); //allows learning moves upon evolution
             if (var != 0 && !gTasks[taskID].tEvoWasStopped)
             {
                 u8 text[20];
@@ -1248,10 +1256,10 @@ static void Task_TradeEvolutionScene(u8 taskID)
                 {
                     gTasks[taskID].tLearnMoveState = 9;
                 }
-                else
+                else	//edits to make HMs deletable
                 {
                     u16 move = GetMonData(mon, var + MON_DATA_MOVE1);
-                    if (IsHMMove2(move))
+                    /* if (IsHMMove2(move))
                     {
                         BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_HMMOVESCANTBEFORGOTTEN - BATTLESTRINGS_ID_ADDER]);
                         DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
@@ -1266,7 +1274,15 @@ static void Task_TradeEvolutionScene(u8 taskID)
                         BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_123POOF - BATTLESTRINGS_ID_ADDER]);
                         DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                         gTasks[taskID].tLearnMoveState++;
-                    }
+                    } */
+					
+					PREPARE_MOVE_BUFFER(gBattleTextBuff2, move)
+
+                    RemoveMonPPBonus(mon, var);
+                    SetMonMoveSlot(mon, gMoveToLearn, var);
+                    BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_123POOF - BATTLESTRINGS_ID_ADDER]);
+                    DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
+                    gTasks[taskID].tLearnMoveState++;
                 }
             }
             break;

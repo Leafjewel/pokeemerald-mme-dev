@@ -350,9 +350,11 @@ static u8 PickWildMonNature(void)
 static void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm;
+	bool32 checkSynchronize;
 
     ZeroEnemyPartyMons();
     checkCuteCharm = TRUE;
+	checkSynchronize = TRUE;
 
     switch (gBaseStats[species].genderRatio)
     {
@@ -360,6 +362,7 @@ static void CreateWildMon(u16 species, u8 level)
     case MON_FEMALE:
     case MON_GENDERLESS:
         checkCuteCharm = FALSE;
+		checkSynchronize = FALSE;
         break;
     }
 
@@ -378,6 +381,24 @@ static void CreateWildMon(u16 species, u8 level)
         else
             gender = MON_FEMALE;
 
+        CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, 32, gender, PickWildMonNature(), 0);
+        return;
+    }
+	
+	if (checkSynchronize && !GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG)
+        && GetMonAbility(&gPlayerParty[0]) == ABILITY_SYNCHRONIZE && Random() % 4 != 0)
+    {
+        u16 leadingMonSpecies = GetMonData(&gPlayerParty[0], MON_DATA_SPECIES);
+        u32 leadingMonPersonality = GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY);
+        u8 gender = GetGenderFromSpeciesAndPersonality(leadingMonSpecies, leadingMonPersonality);
+
+        if (gender == MON_FEMALE)
+            gender = MON_FEMALE;
+        else if (gender == MON_MALE)
+            gender = MON_MALE;
+		else
+			gender = MON_FEMALE;
+		
         CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, 32, gender, PickWildMonNature(), 0);
         return;
     }
@@ -621,12 +642,27 @@ bool8 StandardWildEncounter(u16 currMetaTileBehavior, u16 previousMetaTileBehavi
                 // try a regular wild land encounter
                 if (TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
-                    if (USE_BATTLE_DEBUG && !GetSafariZoneFlag() && GetMonsStateToDoubles() == PLAYER_HAS_TWO_USABLE_MONS)
+					/*Thank you for this engine, it works really nicely! I only have one question 
+						about the wild double battles. On default configuration, all wild battles 
+						seem to be double battles. How would I go on about creating specific 
+						patches for double battles (like in BW) while retaining single battles in 
+						other areas?
+						
+					Well, you'd need to code that. :P Preferably set up some table with ids for 
+						metatiles(like dark grass) that allow double battles and if the tile the 
+						player is currently walking on matches, the battle will be double.	
+					*/
+                    if (!GetSafariZoneFlag() && GetMonsStateToDoubles() == PLAYER_HAS_TWO_USABLE_MONS)
                     {
-                        struct Pokemon mon1 = gEnemyParty[0];
-                        TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE);
-                        gEnemyParty[1] = mon1;
-                        BattleSetup_StartDoubleWildBattle();
+						if (((Random() % 100) < 15))
+						{
+							struct Pokemon mon1 = gEnemyParty[0];
+							TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE);
+							gEnemyParty[1] = mon1;
+							BattleSetup_StartDoubleWildBattle();
+						}
+						else
+							BattleSetup_StartWildBattle();
                     }
                     else
                     {

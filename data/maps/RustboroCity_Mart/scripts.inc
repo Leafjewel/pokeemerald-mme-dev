@@ -18,6 +18,7 @@ RustboroCity_Mart_EventScript_PokemartBasic:: @ 8214F21
 
 RustboroCity_Mart_Pokemart_Basic: @ 8214F30
 	.2byte ITEM_POKE_BALL
+	.2byte ITEM_HEAL_BALL
 	.2byte ITEM_POTION
 	.2byte ITEM_SUPER_POTION
 	.2byte ITEM_ANTIDOTE
@@ -42,6 +43,9 @@ RustboroCity_Mart_Pokemart_Expanded: @ 8214F58
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_TIMER_BALL
 	.2byte ITEM_REPEAT_BALL
+	.2byte ITEM_NET_BALL
+	.2byte ITEM_HEAL_BALL
+	.2byte ITEM_PREMIER_BALL
 	.2byte ITEM_POTION
 	.2byte ITEM_SUPER_POTION
 	.2byte ITEM_ANTIDOTE

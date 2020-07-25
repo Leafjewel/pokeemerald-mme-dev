@@ -34,5 +34,8 @@ void ItemUseInBattle_EnigmaBerry(u8);
 void Task_UseDigEscapeRopeOnField(u8 taskId);
 u8 CanUseDigOrEscapeRopeOnCurMap(void);
 u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId);
+void ItemUseOutOfBattle_Mints(u8 taskId);	//add mints
+void ItemUseOutOfBattle_SilverBottlecap(u8);	//add bottlecaps
+void ItemUseOutOfBattle_GoldBottlecap(u8);		//add bottlecaps
 
 #endif // GUARD_ITEM_USE_H

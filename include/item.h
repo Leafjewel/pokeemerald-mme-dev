@@ -74,5 +74,15 @@ ItemUseFunc ItemId_GetFieldFunc(u16 itemId);
 u8 ItemId_GetBattleUsage(u16 itemId);
 ItemUseFunc ItemId_GetBattleFunc(u16 itemId);
 u8 ItemId_GetSecondaryId(u16 itemId);
+// Item Descriptions On First Obtain
+void DrawHeaderBox(void);
+void HideHeaderBox(void);
+enum ItemObtainFlags
+{
+    FLAG_GET_OBTAINED,
+    FLAG_SET_OBTAINED,
+};
+bool8 GetSetItemObtained(u16 item, u8 caseId); //tm shops
+u16 GetBagItemQuantity(u16 *quantity);	//bag sorting
 
 #endif // GUARD_ITEM_H

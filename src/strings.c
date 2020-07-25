@@ -282,13 +282,19 @@ const u8 gText_PokeBallsPocket[] = _("POKé BALLS");
 const u8 gText_TMHMPocket[] = _("TMs & HMs");
 const u8 gText_BerriesPocket[] = _("BERRIES");
 const u8 gText_KeyItemsPocket[] = _("KEY ITEMS");
+const u8 gText_MedicinePocket[] = _("MEDICINE");		//more bag pockets
+const u8 gText_BattleItemsPocket[] = _("BATT. ITEMS");	//more bag pockets
+const u8 gText_PowerUpPocket[] = _("POWER-UP");			//more bag pockets
 
 const u8 *const gPocketNamesStringsTable[] =
 {
     gText_ItemsPocket,
+	gText_MedicinePocket,		//more bag pockets
     gText_PokeBallsPocket,
-    gText_TMHMPocket,
+	gText_BattleItemsPocket,	//more bag pockets
     gText_BerriesPocket,
+	gText_PowerUpPocket,		//more bag pockets
+    gText_TMHMPocket,
     gText_KeyItemsPocket
 };
 
@@ -350,15 +356,18 @@ const u8 gText_ThankYouIllSendItHome[] = _("Thank you!\nI'll send it to your hom
 const u8 gText_ThanksIllSendItHome[] = _("Thanks!\nI'll send it to your PC at home.");
 const u8 gText_YouDontHaveMoney[] = _("You don't have enough money.{PAUSE_UNTIL_PRESS}");
 const u8 gText_NoMoreRoomForThis[] = _("You have no more room for this\nitem.{PAUSE_UNTIL_PRESS}");
+const u8 gText_SorryWereOutOfThis[] = _("I'm very sorry, we're out of\nthis item.{PAUSE_UNTIL_PRESS}");	//tm shops
 const u8 gText_SpaceForVar1Full[] = _("The space for {STR_VAR_1} is full.{PAUSE_UNTIL_PRESS}");
 const u8 gText_AnythingElseICanHelp[] = _("Is there anything else I can help\nyou with?");
 const u8 gText_CanIHelpWithAnythingElse[] = _("Can I help you with anything else?");
-const u8 gText_ThrowInPremierBall[] = _("I'll throw in a PREMIER BALL, too.{PAUSE_UNTIL_PRESS}");
+const u8 gText_ThrowInPremierBall[] = _("I'll throw in a Premier Ball, too.{PAUSE_UNTIL_PRESS}");
+const u8 gText_ThrowInPremierBalls[] = _("I'll throw in some Premier Balls, too.{PAUSE_UNTIL_PRESS}");	//Gen VIII Premier Balls
 const u8 gText_CantBuyKeyItem[] = _("{STR_VAR_2}? Oh, no.\nI can't buy that.{PAUSE_UNTIL_PRESS}");
 const u8 gText_HowManyToSell[] = _("{STR_VAR_2}?\nHow many would you like to sell?");
 const u8 gText_ICanPayVar1[] = _("I can pay ¥{STR_VAR_1}.\nWould that be okay?");
 const u8 gText_TurnedOverVar1ForVar2[] = _("Turned over the {STR_VAR_2}\nand received ¥{STR_VAR_1}.");
 const u8 gText_PokedollarVar1[] = _("¥{STR_VAR_1}");
+const u8 gText_SoldOut[] = _("Sold Out");	//tm shops
 const u8 gText_Shift[] = _("SHIFT");
 const u8 gText_SendOut[] = _("SEND OUT");
 const u8 gText_Switch2[] = _("SWITCH");
@@ -415,6 +424,8 @@ const u8 gText_PkmnRegainhedHealth[] = _("{STR_VAR_1} regained health.{PAUSE_UNT
 const u8 gText_PkmnBecameHealthy[] = _("{STR_VAR_1} became healthy.{PAUSE_UNTIL_PRESS}");
 const u8 gText_MovesPPIncreased[] = _("{STR_VAR_1}'s PP increased.{PAUSE_UNTIL_PRESS}");
 const u8 gText_PkmnElevatedToLvVar2[] = _("{STR_VAR_1} was elevated to\nLv. {STR_VAR_2}.");
+const u8 gText_PkmnOneInherentStatIncreased[] = _("{STR_VAR_1}'s inherent\nstat increased.");	//add bottlecaps
+const u8 gText_PkmnAllInherentStatsIncreased[] = _("All of {STR_VAR_1}'s inherent\nstats increased.");	//add bottlecaps
 const u8 gText_PkmnBaseVar2StatIncreased[] = _("{STR_VAR_1}'s base {STR_VAR_2}\nstat was raised.{PAUSE_UNTIL_PRESS}");
 const u8 gText_PkmnFriendlyBaseVar2Fell[] = _("{STR_VAR_1} turned friendly.\nThe base {STR_VAR_2} fell!{PAUSE_UNTIL_PRESS}");
 const u8 gText_PkmnAdoresBaseVar2Fell[] = _("{STR_VAR_1} adores you!\nThe base {STR_VAR_2} fell!{PAUSE_UNTIL_PRESS}");
@@ -437,6 +448,7 @@ const u8 gText_CantUseHere[] = _("Can't use that here.");
 const u8 gText_RestoreWhichMove[] = _("Restore which move?");
 const u8 gText_BoostPp[] = _("Boost PP of which move?");
 const u8 gText_DoWhatWithItem[] = _("Do what with an item?");
+const u8 gText_BoostIv[] = _("Boost which stat?");		//add bottlecaps
 const u8 gText_NoPokemonForBattle[] = _("No POKéMON for battle!");
 const u8 gText_ChoosePokemon2[] = _("Choose a POKéMON.");
 const u8 gText_NotEnoughHp[] = _("Not enough HP…");
@@ -701,6 +713,9 @@ const u8 gText_Key_Items[] = _("KEY ITEMS");
 const u8 gText_Poke_Balls[] = _("POKé BALLS");
 const u8 gText_TMs_Hms[] = _("TMs & HMs");
 const u8 gText_Berries2[] = _("BERRIES");
+const u8 gText_Medicine[] = _("MEDICINE");			//more bag pockets
+const u8 gText_BattleItems[] = _("BATT. ITEMS");	//more bag pockets
+const u8 gText_PowerUp[] = _("POWER-UP");			//more bag pockets
 const u8 gText_SomeonesPC[] = _("SOMEONE'S PC");
 const u8 gText_LanettesPC[] = _("LANETTE'S PC");
 const u8 gText_PlayersPC[] = _("{PLAYER}'s PC");
@@ -1184,7 +1199,8 @@ const u8 gText_PsychUp48BP[] = _("PSYCH UP{CLEAR_TO 0x4E}48BP");
 const u8 gText_IcePunch48BP[] = _("ICE PUNCH{CLEAR_TO 0x4E}48BP");
 const u8 gText_ThunderPunch48BP[] = _("THUNDERPUNCH{CLEAR_TO 0x4E}48BP");
 const u8 gText_FirePunch48BP[] = _("FIRE PUNCH{CLEAR_TO 0x4E}48BP");
-const u8 gText_PkmnFainted3[] = _("{STR_VAR_1} fainted…\p\n");
+//const u8 gText_PkmnFainted3[] = _("{STR_VAR_1} fainted…\p\n");
+const u8 gText_PkmnFainted3[] = _("{STR_VAR_1} survived the poisoning.\nThe poison faded away!\p");
 const u8 gText_Marco[] = _("MARCO");
 const u8 gText_TrainerCardName[] = _("NAME: ");
 const u8 gText_TrainerCardIDNo[] = _("IDNo.");

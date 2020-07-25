@@ -24,4 +24,6 @@
 #define EGG_MOVES_ARRAY_COUNT           10
 #define EGG_LVL_UP_MOVES_ARRAY_COUNT    50
 
+#define DESTINY_KNOT_INHERITED_IV_COUNT 5	//new daycare mechanics, Destiny Knot IVs
+
 #endif //GUARD_DAYCARE_CONSTANTS_H

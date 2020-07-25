@@ -28,7 +28,7 @@
 #define AI_ACTION_UNK8          0x0080
 
 #define AI_THINKING_STRUCT ((struct AI_ThinkingStruct *)(gBattleResources->ai))
-#define BATTLE_HISTORY ((struct BattleHistory *)(gBattleResources->battleHistory))
+//#define BATTLE_HISTORY ((struct BattleHistory *)(gBattleResources->battleHistory))
 
 // AI states
 enum
@@ -341,11 +341,14 @@ void BattleAI_SetupItems(void)
     {
         for (i = 0; i < MAX_TRAINER_ITEMS; i++)
         {
-            if (gTrainers[gTrainerBattleOpponent_A].items[i] != 0)
+			//more trainer items
+            if (gTrainers[gTrainerBattleOpponent_A].items[i])
             {
                 BATTLE_HISTORY->trainerItems[BATTLE_HISTORY->itemsNo] = gTrainers[gTrainerBattleOpponent_A].items[i];
+                BATTLE_HISTORY->trainerItemCounts[BATTLE_HISTORY->itemsNo] = gTrainers[gTrainerBattleOpponent_A].itemCounts[i];
                 BATTLE_HISTORY->itemsNo++;
             }
+			//end more trainer items
         }
     }
 }

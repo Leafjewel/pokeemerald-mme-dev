@@ -164,5 +164,8 @@
 #define STDSTRING_BATTLE_ARENA     27
 #define STDSTRING_BATTLE_PIKE      28
 #define STDSTRING_BATTLE_PYRAMID   29
+#define STDSTRING_MEDICINE         30	//more bag pockets
+#define STDSTRING_BATTLEITEMS      31	//more bag pockets
+#define STDSTRING_POWERUPITEMS     32	//more bag pockets
 
 #endif //GUARD_SCRIPT_MENU_CONSTANTS_H

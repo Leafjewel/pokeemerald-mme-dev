@@ -173,6 +173,17 @@ const u8 gItemEffect_SacredAsh[7] = {
     [6] = -1,
 };
 
+//add bottle caps
+const u8 gItemEffect_SilverBottlecap[11] = {
+    [0] = ITEM0_ITEM_ENUM,
+    [10] = ITEM10_IV_MAX_ONE,
+};
+
+const u8 gItemEffect_GoldBottlecap[11] = {
+    [0] = ITEM0_ITEM_ENUM,
+    [10] = ITEM10_IV_MAX_ALL,
+};	//end section
+
 const u8 gItemEffect_HPUp[11] = {
     [4] = ITEM4_EV_HP,
     [5] = ITEM5_FRIENDSHIP_ALL,
@@ -499,6 +510,8 @@ const u8 *const gItemEffectTable[] =
     [ITEM_BIG_MALASADA - ITEM_POTION] = gItemEffect_BigMalasada,
     [ITEM_OLD_GATEAU - ITEM_POTION] = gItemEffect_OldGateau,
     [ITEM_SACRED_ASH - ITEM_POTION] = gItemEffect_SacredAsh,
+	[ITEM_SILVER_BOTTLECAP - ITEM_POTION] = gItemEffect_SilverBottlecap,	//add bottlecaps
+	[ITEM_GOLD_BOTTLECAP - ITEM_POTION] = gItemEffect_GoldBottlecap,		//add bottlecaps
     [ITEM_HP_UP - ITEM_POTION] = gItemEffect_HPUp,
     [ITEM_PROTEIN - ITEM_POTION] = gItemEffect_Protein,
     [ITEM_IRON - ITEM_POTION] = gItemEffect_Iron,

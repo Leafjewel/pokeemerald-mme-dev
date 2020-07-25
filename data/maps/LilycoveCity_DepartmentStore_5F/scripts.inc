@@ -39,6 +39,15 @@ LilycoveCity_DepartmentStore_5F_Pokemart_Dolls: @ 821FFC0
 	.2byte DECOR_SKITTY_DOLL
 	.2byte DECOR_SWABLU_DOLL
 	.2byte DECOR_GULPIN_DOLL
+	.2byte DECOR_BALL_POSTER
+	.2byte DECOR_GREEN_POSTER
+	.2byte DECOR_RED_POSTER
+	.2byte DECOR_BLUE_POSTER
+	.2byte DECOR_CUTE_POSTER
+	.2byte DECOR_PIKA_POSTER
+	.2byte DECOR_LONG_POSTER
+	.2byte DECOR_SEA_POSTER
+	.2byte DECOR_SKY_POSTER
 	.2byte DECOR_NONE
 	release
 	end
@@ -64,47 +73,6 @@ LilycoveCity_DepartmentStore_5F_Pokemart_Cushions: @ 821FFF4
 	.2byte DECOR_GRASS_CUSHION
 	.2byte DECOR_FIRE_CUSHION
 	.2byte DECOR_WATER_CUSHION
-	.2byte DECOR_NONE
-	release
-	end
-
-LilycoveCity_DepartmentStore_5F_EventScript_ClerkMidRight:: @ 822000A
-	lock
-	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemartdecoration2 LilycoveCity_DepartmentStore_5F_Pokemart_Posters
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
-	release
-	end
-
-	.align 2
-LilycoveCity_DepartmentStore_5F_Pokemart_Posters: @ 8220024
-	.2byte DECOR_BALL_POSTER
-	.2byte DECOR_GREEN_POSTER
-	.2byte DECOR_RED_POSTER
-	.2byte DECOR_BLUE_POSTER
-	.2byte DECOR_CUTE_POSTER
-	.2byte DECOR_PIKA_POSTER
-	.2byte DECOR_LONG_POSTER
-	.2byte DECOR_SEA_POSTER
-	.2byte DECOR_SKY_POSTER
-	.2byte DECOR_NONE
-	release
-	end
-
-LilycoveCity_DepartmentStore_5F_EventScript_ClerkFarRight:: @ 822003A
-	lock
-	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemartdecoration2 LilycoveCity_DepartmentStore_5F_Pokemart_Mats
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
-	release
-	end
-
-	.align 2
-LilycoveCity_DepartmentStore_5F_Pokemart_Mats: @ 8220054
 	.2byte DECOR_SURF_MAT
 	.2byte DECOR_THUNDER_MAT
 	.2byte DECOR_FIRE_BLAST_MAT
@@ -116,6 +84,67 @@ LilycoveCity_DepartmentStore_5F_Pokemart_Mats: @ 8220054
 	.2byte DECOR_JUMP_MAT
 	.2byte DECOR_SPIN_MAT
 	.2byte DECOR_NONE
+	release
+	end
+
+LilycoveCity_DepartmentStore_5F_EventScript_ClerkMidRight:: @ 822000A
+	lock
+	faceplayer
+	message gText_HowMayIServeYou
+	waitmessage
+	pokemart LilycoveCity_DepartmentStore_5F_Pokemart_Posters
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+LilycoveCity_DepartmentStore_5F_Pokemart_Posters: @ 8220024
+	.2byte ITEM_SILVER_POWDER
+	.2byte ITEM_BLACK_GLASSES
+	.2byte ITEM_DRAGON_FANG
+	.2byte ITEM_MAGNET
+	.2byte ITEM_PIXIE_PLATE
+	.2byte ITEM_BLACK_BELT
+	.2byte ITEM_CHARCOAL
+	.2byte ITEM_SHARP_BEAK
+	.2byte ITEM_SPELL_TAG
+	.2byte ITEM_MIRACLE_SEED
+	.2byte ITEM_SOFT_SAND
+	.2byte ITEM_NEVER_MELT_ICE
+	.2byte ITEM_SILK_SCARF
+	.2byte ITEM_POISON_BARB
+	.2byte ITEM_TWISTED_SPOON
+	.2byte ITEM_HARD_STONE
+	.2byte ITEM_METAL_COAT
+	.2byte ITEM_MYSTIC_WATER
+	.2byte ITEM_NONE
+	release
+	end
+
+LilycoveCity_DepartmentStore_5F_EventScript_ClerkFarRight:: @ 822003A
+	lock
+	faceplayer
+	message gText_HowMayIServeYou
+	waitmessage
+	pokemart LilycoveCity_DepartmentStore_5F_Pokemart_Mats, 1
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+LilycoveCity_DepartmentStore_5F_Pokemart_Mats: @ 8220054
+	.2byte ITEM_VENUSAURITE
+	.2byte ITEM_CHARIZARDITE_X
+	.2byte ITEM_CHARIZARDITE_Y
+	.2byte ITEM_BLASTOISINITE
+	.2byte ITEM_AERODACTYLITE
+	.2byte ITEM_GARDEVOIRITE
+	.2byte ITEM_MAWILITE
+	.2byte ITEM_AGGRONITE
+	.2byte ITEM_ALTARIANITE
+	.2byte ITEM_BANETTITE
+	.2byte ITEM_LOPUNNITE
+	.2byte ITEM_NONE
 	release
 	end
 

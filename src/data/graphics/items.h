@@ -696,6 +696,10 @@ const u32 gItemIconPalette_RockTMHM[] = INCBIN_U32("graphics/items/icon_palettes
 
 const u32 gItemIconPalette_FlyingTMHM[] = INCBIN_U32("graphics/items/icon_palettes/flying_tm_hm.gbapal.lz");
 
+const u32 gItemIconPalette_BugTMHM[] = INCBIN_U32("graphics/items/icon_palettes/bug_tm_hm.gbapal.lz");
+
+const u32 gItemIconPalette_FairyTMHM[] = INCBIN_U32("graphics/items/icon_palettes/fairy_tm_hm.gbapal.lz");
+
 const u32 gItemIcon_HM[] = INCBIN_U32("graphics/items/icons/hm.4bpp.lz");
 
 // FireRed/LeafGreen key items
@@ -1232,8 +1236,12 @@ const u32 gItemIconPalette_SwiftWing[] = INCBIN_U32("graphics/items/icon_palette
 
 const u32 gItemIcon_PrettyWing[] = INCBIN_U32("graphics/items/icons/pretty_wing.4bpp.lz");
 const u32 gItemIconPalette_PrettyWing[] = INCBIN_U32("graphics/items/icon_palettes/pretty_wing.gbapal.lz");
+
 const u32 gItemIcon_ShinyCharm[] = INCBIN_U32("graphics/items/icons/shiny_charm.4bpp.lz");
 const u32 gItemIconPalette_ShinyCharm[] = INCBIN_U32("graphics/items/icon_palettes/shiny_charm.gbapal.lz");
+//add oval charm + mints
+const u32 gItemIcon_OvalCharm[] = INCBIN_U32("graphics/items/icons/oval_charm.4bpp.lz");
+const u32 gItemIconPalette_OvalCharm[] = INCBIN_U32("graphics/items/icon_palettes/oval_charm.gbapal.lz");
 
 // Gen 6 Items
 
@@ -1515,6 +1523,17 @@ const u32 gItemIconPalette_SteelMemory[] = INCBIN_U32("graphics/items/icon_palet
 const u32 gItemIcon_WaterMemory[] = INCBIN_U32("graphics/items/icons/water_memory.4bpp.lz");
 const u32 gItemIconPalette_WaterMemory[] = INCBIN_U32("graphics/items/icon_palettes/water_memory.gbapal.lz");
 
-const u32 gItemIconPalette_BugTMHM[] = INCBIN_U32("graphics/items/icon_palettes/bug_tm_hm.gbapal.lz");
+// Gen 8 Items
+//add mints
+const u32 gItemIcon_Mint[] = INCBIN_U32("graphics/items/icons/mint.4bpp.lz");
+const u32 gItemIconPalette_RedMint[] = INCBIN_U32("graphics/items/icon_palettes/red_mint.gbapal.lz");
+const u32 gItemIconPalette_BlueMint[] = INCBIN_U32("graphics/items/icon_palettes/blue_mint.gbapal.lz");
+const u32 gItemIconPalette_PinkMint[] = INCBIN_U32("graphics/items/icon_palettes/pink_mint.gbapal.lz");
+const u32 gItemIconPalette_GreenMint[] = INCBIN_U32("graphics/items/icon_palettes/green_mint.gbapal.lz");
+const u32 gItemIconPalette_YellowMint[] = INCBIN_U32("graphics/items/icon_palettes/yellow_mint.gbapal.lz");
+const u32 gItemIconPalette_LightBlueMint[] = INCBIN_U32("graphics/items/icon_palettes/light_blue_mint.gbapal.lz");
 
-const u32 gItemIconPalette_FairyTMHM[] = INCBIN_U32("graphics/items/icon_palettes/fairy_tm_hm.gbapal.lz");
+//add bottlecaps
+const u32 gItemIcon_Bottlecap[] = INCBIN_U32("graphics/items/icons/bottlecap.4bpp.lz");
+const u32 gItemIconPalette_SilverBottlecap[] = INCBIN_U32("graphics/items/icon_palettes/silver_bottlecap.gbapal.lz");
+const u32 gItemIconPalette_GoldBottlecap[] = INCBIN_U32("graphics/items/icon_palettes/gold_bottlecap.gbapal.lz");

@@ -77,6 +77,7 @@ static void DrawLevelUpWindow2(void);
 static bool8 sub_804F344(void);
 static void PutMonIconOnLvlUpBox(void);
 static void PutLevelAndGenderOnLvlUpBox(void);
+static bool8 CriticalCapture(u32 odds);	//add critical capture
 
 static void SpriteCB_MonIconOnLvlUpBox(struct Sprite* sprite);
 
@@ -336,6 +337,33 @@ static void Cmd_jumpifoppositegenders(void);
 static void Cmd_trygetbaddreamstarget(void);
 static void Cmd_tryworryseed(void);
 static void Cmd_metalburstdamagecalculator(void);
+
+extern u8 gMaxPartyLevel;	//white out text section
+static const u16 sBadgeFlags[8] =
+{
+    FLAG_BADGE01_GET, FLAG_BADGE02_GET, FLAG_BADGE03_GET, FLAG_BADGE04_GET,
+    FLAG_BADGE05_GET, FLAG_BADGE06_GET, FLAG_BADGE07_GET, FLAG_BADGE08_GET,
+};										//{ 8, 16, 24, 36, 48, 60, 80, 100, 120, };
+static const u16 sWhiteOutBadgeMoney[9] = { 8, 16, 24, 40, 100, 250, 500, 750, 1000, };	//end section
+
+//soft level caps
+const u16 sLevelCapFlags[NUM_SOFT_CAPS] =
+{
+    FLAG_BADGE01_GET, FLAG_BADGE02_GET, FLAG_BADGE03_GET, FLAG_BADGE04_GET,
+    FLAG_BADGE05_GET, FLAG_BADGE06_GET, FLAG_BADGE07_GET, FLAG_BADGE08_GET,
+};
+
+const u16 sLevelCaps[NUM_SOFT_CAPS] = { 10, 20, 30, 40, 50, 60, 70, 80 };
+const double sLevelCapReduction[7] = { .5, .33, .25, .20, .15, .10, .05 };
+const double sRelativePartyScaling[27] =
+{
+    3.00, 2.75, 2.50, 2.33, 2.25,
+    2.00, 1.80, 1.70, 1.60, 1.50,
+    1.40, 1.30, 1.20, 1.10, 1.00,
+    0.90, 0.80, 0.75, 0.66, 0.50,
+    0.40, 0.33, 0.25, 0.20, 0.15,
+    0.10, 0.05,
+};	//end section
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
@@ -870,7 +898,7 @@ static const u16 sPickupItems[] =
     ITEM_GREAT_BALL,
     ITEM_REPEL,
     ITEM_ESCAPE_ROPE,
-    ITEM_X_ATTACK,
+    ITEM_HEART_SCALE,
     ITEM_FULL_HEAL,
     ITEM_ULTRA_BALL,
     ITEM_HYPER_POTION,
@@ -886,17 +914,17 @@ static const u16 sPickupItems[] =
 
 static const u16 sRarePickupItems[] =
 {
-    ITEM_HYPER_POTION,
+    ITEM_MAX_POTION,
     ITEM_NUGGET,
     ITEM_KINGS_ROCK,
     ITEM_FULL_RESTORE,
     ITEM_ETHER,
     ITEM_WHITE_HERB,
-    ITEM_TM44_REST,
+    ITEM_SHINY_STONE,
     ITEM_ELIXIR,
-    ITEM_TM01_FOCUS_PUNCH,
+    ITEM_STAR_PIECE,
     ITEM_LEFTOVERS,
-    ITEM_TM26_EARTHQUAKE,
+    ITEM_ABILITY_CAPSULE,
 };
 
 static const u8 sPickupProbabilities[] =
@@ -3391,6 +3419,72 @@ static void Cmd_jumpbasedontype(void)
             gBattlescriptCurrInstr += 8;
     }
 }
+//soft level caps
+u8 GetTeamLevel(void)
+{
+    u8 i;
+    u16 partyLevel = 0;
+    u16 threshold = 0;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
+            partyLevel += gPlayerParty[i].level;
+        else
+            break;
+    }
+    partyLevel /= i;
+
+    threshold = partyLevel * .8;
+    partyLevel = 0;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
+        {
+            if (gPlayerParty[i].level >= threshold)
+                partyLevel += gPlayerParty[i].level;
+        }
+        else
+            break;
+    }
+    partyLevel /= i;
+
+    return partyLevel;
+}
+
+double GetPkmnExpMultiplier(u8 level)
+{
+    u8 i;
+    double lvlCapMultiplier = 1.0;
+    u8 levelDiff;
+    s8 avgDiff;
+
+    // multiply the usual exp yield by the soft cap multiplier
+    for (i = 0; i < NUM_SOFT_CAPS; i++)
+    {
+        if (!FlagGet(sLevelCapFlags[i]) && level >= sLevelCaps[i])
+        {
+            levelDiff = level - sLevelCaps[i];
+            if (levelDiff > 6)
+                levelDiff = 6;
+            lvlCapMultiplier = sLevelCapReduction[levelDiff];
+            break;
+        }
+    }
+
+    // multiply the usual exp yield by the party level multiplier
+    avgDiff = level - GetTeamLevel();
+
+    if (avgDiff >= 12)
+        avgDiff = 12;
+    else if (avgDiff <= -14)
+        avgDiff = -14;
+
+    avgDiff += 14;
+
+    return lvlCapMultiplier * sRelativePartyScaling[avgDiff];
+}	//end section
 
 static void Cmd_getexp(void)
 {
@@ -3439,7 +3533,11 @@ static void Cmd_getexp(void)
                 item = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
 
                 if (item == ITEM_ENIGMA_BERRY)
+					#ifndef FREE_ENIGMA_BERRY	//saveblock cleansing
                     holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+					#else
+                    holdEffect = 0;
+                    #endif
                 else
                     holdEffect = ItemId_GetHoldEffect(item);
 
@@ -3478,7 +3576,11 @@ static void Cmd_getexp(void)
             item = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HELD_ITEM);
 
             if (item == ITEM_ENIGMA_BERRY)
+				#ifndef FREE_ENIGMA_BERRY	//saveblock cleansing
                 holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+				#else
+                holdEffect = 0;
+                #endif
             else
                 holdEffect = ItemId_GetHoldEffect(item);
 
@@ -3509,14 +3611,23 @@ static void Cmd_getexp(void)
                 }
 
                 if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
-                {
-                    if (gBattleStruct->sentInPokes & 1)
+                {	//soft level caps
+					double expMultiplier = GetPkmnExpMultiplier(gPlayerParty[gBattleStruct->expGetterMonId].level);
+					
+                    /*if (gBattleStruct->sentInPokes & 1)
                         gBattleMoveDamage = *exp;
                     else
                         gBattleMoveDamage = 0;
 
                     if (holdEffect == HOLD_EFFECT_EXP_SHARE)
-                        gBattleMoveDamage += gExpShareExp;
+                        gBattleMoveDamage += gExpShareExp;*/
+					if (gBattleStruct->sentInPokes & 1)
+                        gBattleMoveDamage = *exp * expMultiplier;
+                    else
+                        gBattleMoveDamage = 0;
+
+                    if (holdEffect == HOLD_EFFECT_EXP_SHARE)
+                        gBattleMoveDamage += gExpShareExp * expMultiplier;	//end section
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && B_TRAINER_EXP_MULTIPLIER <= GEN_7)
@@ -5709,10 +5820,11 @@ static void Cmd_handlelearnnewmove(void)
     const u8 *jumpPtr1 = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     const u8 *jumpPtr2 = T1_READ_PTR(gBattlescriptCurrInstr + 5);
 
-    u16 learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], gBattlescriptCurrInstr[9]);
+    //u16 learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], gBattlescriptCurrInstr[9]);
+    u16 learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], gBattlescriptCurrInstr[9], 0); //evo moves edit
     while (learnMove == MON_ALREADY_KNOWS_MOVE)
-        learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], FALSE);
-
+        //learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], FALSE);
+        learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], FALSE, 0); //evo moves edit
     if (learnMove == 0)
     {
         gBattlescriptCurrInstr = jumpPtr2;
@@ -5814,10 +5926,10 @@ static void Cmd_yesnoboxlearnmove(void)
             {
                 gBattleScripting.learnMoveState = 5;
             }
-            else
+            else	//all edits in here to make HMs deletable
             {
                 u16 moveId = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MOVE1 + movePosition);
-                if (IsHMMove2(moveId))
+                /* if (IsHMMove2(moveId))
                 {
                     PrepareStringBattle(STRINGID_HMMOVESCANTBEFORGOTTEN, gActiveBattler);
                     gBattleScripting.learnMoveState = 6;
@@ -5826,12 +5938,12 @@ static void Cmd_yesnoboxlearnmove(void)
                 {
                     gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
 
-                    PREPARE_MOVE_BUFFER(gBattleTextBuff2, moveId)
+                    PREPARE_MOVE_BUFFER(gBattleTextBuff2, moveId) */
 
-                    RemoveMonPPBonus(&gPlayerParty[gBattleStruct->expGetterMonId], movePosition);
-                    SetMonMoveSlot(&gPlayerParty[gBattleStruct->expGetterMonId], gMoveToLearn, movePosition);
+                    //RemoveMonPPBonus(&gPlayerParty[gBattleStruct->expGetterMonId], movePosition);
+                    //SetMonMoveSlot(&gPlayerParty[gBattleStruct->expGetterMonId], gMoveToLearn, movePosition);
 
-                    if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId
+                    /* if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId
                         && !(gBattleMons[0].status2 & STATUS2_TRANSFORMED)
                         && !(gDisableStructs[0].mimickedMoves & gBitTable[movePosition]))
                     {
@@ -5845,7 +5957,24 @@ static void Cmd_yesnoboxlearnmove(void)
                     {
                         RemoveBattleMonPPBonus(&gBattleMons[2], movePosition);
                         SetBattleMonMoveSlot(&gBattleMons[2], gMoveToLearn, movePosition);
-                    }
+                    } */
+				RemoveMonPPBonus(&gPlayerParty[gBattleStruct->expGetterMonId], movePosition);
+                SetMonMoveSlot(&gPlayerParty[gBattleStruct->expGetterMonId], gMoveToLearn, movePosition);
+
+                if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId
+                    && !(gBattleMons[0].status2 & STATUS2_TRANSFORMED)
+                    && !(gDisableStructs[0].mimickedMoves & gBitTable[movePosition]))
+                {
+                    RemoveBattleMonPPBonus(&gBattleMons[0], movePosition);
+                    SetBattleMonMoveSlot(&gBattleMons[0], gMoveToLearn, movePosition);
+                }
+                if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
+                    && gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId
+                    && !(gBattleMons[2].status2 & STATUS2_TRANSFORMED)
+                    && !(gDisableStructs[2].mimickedMoves & gBitTable[movePosition]))
+                {
+                    RemoveBattleMonPPBonus(&gBattleMons[2], movePosition);
+                    SetBattleMonMoveSlot(&gBattleMons[2], gMoveToLearn, movePosition);
                 }
             }
         }
@@ -5987,16 +6116,51 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
 
     return moneyReward;
 }
-
+//edits for white out money text
 static void Cmd_getmoneyreward(void)
 {
-    u32 moneyReward = GetTrainerMoneyToGive(gTrainerBattleOpponent_A);
+    /* u32 moneyReward = GetTrainerMoneyToGive(gTrainerBattleOpponent_A);
     if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
         moneyReward += GetTrainerMoneyToGive(gTrainerBattleOpponent_B);
 
     AddMoney(&gSaveBlock1Ptr->money, moneyReward);
-    PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff1, 5, moneyReward);
+    PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff1, 5, moneyReward); */
 
+	u32 money;
+
+    if (gBattleOutcome == B_OUTCOME_WON) 
+	{
+        money = GetTrainerMoneyToGive(gTrainerBattleOpponent_A);
+        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+            money += GetTrainerMoneyToGive(gTrainerBattleOpponent_B);
+        AddMoney(&gSaveBlock1Ptr->money, money);
+    }
+	else
+	{
+		s32 i, count;
+        for (i = 0; i < PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) != SPECIES_NONE
+                && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) != SPECIES_EGG)
+            {
+                if(GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > gMaxPartyLevel)
+                {
+                    gMaxPartyLevel = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+                }
+            }
+        }
+		for (count = 0, i = 0; i < ARRAY_COUNT(sBadgeFlags); i++)
+		{
+			if (FlagGet(sBadgeFlags[i]) == TRUE)
+			{
+					++count;
+			}
+		}
+        money = sWhiteOutBadgeMoney[count] * gMaxPartyLevel;
+        RemoveMoney(&gSaveBlock1Ptr->money, money);
+    }
+
+    PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff1, 5, money);
     gBattlescriptCurrInstr++;
 }
 
@@ -6633,8 +6797,11 @@ static void Cmd_hpthresholds2(void)
 
 static void Cmd_useitemonopponent(void)
 {
+	struct UseItemOptions options = {.isOpponent = TRUE}; 		//add bottlecaps
+	
     gBattlerInMenuId = gBattlerAttacker;
-    PokemonUseItemEffects(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]], gLastUsedItem, gBattlerPartyIndexes[gBattlerAttacker], 0, 1);
+    //PokemonUseItemEffects(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]], gLastUsedItem, gBattlerPartyIndexes[gBattlerAttacker], 0, 1);	//add bottlecaps
+	PokemonUseItemEffects(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]], gLastUsedItem, gBattlerPartyIndexes[gBattlerAttacker], &options);
     gBattlescriptCurrInstr += 1;
 }
 
@@ -11719,23 +11886,46 @@ static void Cmd_handleballthrow(void)
             else
                 gBattleCommunication[MULTISTRING_CHOOSER] = 1;
         }
-        else // mon may be caught, calculate shakes
+        else // mon may be caught, calculate shakes		//add critical capture section
         {
-            u8 shakes;
+            /* u8 shakes;
 
             odds = Sqrt(Sqrt(16711680 / odds));
             odds = 1048560 / odds;
 
-            for (shakes = 0; shakes < BALL_3_SHAKES_SUCCESS && Random() < odds; shakes++);
+            for (shakes = 0; shakes < BALL_3_SHAKES_SUCCESS && Random() < odds; shakes++); */
+			
+			u8 shakes, maxShakes;
+
+            gBattleSpritesDataPtr->animationData->isCriticalCapture = 0;    //initialize
+            gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = 0;
+            if (CriticalCapture(odds))
+            {
+                maxShakes = 1;  //critical capture doesn't gauarantee capture
+                gBattleSpritesDataPtr->animationData->isCriticalCapture = 1;
+            }
+            else
+            {
+                maxShakes = 4;
+            }
 
             if (gLastUsedItem == ITEM_MASTER_BALL)
-                shakes = BALL_3_SHAKES_SUCCESS; // why calculate the shakes before that check?
+			{	//shakes = BALL_3_SHAKES_SUCCESS; // why calculate the shakes before that check?
+				shakes = maxShakes;	}
+			else
+            {
+                odds = Sqrt(Sqrt(16711680 / odds));
+                odds = 1048560 / odds;
+                for (shakes = 0; shakes < maxShakes && Random() < odds; shakes++);
+            }			
 
             BtlController_EmitBallThrowAnim(0, shakes);
             MarkBattlerForControllerExec(gActiveBattler);
 
-            if (shakes == BALL_3_SHAKES_SUCCESS) // mon caught, copy of the code above
+            //if (shakes == BALL_3_SHAKES_SUCCESS) // mon caught, copy of the code above
+			if (shakes == maxShakes) // mon caught, copy of the code above
             {
+				gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = 1;
                 gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
                 SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &gLastUsedItem);
 
@@ -11754,7 +11944,11 @@ static void Cmd_handleballthrow(void)
             }
             else // not caught
             {
-                gBattleCommunication[MULTISTRING_CHOOSER] = shakes;
+                //gBattleCommunication[MULTISTRING_CHOOSER] = shakes;
+                if (IsCriticalCapture())
+                    gBattleCommunication[MULTISTRING_CHOOSER] = shakes + 3;
+                else
+                    gBattleCommunication[MULTISTRING_CHOOSER] = shakes;		//end section
                 gBattlescriptCurrInstr = BattleScript_ShakeBallThrow;
             }
         }
@@ -12156,3 +12350,27 @@ static void Cmd_metalburstdamagecalculator(void)
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     }
 }
+// add critical capture section		//thresholds changes from 30,150,300,450,600
+static bool8 CriticalCapture(u32 odds)
+{
+	u16 numCaught = GetNationalPokedexCount(FLAG_GET_CAUGHT);
+
+    if (numCaught <= 30)
+		odds = 0;
+	else if (numCaught <= 100)
+		odds /= 2;
+	else if (numCaught <= 200)
+		;
+	else if (numCaught <= 300)
+		odds = (odds * 150) / 100;
+	else if (numCaught <= 400)
+		odds *= 2;
+	else
+		odds = (odds * 250) / 100;
+
+    odds /= 6;
+    if ((Random() % 255) < odds)
+		return TRUE;
+
+    return FALSE;
+}	//end section

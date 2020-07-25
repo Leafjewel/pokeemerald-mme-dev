@@ -90,5 +90,9 @@ void MoveDeleterForgetMove(void);
 void BufferMoveDeleterNicknameAndMove(void);
 void GetNumMovesSelectedMonHas(void);
 void MoveDeleterChooseMoveToForget(void);
+void ItemUseCB_Mints(u8 taskId, TaskFunc task);	//add mints
+void ItemUseCB_GoldBottlecap(u8 taskId, TaskFunc task);		//add bottlecaps
+void ItemUseCB_SilverBottlecap(u8 taskId, TaskFunc task);	//add bottlecaps
+void UseSilverBottlecap(u8 taskId, TaskFunc task, int statIndex);	//add bottlecaps
 
 #endif // GUARD_PARTY_MENU_H

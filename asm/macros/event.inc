@@ -991,10 +991,11 @@
 	.4byte \offset
 	.endm
 
-	@ Opens the Pokemart system, offering the specified products for sale.
-	.macro pokemart products:req
+	@ Opens the Pokemart system, offering the specified products for sale. If tmshopid is 0, it won't be treated as a TM shop.
+	.macro pokemart products:req, tmshopid = 0
 	.byte 0x86
 	.4byte \products
+	.2byte \tmshopid
 	.endm
 
 	@ Opens the Pokemart system and treats the list of items as decorations.
@@ -1722,4 +1723,25 @@
 	setfieldeffectargument 1, \y
 	setfieldeffectargument 2, \priority
 	dofieldeffect FLDEFF_SPARKLE
+	.endm
+
+	@ Item Descriptions On First Obtain
+	.macro showitemdesc
+    .byte 0xe3
+    .endm
+    
+	@ Item Descriptions On First Obtain
+    .macro hideitemdesc
+    .byte 0xe4
+    .endm
+
+    @ Scrolling Multichoices in Scripts
+    .macro scrollingmultichoice id:req, x:req, y:req, show:req, b:req
+	setvar VAR_0x8004, \id,
+	setvar VAR_0x8005, \x,
+	setvar VAR_0x8006, \y,
+	setvar VAR_0x8007, \show,
+	setvar VAR_0x8008, \b,
+	callnative ScriptMenu_ScrollingMultichoice
+	waitstate
 	.endm

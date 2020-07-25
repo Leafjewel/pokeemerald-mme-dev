@@ -41,7 +41,7 @@ PacifidlogTown_House2_EventScript_ClearReceivedFanClubTM:: @ 8203812
 
 PacifidlogTown_House2_EventScript_GiveReturn:: @ 8203816
 	msgbox PacifidlogTown_House2_Text_AdoringPokemonTakeThis, MSGBOX_DEFAULT
-	giveitem ITEM_TM27
+	giveitem ITEM_TM21
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_FANCLUB_TM_THIS_WEEK

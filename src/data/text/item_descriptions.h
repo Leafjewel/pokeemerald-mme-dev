@@ -1759,8 +1759,257 @@ static const u8 sTM50Desc[] = _(
     "Enables full-power\n"
     "attack, but sharply\n"
     "lowers SP. ATK.");
+//start expanded TMs edits
+static const u8 sTM51Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
 
+static const u8 sTM52Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
 
+static const u8 sTM53Desc[] = _(
+    "Draws power from\n" 
+	"nature to attack.\n"
+	"May lower Sp. Def.");
+
+static const u8 sTM54Desc[] = _(
+    "An attack that \n"
+	"leaves the foe\n"
+    "with at least 1 HP.");
+
+static const u8 sTM55Desc[] = _(
+    "Shoots boiling\n"
+	"water at the foe.\n"
+	"May inflict a burn.");
+
+static const u8 sTM56Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM57Desc[] = _(
+    "Fires a beam of\n"
+	"electricity.\n"
+	"May raise Sp. Atk.");
+
+static const u8 sTM58Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM59Desc[] = _(
+    "Generates a shock\n"
+	"wave to damage\n"
+	"the foe.");
+
+static const u8 sTM60Desc[] = _(
+    "A punch that steals\n"
+	"half of the\n"
+    "damage inflicted.");
+
+static const u8 sTM61Desc[] = _(
+    "Inflicts a burn on\n"
+	"the foe with\n"
+    "intense fire.");
+
+static const u8 sTM62Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM63Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM64Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM65Desc[] = _(
+    "Strikes with a\n"
+	"shadowy claw. High\n"
+	"critical-hit ratio.");
+
+static const u8 sTM66Desc[] = _(
+    "An attack that gains\n"
+	"power if the\n"
+	"user moves last.");
+
+static const u8 sTM67Desc[] = _(
+    "Hits with an\n" 
+	"accurate horn\n"
+	"that never misses.");
+
+static const u8 sTM68Desc[] = _(
+    "Powerful, but the\n"
+	"user must rest\n"
+    "on the next turn.");
+
+static const u8 sTM69Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM70Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM71Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM72Desc[] = _(
+    "An attack that\n"
+	"doubles power if\n"
+    "injured by the foe.");
+
+static const u8 sTM73Desc[] = _(
+    "A weak jolt of\n" 
+	"electricity that\n"
+    "paralyzes the foe.");
+
+static const u8 sTM74Desc[] = _(
+    "A high-speed spin\n"
+	"that damages\n"
+	"faster foes more.");
+
+static const u8 sTM75Desc[] = _(
+    "A fighting dance\n"
+	"that sharply\n"
+    "raises ATTACK.");
+
+static const u8 sTM76Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM77Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM78Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM79Desc[] = _(
+    "This attack always\n"
+	"results in a\n"
+	"critical hit.");
+
+static const u8 sTM80Desc[] = _(
+    "Large boulders are\n"
+	"hurled.\n"
+    "May cause flinching.");
+
+static const u8 sTM81Desc[] = _(
+    "Slashes the foe\n"
+	"with crossed\n"
+	"scythes, claws, etc.");
+
+static const u8 sTM82Desc[] = _(
+    "Knocks the foe\n"
+	"away to end\n"
+	"the battle.");
+
+static const u8 sTM83Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM84Desc[] = _(
+    "A stabbing attack\n"
+	"that may poison\n"
+	"the foe.");
+
+static const u8 sTM85Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM86Desc[] = _(
+    "A snare attack that\n"
+	"does more damage\n"
+	"to heavier foes.");
+
+static const u8 sTM87Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM88Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM89Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM90Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM91Desc[] = _(
+    "Releases a blast of\n"
+	"light that may\n"
+	"lower Sp. Def.");
+
+static const u8 sTM92Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM93Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM94Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM95Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM96Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+
+static const u8 sTM97Desc[] = _(
+    "Attacks with a\n"
+	"horrible aura.\n"
+	"May cause flinching.");
+
+static const u8 sTM98Desc[] = _(
+    "A hard punch that\n"
+	"raises the user's\n"
+	"Attack.");
+
+static const u8 sTM99Desc[] = _(
+    "Damages foes by\n" 
+	"emitting a bright\n"
+	"flash.");
+
+static const u8 sTM100Desc[] = _(
+    "Enables full-power\n"
+    "attack, but sharply\n"
+    "lowers SP. ATK.");
+//end expanded TMs
 static const u8 sHM01Desc[] = _(
     "Attacks the foe\n"
     "with sharp blades\n"
@@ -2710,8 +2959,11 @@ static const u8 sBeedrilliteDesc[] = _(
     "Evolve in battle.");
 
 static const u8 sMegaBraceletDesc[] = _(
-    "Allows Pokémon holding\n"
+/*    "Allows Pokémon holding\n"
     "a Mega Stone to Mega\n"
+    "Evolve in battle.");*/
+    "Lets Pokémon holding\n"
+    "a Mega Stone Mega\n"
     "Evolve in battle.");
 
 static const u8 sProtectPadsDesc[] = _(
@@ -2793,3 +3045,123 @@ static const u8 sShinyCharmDesc[] = _(
 	"A charm that will\n"
     "raise the chance\n"
     "of Shiny Pokémon.");
+//add Oval Charm and mints
+static const u8 sOvalCharmDesc[] = _(
+    "Increases the\n"
+    "chance of finding\n"
+    "eggs at the daycare.");
+
+static const u8 sAdamantMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Adamant");
+
+static const u8 sBoldMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Bold");
+
+static const u8 sBraveMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Brave");
+
+static const u8 sCalmMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Calm");
+
+static const u8 sCarefulMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Careful");
+
+static const u8 sGentleMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Gentle");
+
+static const u8 sHastyMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Hasty");
+
+static const u8 sImpishMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Impish");
+
+static const u8 sJollyMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Jolly");
+
+static const u8 sLaxMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Lax");
+
+static const u8 sLonelyMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Lonely");
+
+static const u8 sMildMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Mild");
+
+static const u8 sModestMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Modest");
+
+static const u8 sNaiveMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Naive");
+
+static const u8 sNaughtyMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Naughty");
+
+static const u8 sQuietMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Quiet");
+
+static const u8 sRashMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Rash");
+
+static const u8 sRelaxedMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Relaxed");
+
+static const u8 sSassyMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Sassy");
+
+static const u8 sSeriousMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Serious");
+
+static const u8 sTimidMintDesc[] = _(
+    "Changes the nature\n"
+    "of a Pokémon to\n"
+    "Timid");
+
+//add bottlecaps
+static const u8 sSilverBottlecapDesc[] = _(
+    "Maxes out one of a\n"
+    "POKéMON's inherent\n"
+    "stats.");
+static const u8 sGoldBottlecapDesc[] = _(
+    "Maxes out all of a\n"
+    "POKéMON's inherent\n"
+    "stats.");

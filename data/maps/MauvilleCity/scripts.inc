@@ -442,6 +442,7 @@ MauvilleCity_EventScript_CompletedNewMauville:: @ 81DF784
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	setflag FLAG_GOT_TM24_FROM_WATTSON
+	giveitem ITEM_MEGA_BRACELET
 	msgbox MauvilleCity_Text_WattsonYoungTakeCharge, MSGBOX_DEFAULT
 	release
 	end

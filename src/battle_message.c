@@ -78,8 +78,11 @@ static const u8 sText_ItDoesntAffect[] = _("It doesn't affect\n{B_DEF_NAME_WITH_
 static const u8 sText_AttackerFainted[] = _("{B_ATK_NAME_WITH_PREFIX}\nfainted!\p");
 static const u8 sText_TargetFainted[] = _("{B_DEF_NAME_WITH_PREFIX}\nfainted!\p");
 static const u8 sText_PlayerGotMoney[] = _("{B_PLAYER_NAME} got ¥{B_BUFF1}\nfor winning!\p");
+static const u8 sText_PlayerLostAgainstEnemyTrainer[] = _("{B_PLAYER_NAME} is out of\nusable POKéMON!\pPlayer lost against\n{B_TRAINER1_CLASS} {B_TRAINER1_NAME}!{PAUSE_UNTIL_PRESS}");	//white out money text
+static const u8 sText_PlayerPaidPrizeMoney[] = _("{B_PLAYER_NAME} paid ¥{B_BUFF1} as the prize\nmoney…\p… … … …\p{B_PLAYER_NAME} whited out!{PAUSE_UNTIL_PRESS}");	//white out money text
 static const u8 sText_PlayerWhiteout[] = _("{B_PLAYER_NAME} is out of\nusable POKéMON!\p");
-static const u8 sText_PlayerWhiteout2[] = _("{B_PLAYER_NAME} whited out!{PAUSE_UNTIL_PRESS}");
+//static const u8 sText_PlayerWhiteout2[] = _("{B_PLAYER_NAME} whited out!{PAUSE_UNTIL_PRESS}");
+static const u8 sText_PlayerWhiteout2[] = _("{B_PLAYER_NAME} panicked and lost ¥{B_BUFF1}…\p… … … …\p{B_PLAYER_NAME} whited out!{PAUSE_UNTIL_PRESS}");	//white out money text
 static const u8 sText_PreventsEscape[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} prevents\nescape with {B_SCR_ACTIVE_ABILITY}!\p");
 static const u8 sText_CantEscape2[] = _("Can't escape!\p");
 static const u8 sText_AttackerCantEscape[] = _("{B_ATK_NAME_WITH_PREFIX} can't escape!");
@@ -721,6 +724,8 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_ATTACKERFAINTED - 12] = sText_AttackerFainted,
     [STRINGID_TARGETFAINTED - 12] = sText_TargetFainted,
     [STRINGID_PLAYERGOTMONEY - 12] = sText_PlayerGotMoney,
+	[STRINGID_PLAYERLOSTAGAINSTENEMYTRAINER - 12] = sText_PlayerLostAgainstEnemyTrainer,	//white out money text
+    [STRINGID_PLAYERPAIDPRIZEMONEY - 12] = sText_PlayerPaidPrizeMoney,						//white out money text
     [STRINGID_PLAYERWHITEOUT - 12] = sText_PlayerWhiteout,
     [STRINGID_PLAYERWHITEOUT2 - 12] = sText_PlayerWhiteout2,
     [STRINGID_PREVENTSESCAPE - 12] = sText_PreventsEscape,
@@ -1686,6 +1691,12 @@ static const u8 sText_Your1[] = _("Your");
 static const u8 sText_Opposing1[] = _("The opposing");
 static const u8 sText_Your2[] = _("your");
 static const u8 sText_Opposing2[] = _("the opposing");
+
+//mid battle messages stuff
+static const u8 sText_AFirstDown[] = _("You're pretty good.");
+static const u8 sText_ALastSwitchIn[] = _("This is a great fight!");
+static const u8 sText_ALastLowHp[] = _("It's not over yet!");
+//end mid battle messages stuff
 
 // This is four lists of moves which use a different attack string in Japanese
 // to the default. See the documentation for ChooseTypeOfMoveUsedString for more detail.
@@ -3614,10 +3625,10 @@ struct TrainerSlide
     const u8 *msgLastLowHp;
     const u8 *msgFirstDown;
 };
-
+//edit this to give trainers mid battle messages
 static const struct TrainerSlide sTrainerSlides[] =
 {
-    {0x291, sText_AarghAlmostHadIt, sText_BoxIsFull, sText_123Poof},
+    {0x291, sText_ALastSwitchIn, sText_ALastLowHp, sText_AFirstDown},
 };
 
 static u32 GetEnemyMonCount(bool32 onlyAlive)

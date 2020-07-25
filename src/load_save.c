@@ -26,6 +26,9 @@ struct LoadedSaveData
  /*0x0130*/ struct ItemSlot TMsHMs[BAG_TMHM_COUNT];
  /*0x0230*/ struct ItemSlot berries[BAG_BERRIES_COUNT];
  /*0x02E8*/ struct MailStruct mail[MAIL_COUNT];
+ /*0x0230*/ struct ItemSlot medicine[BAG_MEDICINE_COUNT];	//more bag pockets
+ /*0x0230*/ struct ItemSlot battleItems[BAG_BATTLEITEMS_COUNT];	//more bag pockets
+ /*0x0230*/ struct ItemSlot powerUp[BAG_POWERUP_COUNT];	//more bag pockets
 };
 
 // EWRAM DATA
@@ -236,6 +239,18 @@ void LoadPlayerBag(void)
     // load mail.
     for (i = 0; i < MAIL_COUNT; i++)
         gLoadedSaveData.mail[i] = gSaveBlock1Ptr->mail[i];
+	
+	// load player medicine.	more bag pockets
+    for (i = 0; i < BAG_MEDICINE_COUNT; i++)
+        gLoadedSaveData.medicine[i] = gSaveBlock1Ptr->bagPocket_Medicine[i];
+
+    // load player battle items.	more bag pockets
+    for (i = 0; i < BAG_BATTLEITEMS_COUNT; i++)
+        gLoadedSaveData.battleItems[i] = gSaveBlock1Ptr->bagPocket_BattleItems[i];
+
+    // load player power up.	more bag pockets
+    for (i = 0; i < BAG_POWERUP_COUNT; i++)
+        gLoadedSaveData.powerUp[i] = gSaveBlock1Ptr->bagPocket_PowerUp[i];
 
     gLastEncryptionKey = gSaveBlock2Ptr->encryptionKey;
 }
@@ -269,6 +284,18 @@ void SavePlayerBag(void)
     for (i = 0; i < MAIL_COUNT; i++)
         gSaveBlock1Ptr->mail[i] = gLoadedSaveData.mail[i];
 
+    // save player medicine.	more bag pockets
+    for (i = 0; i < BAG_MEDICINE_COUNT; i++)
+        gSaveBlock1Ptr->bagPocket_Medicine[i] = gLoadedSaveData.medicine[i];
+
+    // save player battle items.	more bag pockets
+    for (i = 0; i < BAG_BATTLEITEMS_COUNT; i++)
+        gSaveBlock1Ptr->bagPocket_BattleItems[i] = gLoadedSaveData.battleItems[i];
+
+    // save player power up.	more bag pockets
+    for (i = 0; i < BAG_POWERUP_COUNT; i++)
+        gSaveBlock1Ptr->bagPocket_PowerUp[i] = gLoadedSaveData.powerUp[i];
+	
     encryptionKeyBackup = gSaveBlock2Ptr->encryptionKey;
     gSaveBlock2Ptr->encryptionKey = gLastEncryptionKey;
     ApplyNewEncryptionKeyToBagItems(encryptionKeyBackup);

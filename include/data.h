@@ -3,6 +3,7 @@
 
 #include "constants/moves.h"
 #include "constants/species.h"
+#include "constants/trainers.h"	//for more trainer items
 
 #define SPECIES_SHINY_TAG 5000
 
@@ -19,6 +20,8 @@ struct TrainerMonNoItemDefaultMoves
     u16 iv;
     u8 lvl;
     u16 species;
+	u8 abilityNums;				//set trainer mon ability
+	u8 evs[NUM_STATS];			//set trainer mon evs
 };
 
 struct TrainerMonItemDefaultMoves
@@ -27,6 +30,8 @@ struct TrainerMonItemDefaultMoves
     u8 lvl;
     u16 species;
     u16 heldItem;
+	u8 abilityNums;				//set trainer mon ability
+	u8 evs[NUM_STATS];			//set trainer mon evs
 };
 
 struct TrainerMonNoItemCustomMoves
@@ -34,6 +39,8 @@ struct TrainerMonNoItemCustomMoves
     u16 iv;
     u8 lvl;
     u16 species;
+	u8 abilityNums;				//set trainer mon ability
+	u8 evs[NUM_STATS];			//set trainer mon evs
     u16 moves[MAX_MON_MOVES];
 };
 
@@ -43,6 +50,8 @@ struct TrainerMonItemCustomMoves
     u8 lvl;
     u16 species;
     u16 heldItem;
+	u8 abilityNums;				//set trainer mon ability
+	u8 evs[NUM_STATS];			//set trainer mon evs
     u16 moves[MAX_MON_MOVES];
 };
 
@@ -61,11 +70,12 @@ struct Trainer
     /*0x02*/ u8 encounterMusic_gender; // last bit is gender
     /*0x03*/ u8 trainerPic;
     /*0x04*/ u8 trainerName[12];
-    /*0x10*/ u16 items[4];
+    /*0x10*/ u16 items[MAX_TRAINER_ITEMS]; //[4];
     /*0x18*/ bool8 doubleBattle;
     /*0x1C*/ u32 aiFlags;
     /*0x20*/ u8 partySize;
     /*0x24*/ union TrainerMonPtr party;
+	/*0x28*/ u8 itemCounts[MAX_TRAINER_ITEMS];	//new: more trainer items
 };
 
 #define TRAINER_ENCOUNTER_MUSIC(trainer)((gTrainers[trainer].encounterMusic_gender & 0x7F))

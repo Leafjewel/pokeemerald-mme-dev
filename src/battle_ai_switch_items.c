@@ -810,20 +810,28 @@ static bool8 ShouldUseItem(void)
     for (i = 0; i < MAX_TRAINER_ITEMS; i++)
     {
         u16 item;
+		u8 itemCount;	//more trainer items
         const u8 *itemEffects;
         u8 paramOffset;
         u8 battlerSide;
 
-        if (i != 0 && validMons > (gBattleResources->battleHistory->itemsNo - i) + 1)
+        if (i != 0 && validMons > (BATTLE_HISTORY->itemsNo - i) + 1)
             continue;
-        item = gBattleResources->battleHistory->trainerItems[i];
+        item = BATTLE_HISTORY->trainerItems[i];
         if (item == ITEM_NONE)
             continue;
+		itemCount = BATTLE_HISTORY->trainerItemCounts[i]; //more trainer items
+        if (itemCount == 0) // mti
+            continue;		//mti
         if (gItemEffectTable[item - ITEM_POTION] == NULL)
             continue;
 
         if (item == ITEM_ENIGMA_BERRY)
+			#ifndef FREE_ENIGMA_BERRY	//saveblock cleansing
             itemEffects = gSaveBlock1Ptr->enigmaBerry.itemEffect;
+			#else
+            itemEffects = 0;
+            #endif
         else
             itemEffects = gItemEffectTable[item - ITEM_POTION];
 
@@ -911,7 +919,12 @@ static bool8 ShouldUseItem(void)
         {
             BtlController_EmitTwoReturnValues(1, B_ACTION_USE_ITEM, 0);
             *(gBattleStruct->chosenItem + (gActiveBattler / 2) * 2) = item;
-            gBattleResources->battleHistory->trainerItems[i] = 0;
+            //gBattleResources->battleHistory->trainerItems[i] = 0;
+			
+			BATTLE_HISTORY->trainerItemCounts[i]--; //more trainer items
+            if (BATTLE_HISTORY->trainerItemCounts[i] == 0) //mti
+                BATTLE_HISTORY->trainerItems[i] = 0; //mti
+			
             return shouldUse;
         }
     }

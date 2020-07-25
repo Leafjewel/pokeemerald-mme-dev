@@ -1422,13 +1422,40 @@ void LoadBallGfx(u8 ballId)
         LoadCompressedSpriteSheetUsingHeap(&gBallSpriteSheets[ballId]);
         LoadCompressedSpritePaletteUsingHeap(&gBallSpritePalettes[ballId]);
     }
-
+	// add balls to use 3rd frame from png
     switch (ballId)
     {
-    case BALL_DIVE:
+    /*case BALL_DIVE:
     case BALL_LUXURY:
     case BALL_PREMIER:
-    case BALL_LEVEL ... POKEBALL_COUNT:
+    case BALL_LEVEL ... POKEBALL_COUNT:*/
+	case BALL_POKE:
+	case BALL_GREAT:
+	case BALL_ULTRA:
+	case BALL_MASTER:
+	case BALL_PREMIER:
+	case BALL_SAFARI:
+	case BALL_DIVE:
+	case BALL_NET:
+	case BALL_REPEAT:
+	case BALL_TIMER:
+	case BALL_NEST:
+	case BALL_LUXURY:
+	case BALL_LEVEL:
+	case BALL_LURE:
+	case BALL_MOON:
+	case BALL_FRIEND:
+	case BALL_LOVE:
+	case BALL_HEAVY:
+	case BALL_FAST:
+	case BALL_DUSK:
+	case BALL_QUICK:
+	case BALL_HEAL:
+	case BALL_SPORT:
+	case BALL_PARK:
+	case BALL_DREAM:
+	case BALL_CHERISH:
+	case BALL_BEAST:
         break;
     default:
         var = GetSpriteTileStartByTag(gBallSpriteSheets[ballId].tag);

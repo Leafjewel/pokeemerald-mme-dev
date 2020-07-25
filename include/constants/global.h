@@ -40,12 +40,15 @@
 #define SECRET_BASES_COUNT 20
 #define TV_SHOWS_COUNT 25
 #define POKE_NEWS_COUNT 16
-#define PC_ITEMS_COUNT 50
-#define BAG_ITEMS_COUNT 30
+#define PC_ITEMS_COUNT 100 //50
+#define BAG_ITEMS_COUNT 64 //40 //30	more bag pockets
 #define BAG_KEYITEMS_COUNT 30
-#define BAG_POKEBALLS_COUNT 16
-#define BAG_TMHM_COUNT 64
-#define BAG_BERRIES_COUNT 46
+#define BAG_POKEBALLS_COUNT 32 //16
+#define BAG_TMHM_COUNT 128	//64
+#define BAG_BERRIES_COUNT 64 //46
+#define BAG_MEDICINE_COUNT 40 //34		//more bag pockets
+#define BAG_BATTLEITEMS_COUNT 128 //47	//more bag pockets
+#define BAG_POWERUP_COUNT 128 //18		//more bag pockets
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 #define DECOR_MAX_SECRET_BASE 16
 #define DECOR_MAX_PLAYERS_HOUSE 12
@@ -108,5 +111,7 @@
 #define DIR_SOUTHEAST   6
 #define DIR_NORTHWEST   7
 #define DIR_NORTHEAST   8
+
+#define MAX_TRAINER_ITEMS	4		//more trainer items
 
 #endif // GUARD_CONSTANTS_GLOBAL_H

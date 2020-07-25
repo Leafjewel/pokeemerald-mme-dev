@@ -785,6 +785,19 @@ void ItemUseOutOfBattle_RareCandy(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+//add bottlecaps
+void ItemUseOutOfBattle_SilverBottlecap(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_SilverBottlecap;
+    SetUpItemUseCallback(taskId);
+}
+
+void ItemUseOutOfBattle_GoldBottlecap(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_GoldBottlecap;
+    SetUpItemUseCallback(taskId);
+}	//end section
+
 void ItemUseOutOfBattle_TMHM(u8 taskId)
 {
     if (gSpecialVar_ItemId >= ITEM_HM01_CUT)
@@ -1012,8 +1025,10 @@ static void Task_UseStatIncreaseItem(u8 taskId)
 void ItemUseInBattle_StatIncrease(u8 taskId)
 {
     u16 partyId = gBattlerPartyIndexes[gBattlerInMenuId];
+	struct UseItemOptions options = {0};	//add bottlecaps
 
-    if (ExecuteTableBasedItemEffect(&gPlayerParty[partyId], gSpecialVar_ItemId, partyId, 0) != FALSE)
+    //if (ExecuteTableBasedItemEffect(&gPlayerParty[partyId], gSpecialVar_ItemId, partyId, 0) != FALSE)		//add bottlecaps
+	if (PokemonUseItemEffects(&gPlayerParty[partyId], gSpecialVar_ItemId, partyId, &options) != FALSE)
     {
         if (!InBattlePyramid())
             DisplayItemMessage(taskId, 1, gText_WontHaveEffect, BagMenu_InitListsMenu);
@@ -1106,6 +1121,11 @@ void ItemUseOutOfBattle_EnigmaBerry(u8 taskId)
         gTasks[taskId].data[4] = 1;
         ItemUseOutOfBattle_RareCandy(taskId);
         break;
+	//add bottlecaps
+	case ITEM_EFFECT_BOOST_STATS:
+        gTasks[taskId].data[4] = 1;
+        ItemUseOutOfBattle_GoldBottlecap(taskId);
+        break;	//end section
     case ITEM_EFFECT_PP_UP:
     case ITEM_EFFECT_PP_MAX:
         gTasks[taskId].data[4] = 1;
@@ -1155,3 +1175,10 @@ void ItemUseOutOfBattle_CannotUse(u8 taskId)
 }
 
 #undef tUsingRegisteredKeyItem
+
+//add mints
+void ItemUseOutOfBattle_Mints(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_Mints;
+    SetUpItemUseCallback(taskId);
+}

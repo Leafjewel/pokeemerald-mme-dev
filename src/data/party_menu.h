@@ -521,6 +521,18 @@ static const struct WindowTemplate sMoveSelectWindowTemplate =
     .baseBlock = 0x2E9,
 };
 
+//add bottlecaps
+static const struct WindowTemplate sStatSelectWindowTemplate =
+{
+    .bg = 2,
+    .tilemapLeft = 21,
+    .tilemapTop = 7,
+    .width = 8,
+    .height = 12,
+    .paletteNum = 14,
+    .baseBlock = 0x2E9,
+};	//end section
+
 static const struct WindowTemplate sPartyMenuYesNoWindowTemplate =
 {
     .bg = 2,
@@ -650,6 +662,7 @@ static const u8 *const sActionStringTable[] =
     [PARTY_MSG_DO_WHAT_WITH_ITEM]      = gText_DoWhatWithItem,
     [PARTY_MSG_DO_WHAT_WITH_MAIL]      = gText_DoWhatWithMail,
     [PARTY_MSG_ALREADY_HOLDING_ONE]    = gText_AlreadyHoldingOne,
+	[PARTY_MSG_BOOST_IV_WHICH_STAT]    = gText_BoostIv,		//add bottlecaps
 };
 
 static const u8 *const sDescriptionStringTable[] =
@@ -1182,7 +1195,8 @@ static const bool8 sMultiBattlePartnersPartyMask[PARTY_SIZE + 2] =
     FALSE
 };
 
-static const u8 *const sUnused_StatStrings[] =
+//static const u8 *const sUnused_StatStrings[] =	//add bottlecaps
+static const u8 *const sStatStrings[] =
 {
     gText_HP4,
     gText_Attack3,
@@ -1191,7 +1205,7 @@ static const u8 *const sUnused_StatStrings[] =
     gText_SpDef4,
     gText_Speed2
 };
-
+//edit this for expanded TMs
 static const u16 sTMHMMoves[] =
 {
     MOVE_FOCUS_PUNCH,
@@ -1244,6 +1258,56 @@ static const u16 sTMHMMoves[] =
     MOVE_SKILL_SWAP,
     MOVE_SNATCH,
     MOVE_OVERHEAT,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_ENERGY_BALL,
+	MOVE_FALSE_SWIPE,
+	MOVE_SCALD,
+	MOVE_POUND,
+	MOVE_CHARGE_BEAM,
+	MOVE_POUND,
+	MOVE_DRAGON_PULSE,
+	MOVE_DRAIN_PUNCH,
+	MOVE_WILL_O_WISP,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_SHADOW_CLAW,
+	MOVE_PAYBACK,
+	MOVE_SMART_STRIKE,
+	MOVE_GIGA_IMPACT,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_AVALANCHE,
+	MOVE_THUNDER_WAVE,
+	MOVE_GYRO_BALL,
+	MOVE_SWORDS_DANCE,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_FROST_BREATH,
+	MOVE_ROCK_SLIDE,
+	MOVE_X_SCISSOR,
+	MOVE_DRAGON_TAIL,
+	MOVE_POUND,
+	MOVE_POISON_JAB,
+	MOVE_POUND,
+	MOVE_GRASS_KNOT,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_FLASH_CANNON,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_POUND,
+	MOVE_DARK_PULSE,
+	MOVE_POWER_UP_PUNCH,
+	MOVE_DAZZLING_GLEAM,
+	MOVE_POUND,
     MOVE_CUT,
     MOVE_FLY,
     MOVE_SURF,

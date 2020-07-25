@@ -5464,6 +5464,8 @@ extern const u32 gBattleTerrainAnimTiles_Building[];
 extern const u32 gBattleTerrainAnimTilemap_Building[];
 extern const u32 gBattleTerrainPalette_Building[];
 extern const u32 gBattleTerrainPalette_Plain[];
+extern const u32 gBattleTerrainTiles_Plain[]; //new
+extern const u32 gBattleTerrainTilemap_Plain[]; //new
 extern const u32 gBattleTerrainPalette_Frontier[];
 extern const u32 gBattleTerrainTiles_Stadium[];
 extern const u32 gBattleTerrainTilemap_Stadium[];
@@ -6025,6 +6027,8 @@ extern const u32 gItemIconPalette_GroundTMHM[];
 extern const u32 gItemIconPalette_GhostTMHM[];
 extern const u32 gItemIconPalette_RockTMHM[];
 extern const u32 gItemIconPalette_FlyingTMHM[];
+extern const u32 gItemIconPalette_BugTMHM[];
+extern const u32 gItemIconPalette_FairyTMHM[];
 extern const u32 gItemIcon_HM[];
 // FireRed/LeafGreen key items
 extern const u32 gItemIcon_OaksParcel[];
@@ -6245,7 +6249,7 @@ extern const u32 gItemIcon_JabocaBerry[];
 extern const u32 gItemIconPalette_JabocaBerry[];
 extern const u32 gItemIcon_RowapBerry[];
 extern const u32 gItemIconPalette_RowapBerry[];
-extern const u32 gItemIcon_OvalStone[];
+extern const u32 gItemIcon_OvalStone[];	//add mints + oval stone
 extern const u32 gItemIconPalette_OvalStone[];
 extern const u32 gItemIcon_Protector[];
 extern const u32 gItemIconPalette_Protector[];
@@ -6384,6 +6388,8 @@ extern const u32 gItemIcon_PrettyWing[];
 extern const u32 gItemIconPalette_PrettyWing[];
 extern const u32 gItemIcon_ShinyCharm[];
 extern const u32 gItemIconPalette_ShinyCharm[];
+extern const u32 gItemIcon_OvalCharm[];
+extern const u32 gItemIconPalette_OvalCharm[];
 // Gen 6 Items
 extern const u32 gItemIcon_AssaultVest[];
 extern const u32 gItemIconPalette_AssaultVest[];
@@ -6570,8 +6576,19 @@ extern const u32 gItemIcon_SteelMemory[];
 extern const u32 gItemIconPalette_SteelMemory[];
 extern const u32 gItemIcon_WaterMemory[];
 extern const u32 gItemIconPalette_WaterMemory[];
-extern const u32 gItemIconPalette_BugTMHM[];
-extern const u32 gItemIconPalette_FairyTMHM[];
+// Gen 8 Items
+extern const u32 gItemIcon_Mint[];	//add mints + oval stone
+extern const u32 gItemIconPalette_RedMint[];
+extern const u32 gItemIconPalette_BlueMint[];
+extern const u32 gItemIconPalette_PinkMint[];
+extern const u32 gItemIconPalette_GreenMint[];
+extern const u32 gItemIconPalette_YellowMint[];
+extern const u32 gItemIconPalette_LightBlueMint[];
+
+//add bottlecaps
+extern const u32 gItemIcon_Bottlecap[];
+extern const u32 gItemIconPalette_SilverBottlecap[];
+extern const u32 gItemIconPalette_GoldBottlecap[];
 
 extern const u32 gItemIcon_ReturnToFieldArrow[];
 extern const u32 gItemIconPalette_ReturnToFieldArrow[];

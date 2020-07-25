@@ -53,6 +53,9 @@ extern const u8 gText_Key_Items[];
 extern const u8 gText_Poke_Balls[];
 extern const u8 gText_TMs_Hms[];
 extern const u8 gText_Berries2[];
+extern const u8 gText_Medicine[];		//more bag pockets
+extern const u8 gText_BattleItems[];	//more bag pockets
+extern const u8 gText_PowerUp[];		//more bag pockets
 
 extern const u8 gText_Single2[];
 extern const u8 gText_Double2[];
@@ -475,6 +478,9 @@ extern const u8 gText_12PoofForgotMove[];
 extern const u8 gText_StopLearningMove2[];
 extern const u8 gText_MoveNotLearned[];
 extern const u8 gText_PkmnElevatedToLvVar2[];
+extern const u8 gText_BoostIv[];						//add bottlecaps
+extern const u8 gText_PkmnOneInherentStatIncreased[];	//add bottlecaps
+extern const u8 gText_PkmnAllInherentStatsIncreased[];	//add bottlecaps
 extern const u8 gText_RemoveMailBeforeItem[];
 extern const u8 gText_PkmnHoldingItemCantHoldMail[];
 extern const u8 gText_MailTransferredFromMailbox[];
@@ -976,6 +982,7 @@ extern const u8 gText_CanIHelpWithAnythingElse[];
 extern const u8 gText_AnythingElseICanHelp[];
 extern const u8 gText_QuitShopping[];
 extern const u8 gText_PokedollarVar1[];
+extern const u8 gText_SoldOut[];	//tm shops
 extern const u8 gText_YouDontHaveMoney[];
 extern const u8 gText_Var1CertainlyHowMany2[];
 extern const u8 gText_Var1CertainlyHowMany[];
@@ -985,10 +992,12 @@ extern const u8 gText_InBagVar1[];
 extern const u8 gText_Var1AndYouWantedVar2[];
 extern const u8 gText_HereYouGoThankYou[];
 extern const u8 gText_NoMoreRoomForThis[];
+extern const u8 gText_SorryWereOutOfThis[];		//tm shops
 extern const u8 gText_ThankYouIllSendItHome[];
 extern const u8 gText_ThanksIllSendItHome[];
 extern const u8 gText_SpaceForVar1Full[];
 extern const u8 gText_ThrowInPremierBall[];
+extern const u8 gText_ThrowInPremierBalls[];	//Gen VIII Premier Balls
 extern const u8 gText_ShopBuy[];
 extern const u8 gText_ShopSell[];
 extern const u8 gText_ShopQuit[];

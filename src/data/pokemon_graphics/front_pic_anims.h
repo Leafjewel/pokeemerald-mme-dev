@@ -4304,7 +4304,7 @@ static const union AnimCmd sAnim_KIRLIA_1[] =
 
 static const union AnimCmd sAnim_GARDEVOIR_1[] =
 {
-    ANIMCMD_FRAME(0, 3),
+    /*ANIMCMD_FRAME(0, 3),
     ANIMCMD_FRAME(1, 3),
     ANIMCMD_FRAME(0, 3),
     ANIMCMD_FRAME(1, 3),
@@ -4316,7 +4316,10 @@ static const union AnimCmd sAnim_GARDEVOIR_1[] =
     ANIMCMD_FRAME(1, 3),
     ANIMCMD_FRAME(0, 3),
     ANIMCMD_FRAME(1, 3),
-    ANIMCMD_FRAME(0, 1),
+    ANIMCMD_FRAME(0, 1),*/
+	ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 39),
+    ANIMCMD_FRAME(0, 10),
     ANIMCMD_END,
 };
 
@@ -5938,6 +5941,8 @@ static const union AnimCmd sAnim_PANPOUR_1[] =
 
 static const union AnimCmd sAnim_SIMIPOUR_1[] =
 {
+	ANIMCMD_FRAME(0, 30),
+    ANIMCMD_FRAME(1, 30),
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
@@ -7920,8 +7925,12 @@ static const union AnimCmd sAnim_MEGA_CHARIZARD_Y_1[] =
 
 static const union AnimCmd sAnim_MEGA_BLASTOISE_1[] =
 {
-	ANIMCMD_FRAME(0, 1),
-	ANIMCMD_END,
+    ANIMCMD_FRAME(0, 50),
+    ANIMCMD_FRAME(1, 25),
+    ANIMCMD_FRAME(0, 20),
+    ANIMCMD_FRAME(1, 25),
+    ANIMCMD_FRAME(0, 1),
+    ANIMCMD_END,
 };
 
 static const union AnimCmd sAnim_MEGA_BEEDRILL_1[] =
@@ -7974,8 +7983,11 @@ static const union AnimCmd sAnim_MEGA_GYARADOS_1[] =
 
 static const union AnimCmd sAnim_MEGA_AERODACTYL_1[] =
 {
-	ANIMCMD_FRAME(0, 1),
-	ANIMCMD_END,
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 25),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 25),
+    ANIMCMD_END,
 };
 
 static const union AnimCmd sAnim_MEGA_MEWTWO_X_1[] =

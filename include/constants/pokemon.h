@@ -116,7 +116,7 @@
 #define SPLIT_STATUS    0x2
 
 // Shiny odds
-#define SHINY_ODDS 8 // Actual probability is SHINY_ODDS/65536
+#define SHINY_ODDS 32 //8 // Actual probability is SHINY_ODDS/65536
 #define SHINY_CHARM_REROLLS 3 // Amount of re-rolls if has Shiny Charm.
 
 // Flags for Get(Box)MonData / Set(Box)MonData
@@ -209,6 +209,7 @@
 #define MON_DATA_SPEED2            86
 #define MON_DATA_SPATK2            87
 #define MON_DATA_SPDEF2            88
+#define MON_DATA_HIDDEN_NATURE     89	//add mints
 
 #define MIN_LEVEL 1
 #define MAX_LEVEL 100
@@ -259,7 +260,9 @@
 #define STATUS_PRIMARY_FAINTED   7
 
 #define MAX_TOTAL_EVS 510
-#define EV_ITEM_RAISE_LIMIT 100
+//#define EV_ITEM_RAISE_LIMIT 100
+#define EV_ITEM_RAISE_LIMIT 250
+#define MAX_IV 31		//add bottlecaps
 
 #define UNOWN_FORM_COUNT 28
 
@@ -325,8 +328,10 @@
 #define EVO_LEVEL_RAIN       0x001C // Pokémon reaches the specified level while it's raining
 #define EVO_SPECIFIC_MON_IN_PARTY  0x001D // Pokémon levels up with a specified Pokémon in party
 #define EVO_LEVEL_DARK_TYPE_MON_IN_PARTY  0x001E // Pokémon reaches the specified level with a Dark Type Pokémon in party
+//#define EVO_LEVEL_SPECIFIC_MON_TYPE_IN_PARTY  0x001E // Pokémon reaches the specified level with a specified Pokémon in party
+#define EVO_ITEM_HOLD        0x001F // Pokémon levels up, holds specified item, new method
 
-#define EVOS_PER_MON 8
+#define EVOS_PER_MON 16 //8
 
 #define NUM_MALE_LINK_FACILITY_CLASSES   8
 #define NUM_FEMALE_LINK_FACILITY_CLASSES 8
