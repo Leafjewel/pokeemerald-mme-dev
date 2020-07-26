@@ -21,6 +21,10 @@
 #define TMHM_POCKET        6
 #define KEYITEMS_POCKET    7
 #define POCKETS_COUNT      8
-//everything in this file changed for More Bag Pockets
 
+// The TM/HM pocket is the largest pocket, so the maximum amount of items
+// in a pocket is its count + 1 for the cancel option
+#define MAX_POCKET_ITEMS   (BAG_TMHM_COUNT + 1)
+
+//everything in this file changed for More Bag Pockets
 #endif // GUARD_ITEM_CONSTANTS_H

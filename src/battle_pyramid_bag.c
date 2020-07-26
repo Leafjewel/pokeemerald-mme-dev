@@ -416,7 +416,7 @@ static void sub_81C5038(void)
 
 static void sub_81C504C(void)
 {
-    while (sub_81221EC() != TRUE && sub_81C5078() != TRUE && sub_81221AC() != TRUE);
+    while (MenuHelpers_CallLinkSomething() != TRUE && sub_81C5078() != TRUE && MenuHelpers_LinkSomething() != TRUE);
 }
 
 static bool8 sub_81C5078(void)
@@ -446,7 +446,7 @@ static bool8 sub_81C5078(void)
             gMain.state++;
             break;
         case 5:
-            if (!sub_81221AC())
+            if (!MenuHelpers_LinkSomething())
             {
                 ResetTasks();
             }
@@ -517,7 +517,7 @@ static void sub_81C51DC(void)
     InitBgsFromTemplates(0, gUnknown_0861F2B4, ARRAY_COUNT(gUnknown_0861F2B4));
     SetBgTilemapBuffer(2, gPyramidBagResources->tilemapBuffer);
     ResetAllBgsCoordinates();
-    schedule_bg_copy_tilemap_to_vram(2);
+    ScheduleBgCopyTilemapToVram(2);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0 |
                                   DISPCNT_OBJ_1D_MAP |
                                   DISPCNT_OBJ_ON);
@@ -532,12 +532,12 @@ static bool8 sub_81C5238(void)
     switch (gPyramidBagResources->state)
     {
     case 0:
-        reset_temp_tile_data_buffers();
-        decompress_and_copy_tile_data_to_vram(2, gBagScreen_Gfx, 0, 0, 0);
+        ResetTempTileDataBuffers();
+        DecompressAndCopyTileDataToVram(2, gBagScreen_Gfx, 0, 0, 0);
         gPyramidBagResources->state++;
         break;
     case 1:
-        if (free_temp_tile_data_buffers_if_possible() != TRUE)
+        if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LZDecompressWram(gBattleFrontierGfx_PyramidBagTileMap, gPyramidBagResources->tilemapBuffer);
             gPyramidBagResources->state++;
@@ -839,7 +839,7 @@ static void sub_81C5B4C(u8 taskId)
 static void Task_HandlePyramidBagInput(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    if (sub_81221EC() != TRUE && !gPaletteFade.active)
+    if (MenuHelpers_CallLinkSomething() != TRUE && !gPaletteFade.active)
     {
         if (gMain.newKeys & SELECT_BUTTON)
         {
@@ -942,7 +942,7 @@ static void sub_81C5F08(u8 windowId, u8 horizontalCount, u8 verticalCount)
 
 static void HandleFewMenuActionsInput(u8 taskId)
 {
-    if (sub_81221EC() != TRUE)
+    if (MenuHelpers_CallLinkSomething() != TRUE)
     {
         s32 id = Menu_ProcessInputNoWrap();
         switch (id)
@@ -964,7 +964,7 @@ static void HandleFewMenuActionsInput(u8 taskId)
 
 static void HandleMenuActionInput(u8 taskId)
 {
-    if (sub_81221EC() != TRUE)
+    if (MenuHelpers_CallLinkSomething() != TRUE)
     {
         s8 id = Menu_GetCursorPos();
         if (gMain.newKeys & DPAD_UP)
@@ -1051,7 +1051,7 @@ static void BagAction_UseOnField(u8 taskId)
     {
         sub_81C61A8();
         FillWindowPixelBuffer(1, PIXEL_FILL(0));
-        schedule_bg_copy_tilemap_to_vram(0);
+        ScheduleBgCopyTilemapToVram(0);
         ItemId_GetFieldFunc(gSpecialVar_ItemId)(taskId);
     }
 }
@@ -1062,8 +1062,8 @@ static void BagAction_Cancel(u8 taskId)
 
     sub_81C61A8();
     PrintItemDescription(data[1]);
-    schedule_bg_copy_tilemap_to_vram(0);
-    schedule_bg_copy_tilemap_to_vram(1);
+    ScheduleBgCopyTilemapToVram(0);
+    ScheduleBgCopyTilemapToVram(1);
     sub_81C5A98(data[0], 0);
     SetTaskToMainPyramidBagInputHandler(taskId);
 }
@@ -1150,7 +1150,7 @@ static void sub_81C64B4(u8 taskId)
         PlaySE(SE_SELECT);
         ClearStdWindowAndFrameToTransparent(3, 0);
         ClearWindowTilemap(3);
-        schedule_bg_copy_tilemap_to_vram(1);
+        ScheduleBgCopyTilemapToVram(1);
         sub_81C6350(taskId);
     }
     else if (gMain.newKeys & B_BUTTON)
@@ -1158,7 +1158,7 @@ static void sub_81C64B4(u8 taskId)
         PlaySE(SE_SELECT);
         ClearStdWindowAndFrameToTransparent(3, 0);
         ClearWindowTilemap(3);
-        schedule_bg_copy_tilemap_to_vram(1);
+        ScheduleBgCopyTilemapToVram(1);
         DontTossItem(taskId);
     }
 }
@@ -1190,7 +1190,7 @@ static void sub_81C65CC(u8 taskId)
         sub_81C59BC();
         SetBagItemsListTemplate();
         data[0] = ListMenuInit(&gMultiuseListMenuTemplate, *scrollOffset, *selectedRow);
-        schedule_bg_copy_tilemap_to_vram(0);
+        ScheduleBgCopyTilemapToVram(0);
         SetTaskToMainPyramidBagInputHandler(taskId);
     }
 }
@@ -1277,7 +1277,7 @@ static void Task_BeginItemSwap(u8 taskId)
 static void Task_ItemSwapHandleInput(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    if (sub_81221EC() != TRUE)
+    if (MenuHelpers_CallLinkSomething() != TRUE)
     {
         if (gMain.newKeys & SELECT_BUTTON)
         {
@@ -1402,8 +1402,8 @@ static void sub_81C6BD8(void)
 
     PutWindowTilemap(0);
     PutWindowTilemap(1);
-    schedule_bg_copy_tilemap_to_vram(0);
-    schedule_bg_copy_tilemap_to_vram(1);
+    ScheduleBgCopyTilemapToVram(0);
+    ScheduleBgCopyTilemapToVram(1);
 }
 
 static void PrintOnWindow_Font1(u8 windowId, const u8 *src, u8 x, u8 y, u8 letterSpacing, u8 lineSpacing, u8 speed, u8 colorTableId)
@@ -1419,7 +1419,7 @@ static void PrintOnWindow_Font7(u8 windowId, const u8 *src, u8 x, u8 y, u8 lette
 static void sub_81C6CEC(u8 windowId)
 {
     DrawStdFrameWithCustomTileAndPalette(windowId, 0, 1, 0xE);
-    schedule_bg_copy_tilemap_to_vram(1);
+    ScheduleBgCopyTilemapToVram(1);
 }
 
 static u8 sub_81C6D08(u8 windowArrayId)
@@ -1434,7 +1434,7 @@ static u8 sub_81C6D24(u8 windowArrayId)
     {
         *windowId = AddWindow(&gUnknown_0861F350[windowArrayId]);
         DrawStdFrameWithCustomTileAndPalette(*windowId, FALSE, 1, 0xE);
-        schedule_bg_copy_tilemap_to_vram(1);
+        ScheduleBgCopyTilemapToVram(1);
     }
     return *windowId;
 }
@@ -1447,7 +1447,7 @@ static void sub_81C6D6C(u8 windowArrayId)
         ClearStdWindowAndFrameToTransparent(*windowId, FALSE);
         ClearWindowTilemap(*windowId);
         RemoveWindow(*windowId);
-        schedule_bg_copy_tilemap_to_vram(1);
+        ScheduleBgCopyTilemapToVram(1);
         *windowId = 0xFF;
     }
 }
@@ -1461,7 +1461,7 @@ void DisplayItemMessageInBattlePyramid(u8 taskId, const u8 *str, void (*callback
 {
     FillWindowPixelBuffer(2, PIXEL_FILL(1));
     DisplayMessageAndContinueTask(taskId, 2, 0xA, 0xD, 1, GetPlayerTextSpeedDelay(), str, callback);
-    schedule_bg_copy_tilemap_to_vram(1);
+    ScheduleBgCopyTilemapToVram(1);
 }
 
 static void CloseBattlePyramidBagTextWindow(void)
@@ -1469,7 +1469,7 @@ static void CloseBattlePyramidBagTextWindow(void)
     ClearDialogWindowAndFrameToTransparent(2, FALSE);
     // This ClearWindowTilemap call is redundant, since ClearDialogWindowAndFrameToTransparent already calls it.
     ClearWindowTilemap(2);
-    schedule_bg_copy_tilemap_to_vram(1);
+    ScheduleBgCopyTilemapToVram(1);
 }
 
 #define ITEM_IMAGE_TAG 0x1024

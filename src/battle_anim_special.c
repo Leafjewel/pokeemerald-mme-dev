@@ -1178,11 +1178,18 @@ static void sub_817138C(struct Sprite *sprite)
         angle = 0;
         sprite->pos1.y += Cos(angle, 40);
         sprite->pos2.y = -Cos(angle, sprite->data[4]);
+<<<<<<< HEAD
         //sprite->callback = sub_81713D0;	//start add critical capture
 		if (IsCriticalCapture())
             sprite->callback = CB_CriticalCaptureThrownBallMovement;
         else
             sprite->callback = sub_81713D0;	//end section
+=======
+        if (IsCriticalCapture())
+            sprite->callback = CB_CriticalCaptureThrownBallMovement;
+        else
+            sprite->callback = sub_81713D0;
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
     }
 }
 
@@ -1375,18 +1382,38 @@ static void sub_8171520(struct Sprite *sprite)
     case 5:		//all edits here for add critical capture
         sprite->data[3] += 0x100;
         state = sprite->data[3] >> 8;
+<<<<<<< HEAD
         //if (state == gBattleSpritesDataPtr->animationData->ballThrowCaseId)
 		if (IsCriticalCapture())
 		{
             //sprite->affineAnimPaused = 1;
             //sprite->callback = sub_81717B4;
 			if (gBattleSpritesDataPtr->animationData->criticalCaptureSuccess)
+=======
+        if (IsCriticalCapture())
+        {
+            if (gBattleSpritesDataPtr->animationData->criticalCaptureSuccess)
             {
                 sprite->callback = sub_81717D8;
                 sprite->affineAnimPaused = 1;
             }
             else
             {
+                sprite->affineAnimPaused = 1;
+                sprite->callback = sub_81717B4;
+            }
+        }
+        else
+        {
+            if (state == gBattleSpritesDataPtr->animationData->ballThrowCaseId)
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
+            {
+                sprite->affineAnimPaused = 1;
+                sprite->callback = sub_81717B4;
+            }
+            else
+            {
+<<<<<<< HEAD
                 sprite->affineAnimPaused = 1;
                 sprite->callback = sub_81717B4;
             }
@@ -1405,6 +1432,9 @@ static void sub_8171520(struct Sprite *sprite)
                 //sprite->data[3]++;
                 //sprite->affineAnimPaused = 1;
 				if (gBattleSpritesDataPtr->animationData->ballThrowCaseId == BALL_3_SHAKES_SUCCESS && state == 3)
+=======
+                if (gBattleSpritesDataPtr->animationData->ballThrowCaseId == BALL_3_SHAKES_SUCCESS && state == 3)
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
                 {
                     sprite->callback = sub_81717D8;
                     sprite->affineAnimPaused = 1;
@@ -2553,8 +2583,13 @@ void AnimTask_GetBattlersFromArg(u8 taskId)
     gBattleAnimTarget = gBattleSpritesDataPtr->animationData->animArg >> 8;
     DestroyAnimVisualTask(taskId);
 }
+<<<<<<< HEAD
 //add critical capture section
 bool8 IsCriticalCapture(void)
+=======
+
+bool32 IsCriticalCapture(void)
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
 {
     return gBattleSpritesDataPtr->animationData->isCriticalCapture;
 }
@@ -2563,9 +2598,13 @@ static void CB_CriticalCaptureThrownBallMovement(struct Sprite *sprite)
 {
     bool8 lastBounce = FALSE;
     u8 maxBounces = 6;
+<<<<<<< HEAD
     int bounceCount;
 
     bounceCount = sprite->data[3] >> 8;
+=======
+    int bounceCount = sprite->data[3] >> 8;
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
 
     if (bounceCount == 0)
         PlaySE(SE_BOWA);
@@ -2576,8 +2615,12 @@ static void CB_CriticalCaptureThrownBallMovement(struct Sprite *sprite)
         if (bounceCount < 3)
             sprite->pos2.x++;
 
+<<<<<<< HEAD
         sprite->data[5]++;
         if (sprite->data[5] >= 3)
+=======
+        if (++sprite->data[5] >= 3)
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
             sprite->data[3] += 257;
 
         break;
@@ -2585,9 +2628,13 @@ static void CB_CriticalCaptureThrownBallMovement(struct Sprite *sprite)
         if (bounceCount < 3 || sprite->pos2.x != 0)
             sprite->pos2.x--;
 
+<<<<<<< HEAD
         sprite->data[5]--;
 
         if (sprite->data[5] <= 0)
+=======
+        if (--sprite->data[5] <= 0)
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
         {
             sprite->data[5] = 0;
             sprite->data[3] &= -0x100;
@@ -2601,10 +2648,18 @@ static void CB_CriticalCaptureThrownBallMovement(struct Sprite *sprite)
 
     if (lastBounce)
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
         sprite->data[3] = 0;
         sprite->data[4] = 40;   //starting max height
         sprite->data[5] = 0;
         sprite->callback = sub_81713D0;
     }
+<<<<<<< HEAD
 }	//end section
+=======
+}
+
+>>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
