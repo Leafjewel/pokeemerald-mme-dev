@@ -24467,7 +24467,3 @@ Special_CriticalCaptureBallThrow:
 	createvisualtask AnimTask_IsBallBlockedByTrainer, 2
 	jumpreteq -1, BallThrowTrainerBlock
     goto BallThrowEnd
-<<<<<<< HEAD
-=======
-
->>>>>>> 14daa9f4a5055bfeeb139e14a5abad9f4425d90e
