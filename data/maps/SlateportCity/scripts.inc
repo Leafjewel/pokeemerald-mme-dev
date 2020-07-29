@@ -358,6 +358,17 @@ SlateportCity_EventScript_Sailor2:: @ 81DCFEE
 
 SlateportCity_EventScript_PokefanF:: @ 81DCFF7
 	msgbox SlateportCity_Text_BuyTooMuch, MSGBOX_NPC
+	goto_if_set FLAG_LATIOS_OR_LATIAS_ROAMING, SlateportCity_EventScript_CheckLatiStatus
+	end
+
+SlateportCity_EventScript_CheckLatiStatus::
+	goto_if_unset FLAG_ENABLE_SHIP_SOUTHERN_ISLAND, SlateportCity_EventScript_EonTicket
+	return
+
+SlateportCity_EventScript_EonTicket::
+	msgbox SlateportCity_Text_LikeThisTicket, MSGBOX_NPC
+	giveitem ITEM_EON_TICKET
+	setflag FLAG_ENABLE_SHIP_SOUTHERN_ISLAND
 	end
 
 SlateportCity_EventScript_Man2:: @ 81DD000
@@ -501,6 +512,14 @@ SlateportCity_EventScript_DollClerk:: @ 81DD16A
 	faceplayer
 	message gText_HowMayIServeYou
 	waitmessage
+	goto_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_EventScript_BerryClerk9
+	goto_if_set FLAG_BADGE08_GET, SlateportCity_EventScript_BerryClerk8
+	goto_if_set FLAG_BADGE07_GET, SlateportCity_EventScript_BerryClerk7
+	goto_if_set FLAG_BADGE06_GET, SlateportCity_EventScript_BerryClerk6
+	goto_if_set FLAG_BADGE05_GET, SlateportCity_EventScript_BerryClerk5
+	goto_if_set FLAG_BADGE04_GET, SlateportCity_EventScript_BerryClerk4
+	goto_if_set FLAG_BADGE03_GET, SlateportCity_EventScript_BerryClerk3
+	goto_if_set FLAG_BADGE02_GET, SlateportCity_EventScript_BerryClerk2
 	pokemart SlateportCity_PokemartDecor_Dolls
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
@@ -508,6 +527,276 @@ SlateportCity_EventScript_DollClerk:: @ 81DD16A
 
 	.align 2
 SlateportCity_PokemartDecor_Dolls: @ 81DD184
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+
+SlateportCity_EventScript_BerryClerk2::
+	pokemart SlateportCity_BerryClerk2
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_BerryClerk2:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+
+SlateportCity_EventScript_BerryClerk3::
+	pokemart SlateportCity_BerryClerk3
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_BerryClerk3:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+
+SlateportCity_EventScript_BerryClerk4::
+	pokemart SlateportCity_BerryClerk4
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_BerryClerk4:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_SITRUS_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+
+SlateportCity_EventScript_BerryClerk5::
+	pokemart SlateportCity_BerryClerk5
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_BerryClerk5:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_SITRUS_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_POMEG_BERRY
+	.2byte ITEM_KELPSY_BERRY
+	.2byte ITEM_QUALOT_BERRY
+	.2byte ITEM_HONDEW_BERRY
+	.2byte ITEM_GREPA_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+
+SlateportCity_EventScript_BerryClerk6::
+	pokemart SlateportCity_BerryClerk6
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_BerryClerk6:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_SITRUS_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_POMEG_BERRY
+	.2byte ITEM_KELPSY_BERRY
+	.2byte ITEM_QUALOT_BERRY
+	.2byte ITEM_HONDEW_BERRY
+	.2byte ITEM_GREPA_BERRY
+	.2byte ITEM_OCCA_BERRY
+	.2byte ITEM_PASSHO_BERRY
+	.2byte ITEM_WACAN_BERRY
+	.2byte ITEM_RINDO_BERRY
+	.2byte ITEM_YACHE_BERRY
+	.2byte ITEM_CHOPLE_BERRY
+	.2byte ITEM_KEBIA_BERRY
+	.2byte ITEM_SHUCA_BERRY
+	.2byte ITEM_COBA_BERRY
+	.2byte ITEM_PAYAPA_BERRY
+	.2byte ITEM_TANGA_BERRY
+	.2byte ITEM_CHARTI_BERRY
+	.2byte ITEM_KASIB_BERRY
+	.2byte ITEM_HABAN_BERRY
+	.2byte ITEM_COLBUR_BERRY
+	.2byte ITEM_BABIRI_BERRY
+	.2byte ITEM_CHILAN_BERRY
+	.2byte ITEM_ROSELI_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+
+SlateportCity_EventScript_BerryClerk7::
+	pokemart SlateportCity_BerryClerk7
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_BerryClerk7:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_LUM_BERRY
+	.2byte ITEM_SITRUS_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_RAZZ_BERRY
+	.2byte ITEM_BLUK_BERRY
+	.2byte ITEM_NANAB_BERRY
+	.2byte ITEM_WEPEAR_BERRY
+	.2byte ITEM_PINAP_BERRY
+	.2byte ITEM_POMEG_BERRY
+	.2byte ITEM_KELPSY_BERRY
+	.2byte ITEM_QUALOT_BERRY
+	.2byte ITEM_HONDEW_BERRY
+	.2byte ITEM_GREPA_BERRY
+	.2byte ITEM_OCCA_BERRY
+	.2byte ITEM_PASSHO_BERRY
+	.2byte ITEM_WACAN_BERRY
+	.2byte ITEM_RINDO_BERRY
+	.2byte ITEM_YACHE_BERRY
+	.2byte ITEM_CHOPLE_BERRY
+	.2byte ITEM_KEBIA_BERRY
+	.2byte ITEM_SHUCA_BERRY
+	.2byte ITEM_COBA_BERRY
+	.2byte ITEM_PAYAPA_BERRY
+	.2byte ITEM_TANGA_BERRY
+	.2byte ITEM_CHARTI_BERRY
+	.2byte ITEM_KASIB_BERRY
+	.2byte ITEM_HABAN_BERRY
+	.2byte ITEM_COLBUR_BERRY
+	.2byte ITEM_BABIRI_BERRY
+	.2byte ITEM_CHILAN_BERRY
+	.2byte ITEM_ROSELI_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+
+SlateportCity_EventScript_BerryClerk8::
+	pokemart SlateportCity_BerryClerk8
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_BerryClerk8:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_LUM_BERRY
+	.2byte ITEM_SITRUS_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_RAZZ_BERRY
+	.2byte ITEM_BLUK_BERRY
+	.2byte ITEM_NANAB_BERRY
+	.2byte ITEM_WEPEAR_BERRY
+	.2byte ITEM_PINAP_BERRY
+	.2byte ITEM_POMEG_BERRY
+	.2byte ITEM_KELPSY_BERRY
+	.2byte ITEM_QUALOT_BERRY
+	.2byte ITEM_HONDEW_BERRY
+	.2byte ITEM_GREPA_BERRY
+	.2byte ITEM_TAMATO_BERRY
+	.2byte ITEM_CORNN_BERRY
+	.2byte ITEM_MAGOST_BERRY
+	.2byte ITEM_RABUTA_BERRY
+	.2byte ITEM_NOMEL_BERRY
+	.2byte ITEM_OCCA_BERRY
+	.2byte ITEM_PASSHO_BERRY
+	.2byte ITEM_WACAN_BERRY
+	.2byte ITEM_RINDO_BERRY
+	.2byte ITEM_YACHE_BERRY
+	.2byte ITEM_CHOPLE_BERRY
+	.2byte ITEM_KEBIA_BERRY
+	.2byte ITEM_SHUCA_BERRY
+	.2byte ITEM_COBA_BERRY
+	.2byte ITEM_PAYAPA_BERRY
+	.2byte ITEM_TANGA_BERRY
+	.2byte ITEM_CHARTI_BERRY
+	.2byte ITEM_KASIB_BERRY
+	.2byte ITEM_HABAN_BERRY
+	.2byte ITEM_COLBUR_BERRY
+	.2byte ITEM_BABIRI_BERRY
+	.2byte ITEM_CHILAN_BERRY
+	.2byte ITEM_ROSELI_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+
+SlateportCity_EventScript_BerryClerk9::
+	pokemart SlateportCity_BerryClerk9
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+SlateportCity_BerryClerk9:
 	.2byte ITEM_CHERI_BERRY
 	.2byte ITEM_CHESTO_BERRY
 	.2byte ITEM_PECHA_BERRY
@@ -624,6 +913,18 @@ SlateportCity_EventScript_PowerTMClerk:: @ 81DD1D8
 SlateportCity_Pokemart_PowerTMs: @ 81DD1F0
 	.2byte ITEM_TM10  @ Hidden Power
 	.2byte ITEM_TM43  @ Secret Power
+	.2byte ITEM_ORANGE_MAIL
+	.2byte ITEM_HARBOR_MAIL
+	.2byte ITEM_GLITTER_MAIL
+	.2byte ITEM_MECH_MAIL
+	.2byte ITEM_WOOD_MAIL
+	.2byte ITEM_WAVE_MAIL
+	.2byte ITEM_BEAD_MAIL
+	.2byte ITEM_SHADOW_MAIL
+	.2byte ITEM_TROPIC_MAIL
+	.2byte ITEM_DREAM_MAIL
+	.2byte ITEM_FAB_MAIL
+	.2byte ITEM_RETRO_MAIL
 	.2byte ITEM_NONE
 	release
 	end
@@ -1179,6 +1480,18 @@ SlateportCity_Text_BuyTooMuch: @ 81DE0D2
 	.string "Whenever I visit here, I get carried\n"
 	.string "away and buy too much.$"
 
+SlateportCity_Text_LikeThisTicket:
+	.string "Sometimes I find stuff I don't even\n"
+	.string "remember buying!\p"
+	.string "But if it's in my bags, then surely I\n"
+	.string "bought it, even if I can't recall when\l"
+	.string "or where. Or why.\p"
+	.string "Like...this ticket!\p"
+	.string "Where did this come from, I wonder?\p"
+	.string "Hmmm, I don't know what do with this,\n"
+	.string "so I'll just give it to you for\l"
+	.string "listening to me prattle on.$"
+
 SlateportCity_Text_GetNameRaterToHelpYou: @ 81DE10E
 	.string "If you want to change your POKéMON's\n"
 	.string "nickname, you'll have to get the NAME\l"
@@ -1302,11 +1615,11 @@ SlateportCity_Text_SternsShipyardNearsCompletion: @ 81DE940
 	.string "STERN'S SHIPYARD\p"
 	.string "“The ferry S.S. TIDAL nears\n"
 	.string "completion for serving the ports of\l"
-	.string "SLATEPORT and LILYCOVE.”$"
+	.string "SLATEPORT and Slateport.”$"
 
 SlateportCity_Text_SternsShipyardFerryComplete: @ 81DE9AA
 	.string "STERN'S SHIPYARD\p"
-	.string "“Boarding of the SLATEPORT-LILYCOVE\n"
+	.string "“Boarding of the SLATEPORT-Slateport\n"
 	.string "ferry S.S. TIDAL is handled at the\l"
 	.string "HARBOR.”$"
 

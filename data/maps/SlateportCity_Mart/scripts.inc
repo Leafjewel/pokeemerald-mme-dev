@@ -6,7 +6,8 @@ SlateportCity_Mart_EventScript_Clerk:: @ 820DC49
 	faceplayer
 	message gText_HowMayIServeYou
 	waitmessage
-	pokemart SlateportCity_Mart_Pokemart
+	@pokemart SlateportCity_Mart_Pokemart
+	pokemart 0
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end

@@ -28,7 +28,8 @@ EverGrandeCity_PokemonLeague_1F_EventScript_Clerk:: @ 822960A
 	faceplayer
 	message gText_HowMayIServeYou
 	waitmessage
-	pokemart EverGrandeCity_PokemonLeague_1F_Pokemart
+	@pokemart EverGrandeCity_PokemonLeague_1F_Pokemart
+	pokemart 0
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end

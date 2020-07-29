@@ -15,6 +15,7 @@ MeteorFalls_StevensCave_EventScript_Steven:: @ 823B182
 	msgbox MeteorFalls_StevensCave_Text_ShouldKnowHowGoodIAmExpectWorst, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_STEVEN, MeteorFalls_StevensCave_Text_StevenDefeat
 	msgbox MeteorFalls_StevensCave_Text_MyPredictionCameTrue, MSGBOX_DEFAULT
+	goto_if_unset FLAG_STRONGER_STARTER_STONE_GET, MeteorFalls_StevensCave_EventScript_StevenGiveStone
 	setflag FLAG_DEFEATED_METEOR_FALLS_STEVEN
 	release
 	end
@@ -25,6 +26,28 @@ MeteorFalls_StevensCave_EventScript_Defeated:: @ 823B1CD
 	msgbox MeteorFalls_StevensCave_Text_MyPredictionCameTrue, MSGBOX_DEFAULT
 	release
 	end
+
+@give out mega stone for starter strong against player's
+MeteorFalls_StevensCave_EventScript_StevenGiveStone:: 
+	msgbox MeteorFalls_StevensCave_Text_StevenGivesStone, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON				@give out mega stone for starter weak to player's
+	case 0, MeteorFalls_StevensCave_EventScript_GiveBlazikenite
+	case 1, MeteorFalls_StevensCave_EventScript_GiveSwampertite
+	case 2, MeteorFalls_StevensCave_EventScript_GiveSceptilite
+	setflag FLAG_STRONGER_STARTER_STONE_GET
+	return
+
+MeteorFalls_StevensCave_EventScript_GiveSceptilite::
+	giveitem ITEM_SCEPTILITE
+	return
+
+MeteorFalls_StevensCave_EventScript_GiveBlazikenite::
+	giveitem ITEM_BLAZIKENITE
+	return
+
+MeteorFalls_StevensCave_EventScript_GiveSwampertite::
+	giveitem ITEM_SWAMPERTITE
+	return
 
 MeteorFalls_StevensCave_Text_ShouldKnowHowGoodIAmExpectWorst: @ 823B1E1
 	.string "STEVEN: Oh, wow, {PLAYER}{KUN}.\n"
@@ -55,3 +78,7 @@ MeteorFalls_StevensCave_Text_MyPredictionCameTrue: @ 823B358
 	.string "… … … … … …\p"
 	.string "Fufufu, even I couldn't tell you that.$"
 
+MeteorFalls_StevensCave_Text_StevenGivesStone:
+	.string "STEVEN: But, I can tell you that\n" 
+	.string "you'll probably enjoy this special\l"
+	.string "stone quite a bit.$"

@@ -43,6 +43,7 @@ VictoryRoad_1F_EventScript_WallyEntranceBattle:: @ 8235DE1
 	msgbox VictoryRoad_1F_Text_WallyNotGoingToLoseAnymore, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_WALLY_VR_1, VictoryRoad_1F_Text_WallyEntranceDefeat
 	msgbox VictoryRoad_1F_Text_WallyPostEntranceBattle, MSGBOX_DEFAULT
+	goto_if_unset FLAG_WEAKER_STARTER_STONE_GET, VictoryRoad_1F_EventScript_WallyGiveStone
 	clearflag FLAG_HIDE_VICTORY_ROAD_ENTRANCE_WALLY
 	copyobjectxytoperm 4
 	setflag FLAG_DEFEATED_WALLY_VICTORY_ROAD
@@ -76,6 +77,27 @@ VictoryRoad_1F_Movement_WallyApproachPlayer2: @ 8235E21
 	walk_left
 	walk_up
 	step_end
+
+VictoryRoad_1F_EventScript_WallyGiveStone::
+	msgbox VictoryRoad_1F_Text_WallyGivesStone, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON				@give out mega stone for starter weak to player's
+	case 0, VictoryRoad_1F_EventScript_GiveSwampertite
+	case 1, VictoryRoad_1F_EventScript_GiveSceptilite
+	case 2, VictoryRoad_1F_EventScript_GiveBlazikenite
+	setflag FLAG_WEAKER_STARTER_STONE_GET
+	return
+
+VictoryRoad_1F_EventScript_GiveSceptilite::
+	giveitem ITEM_SCEPTILITE
+	return
+
+VictoryRoad_1F_EventScript_GiveBlazikenite::
+	giveitem ITEM_BLAZIKENITE
+	return
+
+VictoryRoad_1F_EventScript_GiveSwampertite::
+	giveitem ITEM_SWAMPERTITE
+	return
 
 @ This Wally appears near the entrance once his battle is triggered and remains there until the Hall of Fame is entered
 VictoryRoad_1F_EventScript_EntranceWally:: @ 8235E2C
@@ -157,6 +179,10 @@ VictoryRoad_1F_Text_WallyPostBattle: @ 82360FE
 	.string "too… But one of these days, {PLAYER},\l"
 	.string "I'm going to catch up to you…\p"
 	.string "And challenge the POKéMON LEAGUE!$"
+
+VictoryRoad_1F_Text_WallyGivesStone:
+	.string "WALLY: As proof of my promise,\n"
+	.string "I want you to have this, {PLAYER}.$"
 
 VictoryRoad_1F_Text_EdgarIntro: @ 8236184
 	.string "I've made it this far a couple times,\n"

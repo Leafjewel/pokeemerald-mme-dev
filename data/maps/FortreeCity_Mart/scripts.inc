@@ -6,7 +6,8 @@ FortreeCity_Mart_EventScript_Clerk:: @ 8217666
 	faceplayer
 	message gText_HowMayIServeYou
 	waitmessage
-	pokemart FortreeCity_Mart_Pokemart
+	@pokemart FortreeCity_Mart_Pokemart
+	pokemart 0
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end

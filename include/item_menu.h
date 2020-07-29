@@ -32,7 +32,13 @@
 #define ITEMMENUACTION_SHOW         11
 #define ITEMMENUACTION_GIVE_2       12
 #define ITEMMENUACTION_CONFIRM_2    13
-#define ITEMMENUACTION_DUMMY        14
+#define ITEMMENUACTION_SELECT_BUTTON    14	//register lr
+#define ITEMMENUACTION_L_BUTTON     15		//register lr
+#define ITEMMENUACTION_R_BUTTON     16		//register lr
+#define ITEMMENUACTION_BY_NAME      17		//bag sort
+#define ITEMMENUACTION_BY_TYPE      18		//bag sort
+#define ITEMMENUACTION_BY_AMOUNT    19		//bag sort
+#define ITEMMENUACTION_DUMMY        20 //14		//register lr + bag sort
 
 // Exported type declarations
 struct BagStruct

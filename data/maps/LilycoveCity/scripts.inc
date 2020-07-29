@@ -70,6 +70,13 @@ LilycoveCity_EventScript_GirlAquaGone:: @ 81E2C40
 
 LilycoveCity_EventScript_RichBoy:: @ 81E2C4A
 	msgbox LilycoveCity_Text_ImFromKanto, MSGBOX_NPC
+	goto_if_unset FLAG_ENABLE_SHIP_FARAWAY_ISLAND, LilycoveCity_EventScript_RichBoyMap
+	end
+
+LilycoveCity_EventScript_RichBoyMap::
+	msgbox LilycoveCity_Text_KantoGiveOldSeaMap, MSGBOX_NPC
+	giveitem ITEM_OLD_SEA_MAP
+	setflag FLAG_ENABLE_SHIP_FARAWAY_ISLAND
 	end
 
 LilycoveCity_EventScript_Sailor2:: @ 81E2C53
@@ -104,6 +111,13 @@ LilycoveCity_EventScript_Man2:: @ 81E2C91
 
 LilycoveCity_EventScript_ExpertM1:: @ 81E2C9A
 	msgbox LilycoveCity_Text_SeaRemainsForeverYoung, MSGBOX_SIGN
+	goto_if_unset FLAG_ENABLE_SHIP_BIRTH_ISLAND, LilycoveCity_EventScript_AuroraTicket
+	end
+
+LilycoveCity_EventScript_AuroraTicket::
+	msgbox LilycoveCity_Text_SoundsYoung, MSGBOX_SIGN
+	giveitem ITEM_AURORA_TICKET
+	setflag FLAG_ENABLE_SHIP_BIRTH_ISLAND
 	end
 
 LilycoveCity_EventScript_ExpertF:: @ 81E2CA3
@@ -140,8 +154,15 @@ LilycoveCity_EventScript_Man1:: @ 81E2CDD
 LilycoveCity_EventScript_Woman1:: @ 81E2CEE
 	lockall
 	msgbox LilycoveCity_Text_HoneymoonVowToSeeRarePokemon, MSGBOX_NPC
+	goto_if_unset FLAG_ENABLE_SHIP_NAVEL_ROCK, LilycoveCity_EventScript_MysticTicket
 	applymovement 19, Common_Movement_FaceOriginalDirection
 	end
+
+LilycoveCity_EventScript_MysticTicket::
+	msgbox LilycoveCity_Text_OnlyOneTicket, MSGBOX_NPC
+	giveitem ITEM_MYSTIC_TICKET
+	setflag FLAG_ENABLE_SHIP_NAVEL_ROCK
+	return
 
 LilycoveCity_EventScript_CitySign:: @ 81E2CFF
 	msgbox LilycoveCity_Text_CitySign, MSGBOX_SIGN
@@ -613,6 +634,12 @@ LilycoveCity_Text_ImFromKanto: @ 81E3F05
 	.string "Could there be rare POKéMON that live\n"
 	.string "only in this area?$"
 
+LilycoveCity_Text_KantoGiveOldSeaMap:
+	.string "I brought this silly map with me all\n"
+	.string "the way from home.\p"
+	.string "I can't figure out what to do with\n"
+	.string "it, so take it off my hands for me.$"
+
 LilycoveCity_Text_TeamAquaBeenTrainingWailmer: @ 81E3FAB
 	.string "TEAM AQUA's been training their\n"
 	.string "WAILMER in the cove.\p"
@@ -649,6 +676,14 @@ LilycoveCity_Text_SeaRemainsForeverYoung: @ 81E420B
 	.string "the sea remains forever young with\l"
 	.string "the vivid brilliance of life…\p"
 	.string "Fwohoho fwohohohoho…$"
+
+LilycoveCity_Text_SoundsYoung:
+	.string "Speaking of young, the island this\n"
+	.string "here ticket sounds like it would young\l"
+	.string "for a very long time.\p"
+	.string "I'd like you to have it and experience\n"
+	.string "something wonderful while you're still\l"
+	.string "a whippersnapper.$"
 
 LilycoveCity_Text_SixtyYearsAgoHusbandProposed: @ 81E4283
 	.string "It was sixty years ago that my husband\n"
@@ -767,3 +802,15 @@ LilycoveCity_Text_HoneymoonVowToSeeRarePokemon: @ 81E49F4
 	.string "POKéMON as soon as we arrived.\p"
 	.string "I mean, we are totally happy!$"
 
+LilycoveCity_Text_OnlyOneTicket:
+	.string "We even got this super rare ticket\n"
+	.string "to a mysterious island!\p"
+	.string "But it's only good for one person,\n"
+	.string "so we can't use it, which sucks.\p"
+	.string "We heard there's a pair of POKéMON\n"
+	.string "living on the island too.\p"
+	.string "Sheesh, it would have been great if we\n"
+	.string "could both go with one ticket.\p"
+	.string "...You know what, why don't I give you\n"
+	.string "this ticket, so I can stop thinking\l"
+	.string "about it.$"

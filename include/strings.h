@@ -983,6 +983,8 @@ extern const u8 gText_AnythingElseICanHelp[];
 extern const u8 gText_QuitShopping[];
 extern const u8 gText_PokedollarVar1[];
 extern const u8 gText_SoldOut[];	//tm shops
+extern const u8 gText_SoldOut2[];	//tm shops + single purchase TMs
+
 extern const u8 gText_YouDontHaveMoney[];
 extern const u8 gText_Var1CertainlyHowMany2[];
 extern const u8 gText_Var1CertainlyHowMany[];
@@ -992,12 +994,11 @@ extern const u8 gText_InBagVar1[];
 extern const u8 gText_Var1AndYouWantedVar2[];
 extern const u8 gText_HereYouGoThankYou[];
 extern const u8 gText_NoMoreRoomForThis[];
-extern const u8 gText_SorryWereOutOfThis[];		//tm shops
 extern const u8 gText_ThankYouIllSendItHome[];
 extern const u8 gText_ThanksIllSendItHome[];
 extern const u8 gText_SpaceForVar1Full[];
 extern const u8 gText_ThrowInPremierBall[];
-extern const u8 gText_ThrowInPremierBalls[];	//Gen VIII Premier Balls
+extern const u8 gText_ThrowInPremierBalls[];	//LGPE Premier Balls
 extern const u8 gText_ShopBuy[];
 extern const u8 gText_ShopSell[];
 extern const u8 gText_ShopQuit[];

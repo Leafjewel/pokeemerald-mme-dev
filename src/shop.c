@@ -115,6 +115,8 @@ static const u16 sShopInventory_OneBadge[] = {
     ITEM_ANTIDOTE,
     ITEM_PARALYZE_HEAL,
     ITEM_AWAKENING,
+	ITEM_BURN_HEAL,
+    ITEM_ICE_HEAL,
     ITEM_REPEL,
     ITEM_ESCAPE_ROPE,
     ITEM_NONE
@@ -131,6 +133,8 @@ static const u16 sShopInventory_TwoBadges[] = {
     ITEM_ICE_HEAL,
     ITEM_REPEL,
     ITEM_ESCAPE_ROPE,
+    ITEM_X_ATTACK,
+    ITEM_X_DEFENSE,
     ITEM_NONE
 };
 
@@ -146,6 +150,10 @@ static const u16 sShopInventory_ThreeBadges[] = {
     ITEM_ICE_HEAL,
     ITEM_REPEL,
     ITEM_ESCAPE_ROPE,
+    ITEM_X_ATTACK,
+    ITEM_X_DEFENSE,
+    ITEM_X_SPEED,
+    ITEM_X_SP_ATK,
     ITEM_NONE
 };
 
@@ -163,6 +171,11 @@ static const u16 sShopInventory_FourBadges[] = {
     ITEM_REPEL,
     ITEM_SUPER_REPEL,
     ITEM_ESCAPE_ROPE,
+    ITEM_X_ATTACK,
+    ITEM_X_DEFENSE,
+    ITEM_X_SPEED,
+    ITEM_X_SP_ATK,
+    ITEM_X_ACCURACY,
     ITEM_NONE
 };
 
@@ -182,6 +195,13 @@ static const u16 sShopInventory_FiveBadges[] = {
     ITEM_REPEL,
     ITEM_SUPER_REPEL,
     ITEM_ESCAPE_ROPE,
+    ITEM_X_ATTACK,
+    ITEM_X_DEFENSE,
+    ITEM_X_SPEED,
+    ITEM_X_SP_ATK,
+    ITEM_X_ACCURACY,
+    ITEM_DIRE_HIT,
+    ITEM_GUARD_SPEC,
     ITEM_NONE
 };
 
@@ -202,6 +222,13 @@ static const u16 sShopInventory_SixBadges[] = {
     ITEM_REPEL,
     ITEM_SUPER_REPEL,
     ITEM_MAX_REPEL,
+    ITEM_X_ATTACK,
+    ITEM_X_DEFENSE,
+    ITEM_X_SPEED,
+    ITEM_X_SP_ATK,
+    ITEM_X_ACCURACY,
+    ITEM_DIRE_HIT,
+    ITEM_GUARD_SPEC,
     ITEM_NONE
 };
 
@@ -223,6 +250,13 @@ static const u16 sShopInventory_SevenBadges[] = {
     ITEM_REPEL,
     ITEM_SUPER_REPEL,
     ITEM_MAX_REPEL,
+    ITEM_X_ATTACK,
+    ITEM_X_DEFENSE,
+    ITEM_X_SPEED,
+    ITEM_X_SP_ATK,
+    ITEM_X_ACCURACY,
+    ITEM_DIRE_HIT,
+    ITEM_GUARD_SPEC,
     ITEM_NONE
 };
 
@@ -245,6 +279,13 @@ static const u16 sShopInventory_EightBadges[] = {
     ITEM_REPEL,
     ITEM_SUPER_REPEL,
     ITEM_MAX_REPEL,
+    ITEM_X_ATTACK,
+    ITEM_X_DEFENSE,
+    ITEM_X_SPEED,
+    ITEM_X_SP_ATK,
+    ITEM_X_ACCURACY,
+    ITEM_DIRE_HIT,
+    ITEM_GUARD_SPEC,
     ITEM_NONE
 };
 
@@ -800,13 +841,17 @@ static void BuyMenuPrintPriceInList(u8 windowId, s32 item, u8 y, u8 itemPos)
                 ItemId_GetPrice(item) >> GetPriceReduction(POKENEWS_SLATEPORT),
                 STR_CONV_MODE_LEFT_ALIGN,
                 5);
-			StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);	//tm shops
+			//StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);	//tm shops
+			if (ItemId_GetPocket(item) == POCKET_TM_HM && (CheckBagHasItem(item, 1) || CheckPCHasItem(item, 1)))	//single purchase TMs
+				StringCopy(gStringVar4, gText_SoldOut2);
+			else
+				StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);	//end section
         }
 		else if (gMartInfo.martType == MART_TYPE_TM)	//start tm shops section
         {
             if (GetSetItemBought(gMartInfo.shopId, itemPos, FLAG_GET_BOUGHT))
             {
-                StringCopy(gStringVar1, gText_SoldOut);
+                StringCopy(gStringVar1, gText_SoldOut2);
                 StringExpandPlaceholders(gStringVar4, gText_StrVar1);
             }
             else
@@ -826,7 +871,11 @@ static void BuyMenuPrintPriceInList(u8 windowId, s32 item, u8 y, u8 itemPos)
                 gDecorations[item].price,
                 STR_CONV_MODE_LEFT_ALIGN,
                 5);
-			StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);	//tm shops
+			//StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);	//tm shops
+			if (ItemId_GetPocket(item) == POCKET_TM_HM && (CheckBagHasItem(item, 1) || CheckPCHasItem(item, 1)))	//single purchase TMs
+				StringCopy(gStringVar4, gText_SoldOut2);
+			else
+				StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);	//end section
         }
 
         //StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);	tm shops
@@ -1197,7 +1246,10 @@ static void Task_BuyMenu(u8 taskId)
                 gShopDataPtr->totalCost = gDecorations[itemId].price;
             }
 
-            if (!IsEnoughMoney(&gSaveBlock1Ptr->money, gShopDataPtr->totalCost))
+            if (ItemId_GetPocket(itemId) == POCKET_TM_HM && (CheckBagHasItem(itemId, 1) || CheckPCHasItem(itemId, 1)) && gMartInfo.martType != MART_TYPE_TM)
+                BuyMenuDisplayMessage(taskId, gText_SoldOut, BuyMenuReturnToItemList);
+            else if (!IsEnoughMoney(&gSaveBlock1Ptr->money, gShopDataPtr->totalCost))
+            //if (!IsEnoughMoney(&gSaveBlock1Ptr->money, gShopDataPtr->totalCost))
             {
                 BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
             }
@@ -1207,10 +1259,15 @@ static void Task_BuyMenu(u8 taskId)
                 {
                     CopyItemName(itemId, gStringVar1);
                     if (ItemId_GetPocket(itemId) == POCKET_TM_HM)
-                    {
-                        StringCopy(gStringVar2, gMoveNames[ItemIdToBattleMoveId(itemId)]);
-                        BuyMenuDisplayMessage(taskId, gText_Var1CertainlyHowMany2, Task_BuyHowManyDialogueInit);
-                    }
+                    {		//single purchase TMs
+                        //StringCopy(gStringVar2, gMoveNames[ItemIdToBattleMoveId(itemId)]);
+                        //BuyMenuDisplayMessage(taskId, gText_Var1CertainlyHowMany2, Task_BuyHowManyDialogueInit);
+						ConvertIntToDecimalStringN(gStringVar2, gShopDataPtr->totalCost, STR_CONV_MODE_LEFT_ALIGN, 6);
+                        StringExpandPlaceholders(gStringVar4, gText_YouWantedVar1ThatllBeVar2);
+                        tItemCount = 1;
+                        gShopDataPtr->totalCost = (ItemId_GetPrice(tItemId) >> GetPriceReduction(POKENEWS_SLATEPORT)) * tItemCount;
+                        BuyMenuDisplayMessage(taskId, gStringVar4, BuyMenuConfirmPurchase);
+                    }	//end section
                     else
                     {
                         BuyMenuDisplayMessage(taskId, gText_Var1CertainlyHowMany, Task_BuyHowManyDialogueInit);
@@ -1236,7 +1293,7 @@ static void Task_BuyMenu(u8 taskId)
                     }
                     else
                     {
-                        BuyMenuDisplayMessage(taskId, gText_SorryWereOutOfThis, BuyMenuReturnToItemList);
+                        BuyMenuDisplayMessage(taskId, gText_SoldOut, BuyMenuReturnToItemList);
                     }
                 } //end section
                 else
@@ -1339,8 +1396,10 @@ static void BuyMenuTryMakePurchase(u8 taskId)
     {
         if (AddBagItem(tItemId, tItemCount) == TRUE)
         {
-            BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
+            //BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
+			RedrawListMenu(tListTaskId);
             RecordItemPurchase(taskId);
+			BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
         }
         else
         {
@@ -1408,7 +1467,7 @@ static void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
     if (gMain.newKeys & (A_BUTTON | B_BUTTON))
     {
         PlaySE(SE_SELECT);
-		//Gen VIII Premier Balls
+		//LGPE Premier Balls
         /*if (tItemId == ITEM_POKE_BALL && tItemCount > 9 && AddBagItem(ITEM_PREMIER_BALL, 1) == TRUE)
         {
             BuyMenuDisplayMessage(taskId, gText_ThrowInPremierBall, BuyMenuReturnToItemList);
@@ -1424,11 +1483,11 @@ static void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
                 BuyMenuDisplayMessage(taskId, gText_ThrowInPremierBall, BuyMenuReturnToItemList);
             }
         }
-        else if((ItemId_GetPocket(tItemId) == POCKET_TM_HM))	//?
+        else if((ItemId_GetPocket(tItemId) == POCKET_TM_HM))
         {
             RedrawListMenu(tListTaskId);
             BuyMenuReturnToItemList(taskId);
-        }		//???		//end section
+        }		//end section
         else
         {
             BuyMenuReturnToItemList(taskId);

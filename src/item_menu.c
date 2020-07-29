@@ -52,32 +52,6 @@
 #include "battle_pike.h"
 #include "constants/rgb.h"
 
-enum MenuActions	//register lr
-{
-    ITEMMENUACTION_USE,
-    ITEMMENUACTION_TOSS,
-    ITEMMENUACTION_REGISTER,
-    ITEMMENUACTION_GIVE,
-    ITEMMENUACTION_CANCEL,
-    //ITEMMENUACTION_USE_2,	//changed for bag sorting
-	ITEMMENUACTION_USE_IN_BATTLE,
-    ITEMMENUACTION_CHECK,
-    ITEMMENUACTION_WALK,
-    ITEMMENUACTION_DESELECT,
-    ITEMMENUACTION_CHECK_TAG,
-    ITEMMENUACTION_CONFIRM,
-    ITEMMENUACTION_SHOW,
-    ITEMMENUACTION_GIVE_2,
-    ITEMMENUACTION_CONFIRM_2,
-    ITEMMENUACTION_SELECT_BUTTON,
-    ITEMMENUACTION_L_BUTTON,
-    ITEMMENUACTION_R_BUTTON,
-	ITEMMENUACTION_BY_NAME,	//added for bag sorting
-    ITEMMENUACTION_BY_TYPE,	//added for bag sorting
-    ITEMMENUACTION_BY_AMOUNT,	//added for bag sorting
-    ITEMMENUACTION_DUMMY,
-};	//end section
-
 void GoToBagMenu(u8 bagMenuType, u8 pocketId, void (*postExitMenuMainCallback2)());
 void CB2_Bag(void);
 bool8 SetupBagMenu(void);
@@ -196,7 +170,6 @@ static s8 CompareItemsAlphabetically(struct ItemSlot* itemSlot1, struct ItemSlot
 static s8 CompareItemsByMost(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2);
 static s8 CompareItemsByType(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2);
 
-
 // .rodata
 
 static const struct BgTemplate sBgTemplates_ItemMenu[] =
@@ -279,9 +252,9 @@ static const struct MenuAction sItemMenuActions[] = {
     [ITEMMENUACTION_SELECT_BUTTON] = {sMenuText_Select, ItemMenu_RegisterSelect},	//added for register lr
     [ITEMMENUACTION_L_BUTTON]      = {sMenuText_L, ItemMenu_RegisterL},			//added for register lr
     [ITEMMENUACTION_R_BUTTON]      = {sMenuText_R, ItemMenu_RegisterR},			//added for register lr
-	[ITEMMENUACTION_BY_NAME]       = {sMenuText_ByName, ItemMenu_SortByName},	//added for bag sorting
-    [ITEMMENUACTION_BY_TYPE]       = {sMenuText_ByType, ItemMenu_SortByType},	//added for bag sorting
-    [ITEMMENUACTION_BY_AMOUNT]     = {sMenuText_ByAmount, ItemMenu_SortByAmount},	//added for bag sorting
+    [ITEMMENUACTION_BY_NAME] =      {sMenuText_ByName, ItemMenu_SortByName},	//added for bag sorting
+    [ITEMMENUACTION_BY_TYPE] =      {sMenuText_ByType, ItemMenu_SortByType},	//added for bag sorting
+    [ITEMMENUACTION_BY_AMOUNT] =    {sMenuText_ByAmount, ItemMenu_SortByAmount},	//added for bag sorting
     [ITEMMENUACTION_DUMMY] =        {gText_EmptyString2, NULL}
 };
 
@@ -1259,59 +1232,60 @@ void Task_BagMenu_HandleInput(u8 taskId)
                     }
                     return;
                 }
-                break;
-        }
-		else if (JOY_NEW(START_BUTTON))	//bag sorting
-        {
-            PlaySE(SE_SELECT);
-            sub_81AB824();
-            BagMenu_PrintCursor_(data[0], 2);
-            ListMenuGetScrollAndRow(data[0], scrollPos, cursorPos);
-            gTasks[taskId].func = Task_LoadBagSortOptions;
-            //gUnknown_08614054[0](taskId);
-        }	//end section
-        else
-        {
-            int listPosition = ListMenu_ProcessInput(data[0]);
-            ListMenuGetScrollAndRow(data[0], scrollPos, cursorPos);
-            switch (listPosition)
-            {
-                case LIST_NOTHING_CHOSEN:
-                    break;
-                case LIST_CANCEL:
-                    if (gBagPositionStruct.location == ITEMMENULOCATION_BERRY_BLENDER_CRUSH)
+
+				else if (JOY_NEW(START_BUTTON))	//bag sorting
+                {
+                    if ((gBagMenu->numItemStacks[gBagPositionStruct.pocket] - 1) <= 1) //can't sort with 0 or 1 item in bag
                     {
-                        PlaySE(SE_HAZURE);
+                        static const u8 sText_NothingToSort[] = _("There's nothing to sort!");
+                        PlaySE(SE_SELECT);
+                        DisplayItemMessage(taskId, 1, sText_NothingToSort, sub_81AD350);
                         break;
                     }
+					 
+					data[1] = GetItemListPosition(gBagPositionStruct.pocket);
+                    data[2] = BagGetQuantityByPocketPosition(gBagPositionStruct.pocket + 1, data[1]);
+                    if (gBagPositionStruct.cursorPosition[gBagPositionStruct.pocket] == gBagMenu->numItemStacks[gBagPositionStruct.pocket] - 1)
+                        break;
+					else
+					    gSpecialVar_ItemId = BagGetItemIdByPocketPosition(gBagPositionStruct.pocket + 1, data[1]);
+
                     PlaySE(SE_SELECT);
-                    gSpecialVar_ItemId = select;
-                    gTasks[taskId].func = Task_FadeAndCloseBagMenu;
-                    break;
-                default: // A_BUTTON
-                    PlaySE(SE_SELECT);
-                    sub_81AB824();
+                    BagDestroyPocketScrollArrowPair();
                     BagMenu_PrintCursor_(data[0], 2);
-                    data[1] = listPosition;
-                    data[2] = BagGetQuantityByPocketPosition(gBagPositionStruct.pocket + 1, listPosition);
-                    gSpecialVar_ItemId = BagGetItemIdByPocketPosition(gBagPositionStruct.pocket + 1, listPosition);
-                    //gUnknown_08614054[gBagPositionStruct.location](taskId);
-					sBagMenuTasks[gBagPositionStruct.location](taskId);	//register lr
-                    break;
+                    ListMenuGetScrollAndRow(data[0], scrollPos, cursorPos);
+                    gTasks[taskId].func = Task_LoadBagSortOptions;
+                }	//end section
+				else
+                {
+                    listPosition = ListMenu_ProcessInput(data[0]);
+                    ListMenuGetScrollAndRow(data[0], scrollPos, cursorPos);
+                    switch (listPosition)
+                    {
+                        case LIST_NOTHING_CHOSEN:
+                            break;
+                        case LIST_CANCEL:
+                            if (gBagPositionStruct.location == ITEMMENULOCATION_BERRY_BLENDER_CRUSH)
+                            {
+                                PlaySE(SE_HAZURE);
+                                break;
+                            }
+                            PlaySE(SE_SELECT);
+                            gSpecialVar_ItemId = ITEM_NONE;
+                            gTasks[taskId].func = Task_FadeAndCloseBagMenu;
+                            break;
+                        default: // A_BUTTON
+                            PlaySE(SE_SELECT);
+                            BagDestroyPocketScrollArrowPair();
+                            BagMenu_PrintCursor_(data[0], 2);
+                            data[1] = listPosition;
+                            data[2] = BagGetQuantityByPocketPosition(gBagPositionStruct.pocket + 1, listPosition);
+                            gSpecialVar_ItemId = BagGetItemIdByPocketPosition(gBagPositionStruct.pocket + 1, listPosition);
+                            gUnknown_08614054[gBagPositionStruct.location](taskId);
+                            break;
+                    }
                 }
-                PlaySE(SE_SELECT);
-                gSpecialVar_ItemId = ITEM_NONE;
-                gTasks[taskId].func = Task_FadeAndCloseBagMenu;
-                break;
-            default: // A_BUTTON
-                PlaySE(SE_SELECT);
-                BagDestroyPocketScrollArrowPair();
-                BagMenu_PrintCursor_(data[0], 2);
-                data[1] = listPosition;
-                data[2] = BagGetQuantityByPocketPosition(gBagPositionStruct.pocket + 1, listPosition);
-                gSpecialVar_ItemId = BagGetItemIdByPocketPosition(gBagPositionStruct.pocket + 1, listPosition);
-                gUnknown_08614054[gBagPositionStruct.location](taskId);
-                break;
+				break;
         }
     }
 }
@@ -1656,8 +1630,8 @@ void OpenContextMenu(u8 unused)
                         gBagMenu->contextMenuItemsPtr = gBagMenu->contextMenuItemsBuffer;
                         gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_KeyItemsPocket);
                         memcpy(&gBagMenu->contextMenuItemsBuffer, &sContextMenuItems_KeyItemsPocket, sizeof(sContextMenuItems_KeyItemsPocket));
-                        if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId)
-                            gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
+                        //if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId)
+                        //    gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
                         if (gSpecialVar_ItemId == ITEM_MACH_BIKE || gSpecialVar_ItemId == ITEM_ACRO_BIKE)
                         {
                             if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
@@ -1665,11 +1639,11 @@ void OpenContextMenu(u8 unused)
                         }
 
                         if (gSaveBlock1Ptr->registeredItemSelect == gSpecialVar_ItemId)
-                            gBagMenu->unk825 = ITEMMENUACTION_DESELECT;
+                            gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
                         else if (gSaveBlock1Ptr->registeredItemL == gSpecialVar_ItemId)
-                            gBagMenu->unk825 = ITEMMENUACTION_DESELECT;
+                            gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
                         else if (gSaveBlock1Ptr->registeredItemR == gSpecialVar_ItemId)
-                            gBagMenu->unk825 = ITEMMENUACTION_DESELECT;
+                            gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
                         break;
                     case BALLS_POCKET:
                         gBagMenu->contextMenuItemsPtr = sContextMenuItems_BallsPocket;
@@ -2663,7 +2637,7 @@ static void ItemMenu_FinishRegister(u8 taskId)
     DestroyListMenuTask(data[0], scrollPos, cursorPos);
     LoadBagItemListBuffers(gBagPositionStruct.pocket);
     data[0] = ListMenuInit(&gMultiuseListMenuTemplate, *scrollPos, *cursorPos);
-    schedule_bg_copy_tilemap_to_vram(0);
+    ScheduleBgCopyTilemapToVram(0);
     ItemMenu_Cancel(taskId);
 }
 
@@ -2678,12 +2652,12 @@ static void ItemMenu_Register(u8 taskId)
     sRegisterSubMenu = TRUE;
     listPosition = ListMenu_ProcessInput(data[0]);
     ListMenuGetScrollAndRow(data[0], scrollPos, cursorPos);
-    sub_81AB824();
+    BagDestroyPocketScrollArrowPair();
     BagMenu_PrintCursor_(data[0], 2);
     data[1] = listPosition;
     data[2] = BagGetQuantityByPocketPosition(gBagPositionStruct.pocket + 1, listPosition);
     gSpecialVar_ItemId = BagGetItemIdByPocketPosition(gBagPositionStruct.pocket + 1, listPosition);
-    sBagMenuTasks[gBagPositionStruct.location](taskId);
+    gUnknown_08614054[gBagPositionStruct.location](taskId);
 }
 
 static void ItemMenu_RegisterSelect(u8 taskId)
@@ -2918,6 +2892,8 @@ static const u16 sItemsByType[ITEMS_COUNT] =
     [ITEM_PP_MAX] = ITEM_TYPE_STAT_BOOST_DRINK,
     
     [ITEM_ABILITY_CAPSULE] = ITEM_TYPE_STAT_BOOST_DRINK,
+	[ITEM_SILVER_BOTTLECAP] = ITEM_TYPE_STAT_BOOST_DRINK,
+    [ITEM_GOLD_BOTTLECAP] = ITEM_TYPE_STAT_BOOST_DRINK,
     [ITEM_HEALTH_WING] = ITEM_TYPE_STAT_BOOST_WING,
     [ITEM_MUSCLE_WING] = ITEM_TYPE_STAT_BOOST_WING,
     [ITEM_RESIST_WING] = ITEM_TYPE_STAT_BOOST_WING,
@@ -3278,8 +3254,6 @@ static const u16 sItemsByType[ITEMS_COUNT] =
     //[ITEM_COMET_SHARD] = ITEM_TYPE_SELLABLE,
     //[ITEM_BALM_MUSHROOM] = ITEM_TYPE_SELLABLE,
     [ITEM_ODD_KEYSTONE] = ITEM_TYPE_SELLABLE,
-    //[ITEM_BOTTLE_CAP] = ITEM_TYPE_SELLABLE,
-    //[ITEM_GOLD_BOTTLE_CAP] = ITEM_TYPE_SELLABLE,
     /*[ITEM_WISHING_PIECE] = ITEM_TYPE_SELLABLE,
     [ITEM_RELIC_COPPER] = ITEM_TYPE_RELIC,
     [ITEM_RELIC_SILVER] = ITEM_TYPE_RELIC,
@@ -3325,21 +3299,21 @@ static void AddBagSortSubMenu(void)
     switch (gBagPositionStruct.pocket + 1)
     {
         case POCKET_KEY_ITEMS:
-            gBagMenu->unk820 = sBagMenuSortKeyItems;
-            memcpy(&gBagMenu->unk824, &sBagMenuSortKeyItems, NELEMS(sBagMenuSortKeyItems));
-            gBagMenu->unk828 = NELEMS(sBagMenuSortKeyItems);
+            gBagMenu->contextMenuItemsPtr = sBagMenuSortKeyItems;
+            memcpy(&gBagMenu->contextMenuItemsBuffer, &sBagMenuSortKeyItems, NELEMS(sBagMenuSortKeyItems));
+            gBagMenu->contextMenuNumItems = NELEMS(sBagMenuSortKeyItems);
             break;
         case POCKET_POKE_BALLS:
         case POCKET_BERRIES:
         case POCKET_TM_HM:
-            gBagMenu->unk820 = sBagMenuSortPokeBallsBerries;
-            memcpy(&gBagMenu->unk824, &sBagMenuSortPokeBallsBerries, NELEMS(sBagMenuSortPokeBallsBerries));
-            gBagMenu->unk828 = NELEMS(sBagMenuSortPokeBallsBerries);
+            gBagMenu->contextMenuItemsPtr = sBagMenuSortPokeBallsBerries;
+            memcpy(&gBagMenu->contextMenuItemsBuffer, &sBagMenuSortPokeBallsBerries, NELEMS(sBagMenuSortPokeBallsBerries));
+            gBagMenu->contextMenuNumItems = NELEMS(sBagMenuSortPokeBallsBerries);
             break;
         default:				//applies to Medicine, Battle Items, and Power Up pockets too
-            gBagMenu->unk820 = sBagMenuSortItems;
-            memcpy(&gBagMenu->unk824, &sBagMenuSortItems, NELEMS(sBagMenuSortItems));
-            gBagMenu->unk828 = NELEMS(sBagMenuSortItems);
+            gBagMenu->contextMenuItemsPtr = sBagMenuSortItems;
+            memcpy(&gBagMenu->contextMenuItemsBuffer, &sBagMenuSortItems, NELEMS(sBagMenuSortItems));
+            gBagMenu->contextMenuNumItems = NELEMS(sBagMenuSortItems);
             break;
     }
 
@@ -3347,9 +3321,9 @@ static void AddBagSortSubMenu(void)
     FillWindowPixelBuffer(1, PIXEL_FILL(0));
     BagMenu_Print(1, 1, gStringVar4, 3, 1, 0, 0, 0, 0);
 
-    if (gBagMenu->unk828 == 2)
+    if (gBagMenu->contextMenuNumItems == 2)
         sub_81ACAF8(BagMenu_AddWindow(1));
-    else if (gBagMenu->unk828 == 4)
+    else if (gBagMenu->contextMenuNumItems == 4)
         sub_81ACB54(BagMenu_AddWindow(2), 2, 2);
     else
         sub_81ACB54(BagMenu_AddWindow(3), 2, 3);
@@ -3407,7 +3381,7 @@ static void Task_SortFinish(u8 taskId)
         SetInitialScrollAndCursorPositions(gBagPositionStruct.pocket);
         LoadBagItemListBuffers(gBagPositionStruct.pocket);
         data[0] = ListMenuInit(&gMultiuseListMenuTemplate, *scrollPos, *cursorPos);
-        schedule_bg_copy_tilemap_to_vram(0);
+        ScheduleBgCopyTilemapToVram(0);
         set_callback3_to_bag(taskId);
     }
 }

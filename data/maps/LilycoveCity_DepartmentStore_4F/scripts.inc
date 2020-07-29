@@ -18,7 +18,7 @@ LilycoveCity_DepartmentStore_4F_EventScript_ClerkLeft:: @ 821FE06
 	faceplayer
 	message gText_HowMayIServeYou
 	waitmessage
-	pokemart LilycoveCity_DepartmentStore_4F_Pokemart_AttackTMs, 1
+	pokemart LilycoveCity_DepartmentStore_4F_Pokemart_AttackTMs
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end
@@ -41,17 +41,17 @@ LilycoveCity_DepartmentStore_4F_Pokemart_AttackTMs: @ 821FE20
 	.2byte ITEM_TM61  @ Will-o-Wisp
 	.2byte ITEM_TM65  @ Shadow Claw
 	.2byte ITEM_TM68  @ Giga Impact
-	.2byte ITEM_TM72  @ Avalanche
-	.2byte ITEM_TM73  @ Thunder Wave
-	.2byte ITEM_TM75  @ Swords Dance
-	.2byte ITEM_TM80  @ Rock Slide
-	.2byte ITEM_TM81  @ X-Scissor
-	.2byte ITEM_TM84  @ Poison Jab
-	.2byte ITEM_TM86  @ Grass Knot
-	.2byte ITEM_TM91  @ Flash Cannon
-	.2byte ITEM_TM97  @ Dark Pulse
-	.2byte ITEM_TM98  @ Power-Up Punch
-	.2byte ITEM_TM99  @ Dazzling Gleam
+	@.2byte ITEM_TM72  @ Avalanche
+	@.2byte ITEM_TM73  @ Thunder Wave
+	@.2byte ITEM_TM75  @ Swords Dance
+	@.2byte ITEM_TM80  @ Rock Slide
+	@.2byte ITEM_TM81  @ X-Scissor
+	@.2byte ITEM_TM84  @ Poison Jab
+	@.2byte ITEM_TM86  @ Grass Knot
+	@.2byte ITEM_TM91  @ Flash Cannon
+	@.2byte ITEM_TM97  @ Dark Pulse
+	@.2byte ITEM_TM98  @ Power-Up Punch
+	@.2byte ITEM_TM99  @ Dazzling Gleam
 	.2byte ITEM_NONE
 	release
 	end

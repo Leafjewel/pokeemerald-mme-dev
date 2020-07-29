@@ -4649,7 +4649,7 @@ static void ShowStatSelectWindow(void)
         AddTextPrinterParameterized(windowId, fontId, sStatStrings[i], 8, (i * 16) + 1, TEXT_SPEED_FF, NULL);
     }
     InitMenuInUpperLeftCornerPlaySoundWhenAPressed(windowId, NUM_STATS, 0);
-    schedule_bg_copy_tilemap_to_vram(2);
+    ScheduleBgCopyTilemapToVram(2);
 }		//end section
 
 static void Task_HandleWhichMoveInput(u8 taskId)
@@ -5109,7 +5109,7 @@ void ItemUseCB_GoldBottlecap(u8 taskId, TaskFunc task)
     {
         gPartyMenuUseExitCallback = FALSE;
         DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
-        schedule_bg_copy_tilemap_to_vram(2);
+        ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = task;
         return;
     }
@@ -5121,7 +5121,7 @@ void ItemUseCB_GoldBottlecap(u8 taskId, TaskFunc task)
     GetMonNickname(mon, gStringVar1);
     StringExpandPlaceholders(gStringVar4, gText_PkmnAllInherentStatsIncreased);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
-    schedule_bg_copy_tilemap_to_vram(2);
+    ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = Task_DisplayStatBoostPg1;
 }
 
@@ -5151,7 +5151,7 @@ void UseSilverBottlecap(u8 taskId, TaskFunc task, int statIndex)
     {
         gPartyMenuUseExitCallback = FALSE;
         DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
-        schedule_bg_copy_tilemap_to_vram(2);
+        ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = task;
 		return;
     }
@@ -5163,7 +5163,7 @@ void UseSilverBottlecap(u8 taskId, TaskFunc task, int statIndex)
     GetMonNickname(mon, gStringVar1);
     StringExpandPlaceholders(gStringVar4, gText_PkmnOneInherentStatIncreased);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
-    schedule_bg_copy_tilemap_to_vram(2);
+    ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = Task_DisplayStatBoostPg1;
 }	//end section
 
@@ -5238,7 +5238,7 @@ static void DisplayStatBoostPg1(u8 taskId)
     arrayPtr[12] = CreateLevelUpStatsWindow();
     DrawLevelUpWindowPg1(arrayPtr[12], arrayPtr, &arrayPtr[6], TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY, TEXT_COLOR_LIGHT_GREY);
     CopyWindowToVram(arrayPtr[12], 2);
-    schedule_bg_copy_tilemap_to_vram(2);
+    ScheduleBgCopyTilemapToVram(2);
 }
 
 static void DisplayStatBoostPg2(u8 taskId)
@@ -5247,7 +5247,7 @@ static void DisplayStatBoostPg2(u8 taskId)
 
     DrawLevelUpWindowPg2(arrayPtr[12], &arrayPtr[6], TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY, TEXT_COLOR_LIGHT_GREY);
     CopyWindowToVram(arrayPtr[12], 2);
-    schedule_bg_copy_tilemap_to_vram(2);
+    ScheduleBgCopyTilemapToVram(2);
 }	//end section
 
 static void DisplayLevelUpStatsPg1(u8 taskId)
@@ -6706,7 +6706,7 @@ static void Task_Mints(u8 taskId)
             gPartyMenuUseExitCallback = FALSE;
             PlaySE(SE_SELECT);
             DisplayPartyMenuMessage(gText_WontHaveEffect, 1);
-            schedule_bg_copy_tilemap_to_vram(2);
+            ScheduleBgCopyTilemapToVram(2);
             gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
             return;
         }
@@ -6717,7 +6717,7 @@ static void Task_Mints(u8 taskId)
         StringExpandPlaceholders(gStringVar4, sText_askMint);
         PlaySE(SE_SELECT);
         DisplayPartyMenuMessage(gStringVar4, 1);
-        schedule_bg_copy_tilemap_to_vram(2);
+        ScheduleBgCopyTilemapToVram(2);
         tState++;
         break;
     case 1:
@@ -6737,7 +6737,7 @@ static void Task_Mints(u8 taskId)
         case MENU_B_PRESSED:
             gPartyMenuUseExitCallback = FALSE;
             PlaySE(SE_SELECT);
-            schedule_bg_copy_tilemap_to_vram(2);
+            ScheduleBgCopyTilemapToVram(2);
 
             // Don't exit party selections screen, return to choosing a mon.
             ClearStdWindowAndFrameToTransparent(6, 0);
@@ -6751,7 +6751,7 @@ static void Task_Mints(u8 taskId)
         PlaySE(SE_KAIFUKU);
         StringExpandPlaceholders(gStringVar4, sText_doneMint);
         DisplayPartyMenuMessage(gStringVar4, 1);
-        schedule_bg_copy_tilemap_to_vram(2);
+        ScheduleBgCopyTilemapToVram(2);
         tState++;
         break;
     case 4:

@@ -39,8 +39,17 @@ EverGrandeCity_ChampionsRoom_Movement_PlayerApproachWallace: @ 8228A42
 
 EverGrandeCity_ChampionsRoom_EventScript_Wallace:: @ 8228A45
 	playbgm MUS_DAIGO, 0
+	goto_if_set TRAINER_WALLACE, EverGrandeCity_ChampionsRoom_EventScript_WallaceRematch
+	@ First battle
 	msgbox EverGrandeCity_ChampionsRoom_Text_IntroSpeech, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_WALLACE, EverGrandeCity_ChampionsRoom_Text_Defeat
+	goto EverGrandeCity_ChampionsRoom_EventScript_Defeated
+	end
+
+EverGrandeCity_ChampionsRoom_EventScript_WallaceRematch::
+	@ Rematch
+	msgbox EverGrandeCity_ChampionsRoom_Text_RematchIntroSpeech, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_WALLACE_2, EverGrandeCity_ChampionsRoom_Text_RematchDefeat
 	goto EverGrandeCity_ChampionsRoom_EventScript_Defeated
 	end
 
@@ -344,3 +353,33 @@ EverGrandeCity_ChampionsRoom_Text_BrendanCongratulations: @ 82294F5
 	.string "{PLAYER}, way to go!\n"
 	.string "Congratulations!$"
 
+EverGrandeCity_ChampionsRoom_Text_RematchIntroSpeech:
+	.string "Ah, welcome back to this magnificent\n" 
+	.string "gallery, {PLAYER}{KUN}!\p"
+	.string "I must admit, our last battle left me\n"
+	.string "yearning to encounter you again.\p"
+	.string "The way that you and your POKéMON\n"
+	.string "performed…\p"
+	.string "It was quite the spectacle to behold!\p"
+	.string "Yet, it is not our victories that make us\n"
+	.string "great TRAINERS.\p"
+	.string "We ascend to greater heights only\n"
+	.string "through our partnership with our\l" 
+	.string "fellow POKéMON.\p"
+	.string "I am sure you know this, of course.\p"
+	.string "After all, you have proven yourself a\n"
+	.string "capable and discerning TRAINER.\p"
+	.string "It is I who have reflected on this truth\n"
+	.string "since our last battle…\p"
+	.string "In this next performance, I will emulate\n"
+	.string "a wondrous illusion that can only be\l"
+	.string "created with water.\p"
+	.string "Like a rainbow, the radiance of my team\n"
+	.string "will utterly dazzle you!\p"
+	.string "Now!\p"
+	.string "Allow me to put your skills as the HOENN\n"
+	.string "CHAMPION to the ultimate test!$"
+
+EverGrandeCity_ChampionsRoom_Text_RematchDefeat:
+	.string "You completely outshone me in brilliant\n"
+	.string "iridescence!$"

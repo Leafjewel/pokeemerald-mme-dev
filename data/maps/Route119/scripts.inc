@@ -104,6 +104,11 @@ Route119_EventScript_DefeatedMay:: @ 81F456A
 	msgbox Route119_Text_MayPresentForYou, MSGBOX_DEFAULT
 	call Route119_EventScript_GiveFlyHM
 	msgbox Route119_Text_MayExplainFly, MSGBOX_DEFAULT
+	msgbox Route119_Text_MayGivesStone, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON				@give out mega stone for player's starter
+	case 0, Route119_EventScript_GiveSceptilite
+	case 1, Route119_EventScript_GiveBlazikenite
+	case 2, Route119_EventScript_GiveSwampertite
 	goto Route119_EventScript_RivalExitScottArrive
 	end
 
@@ -134,12 +139,29 @@ Route119_EventScript_DefeatedBrendan:: @ 81F45E4
 	msgbox Route119_Text_BrendanIllGiveYouThis, MSGBOX_DEFAULT
 	call Route119_EventScript_GiveFlyHM
 	msgbox Route119_Text_BrendanExplainFly, MSGBOX_DEFAULT
+	msgbox Route119_Text_BrendanGivesStone, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON				@give out mega stone for player's starter
+	case 0, Route119_EventScript_GiveSceptilite
+	case 1, Route119_EventScript_GiveBlazikenite
+	case 2, Route119_EventScript_GiveSwampertite
 	goto Route119_EventScript_RivalExitScottArrive
 	end
 
 Route119_EventScript_GiveFlyHM:: @ 81F45FF
 	giveitem ITEM_HM02
 	setflag FLAG_RECEIVED_HM02
+	return
+
+Route119_EventScript_GiveSceptilite::
+	giveitem ITEM_SCEPTILITE
+	return
+
+Route119_EventScript_GiveBlazikenite::
+	giveitem ITEM_BLAZIKENITE
+	return
+
+Route119_EventScript_GiveSwampertite::
+	giveitem ITEM_SWAMPERTITE
 	return
 
 Route119_EventScript_RivalExitScottArrive:: @ 81F460F
@@ -527,6 +549,11 @@ Route119_Text_MayExplainFly: @ 81F4B56
 	.string "{PLAYER}{KUN}.\p"
 	.string "Well, let's meet again somewhere!$"
 
+Route119_Text_MayGivesStone:		@give mega stone
+	.string "MAY: Oh, before I forget,\n"
+	.string "this is for you.\p"
+	.string "My dad wanted you to have it.$"
+
 Route119_Text_BrendanIntro: @ 81F4C9A
 	.string "BRENDAN: {PLAYER}! So this is where\n"
 	.string "you've been looking for POKéMON?\p"
@@ -552,6 +579,11 @@ Route119_Text_BrendanExplainFly: @ 81F4DB5
 	.string "But you need the FORTREE GYM BADGE \n"
 	.string "to do that.\p"
 	.string "Anyway, I have to move along.$"
+
+Route119_Text_BrendanGivesStone:		@give mega stone
+	.string "BRENDAN: Take this too.\p"
+	.string "My dad told me to give this\n"
+	.string "to you.$"
 
 Route119_Text_ScottWayToGoBeSeeingYou: @ 81F4E60
 	.string "SCOTT: Hahahah!\n"
