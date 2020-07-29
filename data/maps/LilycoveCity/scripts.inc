@@ -1,3 +1,6 @@
+.set LOCALID_WOMAN_1, 19
+.set LOCALID_MAN_1, 20
+
 LilycoveCity_MapScripts:: @ 81E2B3C
 	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_OnTransition
 	map_script MAP_SCRIPT_ON_LOAD, LilycoveCity_OnLoad
@@ -148,14 +151,14 @@ LilycoveCity_EventScript_FatMan:: @ 81E2CD4
 LilycoveCity_EventScript_Man1:: @ 81E2CDD
 	lockall
 	msgbox LilycoveCity_Text_JustArrivedAndSawRarePokemon, MSGBOX_NPC
-	applymovement 20, Common_Movement_FaceOriginalDirection
+	applymovement LOCALID_MAN_1, Common_Movement_FaceOriginalDirection
 	end
 
 LilycoveCity_EventScript_Woman1:: @ 81E2CEE
 	lockall
 	msgbox LilycoveCity_Text_HoneymoonVowToSeeRarePokemon, MSGBOX_NPC
 	goto_if_unset FLAG_ENABLE_SHIP_NAVEL_ROCK, LilycoveCity_EventScript_MysticTicket
-	applymovement 19, Common_Movement_FaceOriginalDirection
+	applymovement LOCALID_WOMAN_1, Common_Movement_FaceOriginalDirection
 	end
 
 LilycoveCity_EventScript_MysticTicket::
