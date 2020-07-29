@@ -4216,11 +4216,11 @@ static const struct TrainerMonItemCustomMoves sParty_Phoebe[] = {
     {
     .iv = 250,
     .lvl = 59,
-    .species = SPECIES_SHEDINJA,
-    .heldItem = ITEM_SCOPE_LENS,
+    .species = SPECIES_COFAGRIGUS,
+    .heldItem = ITEM_BRIGHT_POWDER,
 	.abilityNums = 0,
-	.evs = {0, 252, 0, 0, 4, 252},
-    .moves = {MOVE_X_SCISSOR, MOVE_SHADOW_CLAW, MOVE_WILL_O_WISP, MOVE_NIGHT_SLASH}
+	.evs = {0, 0, 252, 0, 4, 252},
+    .moves = {MOVE_WILL_O_WISP, MOVE_ENERGY_BALL, MOVE_TOXIC_SPIKES, MOVE_HEX}
     },
     {
     .iv = 250,
@@ -7035,7 +7035,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Takashi[] = {
     {
     .iv = 0,
     .lvl = 25,
-    .species = SPECIES_NINJASK,
+    .species = SPECIES_SKORUPI,
     .abilityNums = 0,
 	.evs = {0, 0, 0, 0, 0, 0},
     },
@@ -7117,7 +7117,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Lung[] = {
     {
     .iv = 0,
     .lvl = 18,
-    .species = SPECIES_NINJASK,
+    .species = SPECIES_SKORUPI,
     .abilityNums = 0,
 	.evs = {0, 0, 0, 0, 0, 0},
     }
@@ -10015,7 +10015,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Sylvia[] = {
     {
     .iv = 100,
     .lvl = 36,
-    .species = SPECIES_CHIMECHO,
+    .species = SPECIES_YAMASK,
     .abilityNums = 0,
 	.evs = {0, 0, 0, 0, 0, 0},
     }
@@ -10106,7 +10106,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Kathleen[] = {
     {
     .iv = 100,
     .lvl = 36,
-    .species = SPECIES_EXEGGCUTE,
+    .species = SPECIES_MIMIKYU,
     .abilityNums = 0,
 	.evs = {0, 0, 0, 0, 0, 0},
     }
