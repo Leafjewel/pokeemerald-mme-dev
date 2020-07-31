@@ -7,10 +7,6 @@
 #define ITEM0_SACRED_ASH        0x40
 #define ITEM0_INFATUATION       0x80
 
-//add bottlecaps
-// Set this if you want to use enum effect in field 10
-#define ITEM0_ITEM_ENUM         0xF0
-
 // field 1 masks
 #define ITEM1_X_SPEED           0x0F
 #define ITEM1_X_DEFEND          0xF0
@@ -58,9 +54,12 @@
 #define ITEM10_IS_VITAMIN       0x1
 
 //add bottlecaps
-// field 10 masks
-#define ITEM10_IV_MAX_ONE       1
-#define ITEM10_IV_MAX_ALL       2
+// Set this if you want to use enum effect in field 12, originally field 0
+#define ITEM11_ITEM_ENUM         0xF0
+
+// field 12 masks, originally field 10
+#define ITEM12_IV_MAX_ONE       0x1
+#define ITEM12_IV_MAX_ALL       0x2
 
 // Used for GetItemEffectType.
 #define ITEM_EFFECT_X_ITEM 0

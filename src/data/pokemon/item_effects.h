@@ -174,14 +174,14 @@ const u8 gItemEffect_SacredAsh[7] = {
 };
 
 //add bottle caps
-const u8 gItemEffect_SilverBottlecap[11] = {
-    [0] = ITEM0_ITEM_ENUM,
-    [10] = ITEM10_IV_MAX_ONE,
+const u8 gItemEffect_SilverBottlecap[13] = {
+    [11] = ITEM11_ITEM_ENUM,
+    [12] = ITEM12_IV_MAX_ONE,
 };
 
-const u8 gItemEffect_GoldBottlecap[11] = {
-    [0] = ITEM0_ITEM_ENUM,
-    [10] = ITEM10_IV_MAX_ALL,
+const u8 gItemEffect_GoldBottlecap[13] = {
+    [11] = ITEM11_ITEM_ENUM,
+    [12] = ITEM12_IV_MAX_ALL,
 };	//end section
 
 const u8 gItemEffect_HPUp[11] = {

@@ -54,7 +54,8 @@ bool8 SetUpFieldMove_Dig(void);
 bool8 FldEff_UseDig(void);
 
 // rock smash
-bool8 CheckObjectGraphicsInFrontOfPlayer(u8 graphicsId);
+//bool8 CheckObjectGraphicsInFrontOfPlayer(u8 graphicsId);	//expanded overworlds
+bool8 CheckObjectGraphicsInFrontOfPlayer(u16 graphicsId);
 u8 oei_task_add(void);
 bool8 SetUpFieldMove_RockSmash(void);
 bool8 FldEff_UseRockSmash(void);

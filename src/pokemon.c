@@ -4811,10 +4811,10 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, struct
         {
         // infatuation heal, x attack, sacred ash and dire hit
         case 0:
-			if ((itemEffect[cmdIndex] & ITEM0_ITEM_ENUM)) 	//add bottlecaps
+			/*if ((itemEffect[cmdIndex] & ITEM0_ITEM_ENUM)) 	//add bottlecaps
             {
                 useItemEnum = TRUE;
-            }	//end section
+            }	//end section*/
             if ((itemEffect[cmdIndex] & ITEM0_INFATUATION)
              && gMain.inBattle && battlerId != MAX_BATTLERS_COUNT && (gBattleMons[battlerId].status2 & STATUS2_INFATUATION))
             {
@@ -5319,11 +5319,12 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, struct
         }
     }
 	//add bottlecaps
-	if (useItemEnum)
+	if ((item == ITEM_SILVER_BOTTLECAP) | (item == ITEM_GOLD_BOTTLECAP))
+	//if (useItemEnum)
     {
-        switch (itemEffect[10])
+        switch (itemEffect[12])
         {
-        case ITEM10_IV_MAX_ONE:
+        case ITEM12_IV_MAX_ONE:
 			ivIndex = StatToIvIndex(options->stat);
             // If current IV is max, fail and say "Won't have any effect"
             if (GetMonData(mon, ivIndex, 0) == MAX_IV)
@@ -5335,10 +5336,10 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, struct
             CalculateMonStats(mon);
             retVal = FALSE;
             break;
-        case ITEM10_IV_MAX_ALL:
+        case ITEM12_IV_MAX_ALL:
             // If curent IV total is max, fail and say "Won't have any effect"
-            if (GetMonIVCount(mon) == NUM_STATS * MAX_IV)
-                return TRUE;
+            //if (GetMonIVCount(mon) == NUM_STATS * MAX_IV)
+            //    return TRUE;
 
             // Set all IV's to the max
             for (i = 0; i < NUM_STATS; i++)
@@ -5369,12 +5370,12 @@ static int StatToIvIndex(u8 statIndex)
     case 2:
         return MON_DATA_DEF_IV;
     case 3:
-        return MON_DATA_SPATK_IV;
+        return MON_DATA_SPEED_IV;
     case 4:
-        return MON_DATA_SPDEF_IV;
+        return MON_DATA_SPATK_IV;
     case 5:
     default:
-        return MON_DATA_SPEED_IV;
+        return MON_DATA_SPDEF_IV;
     }
 }	//end section
 

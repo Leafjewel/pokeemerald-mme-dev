@@ -3,8 +3,10 @@
 
 void player_step(u8 a, u16 b, u16 c);
 void ClearPlayerAvatarInfo(void);
-void SetPlayerAvatarExtraStateTransition(u8, u8);
-u8 GetPlayerAvatarGenderByGraphicsId(u8);
+//void SetPlayerAvatarExtraStateTransition(u8, u8);	//expanded overworlds
+//u8 GetPlayerAvatarGenderByGraphicsId(u8);			//expanded overworlds
+void SetPlayerAvatarExtraStateTransition(u16, u8);
+u8 GetPlayerAvatarGenderByGraphicsId(u16);	//If fail, swap u16 to front
 bool8 TestPlayerAvatarFlags(u8);
 u8 GetPlayerAvatarObjectId(void);
 void PlayerGetDestCoords(s16 *, s16 *);
@@ -38,11 +40,14 @@ void sub_808B864(void);
 void sub_808BCF4(void);
 void sub_808D074(u8);
 void GetXYCoordsOneStepInFrontOfPlayer(s16 *xPtr, s16 *yPtr);
-u8 GetRivalAvatarGraphicsIdByStateIdAndGender(u8, u8);
+//u8 GetRivalAvatarGraphicsIdByStateIdAndGender(u8, u8);	//expanded overworlds
+u16 GetRivalAvatarGraphicsIdByStateIdAndGender(u8, u8);
 void sub_808C114(void);
-u8 GetPlayerAvatarGraphicsIdByCurrentState(void);
+//u8 GetPlayerAvatarGraphicsIdByCurrentState(void);	//expanded overworlds
+u16 GetPlayerAvatarGraphicsIdByCurrentState(void);
 void SetPlayerAvatarStateMask(u8 a);
-u8 GetPlayerAvatarGraphicsIdByStateId(u8 a);
+//u8 GetPlayerAvatarGraphicsIdByStateId(u8 a);	//expanded overworlds
+u16 GetPlayerAvatarGraphicsIdByStateId(u8 a);
 u8 GetJumpSpecialMovementAction(u32);
 bool8 PartyHasMonWithSurf(void);
 bool8 IsPlayerFacingSurfableFishableWater(void);
@@ -50,8 +55,10 @@ bool8 IsPlayerSurfingNorth(void);
 void sub_808C228(u8 direction);
 u8 GetPlayerAvatarFlags(void);
 void sub_808B578(void);
-u8 GetFRLGAvatarGraphicsIdByGender(u8);
-u8 GetRSAvatarGraphicsIdByGender(u8);
+//u8 GetFRLGAvatarGraphicsIdByGender(u8);	//expanded overworlds
+//u8 GetRSAvatarGraphicsIdByGender(u8);		//expanded overworlds
+u16 GetFRLGAvatarGraphicsIdByGender(u8);
+u16 GetRSAvatarGraphicsIdByGender(u8);
 void PlayerWheelieInPlace(u8 direction);
 void PlayerWheelieMove(u8 direction);
 void PlayerPopWheelieWhileMoving(u8 direction);

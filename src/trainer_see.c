@@ -18,7 +18,10 @@
 #include "constants/event_object_movement.h"
 #include "constants/field_effects.h"
 #include "constants/trainer_types.h"
+#include "field_weather.h"	//dynamic overworlds, take 3
 
+extern const struct SpritePalette sEventObjectSpritePalettes[];		//new, 3
+extern const struct SpritePalette gFieldEffectObjectPaletteInfo0;	//new, 3
 // this file's functions
 static u8 CheckTrainer(u8 objectEventId);
 static u8 GetTrainerApproachDistance(struct ObjectEvent *trainerObj);
@@ -153,7 +156,9 @@ static const union AnimCmd *const sSpriteAnimTable_Icons[] =
 static const struct SpriteTemplate sSpriteTemplate_ExclamationQuestionMark =
 {
     .tileTag = 0xffff,
-    .paletteTag = 0xffff,
+    //.paletteTag = 0xffff,	//dynamic overworlds
+    //.paletteTag = 0x1100,
+    .paletteTag = 0x111A,
     .oam = &sOamData_Icons,
     .anims = sSpriteAnimTable_Icons,
     .images = sSpriteImageTable_ExclamationQuestionMark,
@@ -670,7 +675,16 @@ void TryPrepareSecondApproachingTrainer(void)
 
 u8 FldEff_ExclamationMarkIcon(void)
 {
-    u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x53);
+    //u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x53);	//dynamic overworlds
+    u8 spriteId, paletteNum;
+
+	//LoadObjectEventPalette(0x1100);	//new, 3
+    //UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x1100), GAMMA_ALT);	//new, 3
+    //UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x1100));	//new, 3
+	LoadObjectEventPalette(0x11A1);
+    UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x11A1), GAMMA_ALT);
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x11A1));
+    spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x53);	//new, 3
 
     if (spriteId != MAX_SPRITES)
         SetIconSpriteData(&gSprites[spriteId], FLDEFF_EXCLAMATION_MARK_ICON, 0);
@@ -680,7 +694,16 @@ u8 FldEff_ExclamationMarkIcon(void)
 
 u8 FldEff_QuestionMarkIcon(void)
 {
-    u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x52);
+    //u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x52);	//dynamic overworlds
+    u8 spriteId;
+
+    //LoadObjectEventPalette(0x1100);	//new, 3
+    //UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x1100), GAMMA_ALT);	//new, 3
+    //UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x1100));	//new, 3
+    LoadObjectEventPalette(0x11A1);
+    UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x11A1), GAMMA_ALT);
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x11A1));
+    spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x52);	//new, 3
 
     if (spriteId != MAX_SPRITES)
         SetIconSpriteData(&gSprites[spriteId], FLDEFF_QUESTION_MARK_ICON, 1);
@@ -690,7 +713,13 @@ u8 FldEff_QuestionMarkIcon(void)
 
 u8 FldEff_HeartIcon(void)
 {
-    u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HeartIcon, 0, 0, 0x52);
+    //u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HeartIcon, 0, 0, 0x52);	//dynamic overworlds
+    u8 spriteId;
+
+    LoadSpritePalette(&gFieldEffectObjectPaletteInfo0);	//new, 3
+    UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x1004), GAMMA_ALT);	//new, 3
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x1004));	//new, 3
+    spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HeartIcon, 0, 0, 0x52);	//new, 3
 
     if (spriteId != MAX_SPRITES)
     {

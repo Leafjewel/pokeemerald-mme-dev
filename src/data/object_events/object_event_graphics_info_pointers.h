@@ -244,7 +244,48 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Storyteller;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Giddy;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMauvilleOldMan1;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMauvilleOldMan2;
-
+//new overworlds
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ItemBallTM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomFan;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomFridge;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomMower;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomOven;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomWashingMachine;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomFanPanel;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomFridgePanel;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomMowerPanel;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomOvenPanel;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RotomWashingMachinePanel;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_AromaLady;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BattleGirl;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BirdKeeper;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BreederF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BreederM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BugManiac;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CooltrainerF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CooltrainerM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DragonTamer;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Guitarist;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kindler;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lady;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_MrStone;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ParasolLady;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemaniac;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PsychicF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RangerF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RangerM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RuinManiac;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SchoolKidF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SwimmingTriathleteF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SwimmingTriathleteM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_YoungCoupleF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_YoungCoupleM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Regigigas;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Articuno;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Zapdos;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Moltres;
+//end new overworlds pt.1
+//attempt 2
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
@@ -486,6 +527,47 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_LINK_RS_MAY] =              &gObjectEventGraphicsInfo_RubySapphireMay,
     [OBJ_EVENT_GFX_LUGIA] =                    &gObjectEventGraphicsInfo_Lugia,
     [OBJ_EVENT_GFX_HOOH] =                     &gObjectEventGraphicsInfo_HoOh,
+	//new overworlds pt.2
+	[OBJ_EVENT_GFX_ITEM_BALL_TM] =             &gObjectEventGraphicsInfo_ItemBallTM,
+	[OBJ_EVENT_GFX_ROTOM_FAN] =				   &gObjectEventGraphicsInfo_RotomFan,
+	[OBJ_EVENT_GFX_ROTOM_FRIDGE] =			   &gObjectEventGraphicsInfo_RotomFridge,
+	[OBJ_EVENT_GFX_ROTOM_MOWER] =			   &gObjectEventGraphicsInfo_RotomMower,
+	[OBJ_EVENT_GFX_ROTOM_OVEN] =			   &gObjectEventGraphicsInfo_RotomOven,
+	[OBJ_EVENT_GFX_ROTOM_WASHINGMACHINE] =	   &gObjectEventGraphicsInfo_RotomWashingMachine,
+	[OBJ_EVENT_GFX_ROTOM_FAN_PANEL] =		   &gObjectEventGraphicsInfo_RotomFanPanel,
+	[OBJ_EVENT_GFX_ROTOM_FRIDGE_PANEL] =	   &gObjectEventGraphicsInfo_RotomFridgePanel,
+	[OBJ_EVENT_GFX_ROTOM_MOWER_PANEL] =		   &gObjectEventGraphicsInfo_RotomMowerPanel,
+	[OBJ_EVENT_GFX_ROTOM_OVEN_PANEL] =		   &gObjectEventGraphicsInfo_RotomOvenPanel,
+	[OBJ_EVENT_GFX_ROTOM_WASHINGMACHINE_PANEL] = &gObjectEventGraphicsInfo_RotomWashingMachinePanel,
+	[OBJ_EVENT_GFX_AROMA_LADY] =			   &gObjectEventGraphicsInfo_AromaLady,
+	[OBJ_EVENT_GFX_BATTLE_GIRL] =			   &gObjectEventGraphicsInfo_BattleGirl,
+	[OBJ_EVENT_GFX_BIRD_KEEPER] =			   &gObjectEventGraphicsInfo_BirdKeeper,
+	[OBJ_EVENT_GFX_BREEDER_F] =				   &gObjectEventGraphicsInfo_BreederF,
+	[OBJ_EVENT_GFX_BREEDER_M] =				   &gObjectEventGraphicsInfo_BreederM,
+	[OBJ_EVENT_GFX_BUG_MANIAC] =			   &gObjectEventGraphicsInfo_BugManiac,
+	[OBJ_EVENT_GFX_COOLTRAINER_F] =			   &gObjectEventGraphicsInfo_CooltrainerF,
+	[OBJ_EVENT_GFX_COOLTRAINER_M] =			   &gObjectEventGraphicsInfo_CooltrainerM,
+	[OBJ_EVENT_GFX_DRAGON_TAMER] =			   &gObjectEventGraphicsInfo_DragonTamer,
+	[OBJ_EVENT_GFX_GUITARIST] =				   &gObjectEventGraphicsInfo_Guitarist,
+	[OBJ_EVENT_GFX_KINDLER] =				   &gObjectEventGraphicsInfo_Kindler,
+	[OBJ_EVENT_GFX_LADY] =					   &gObjectEventGraphicsInfo_Lady,
+	[OBJ_EVENT_GFX_MR_STONE] =				   &gObjectEventGraphicsInfo_MrStone,
+	[OBJ_EVENT_GFX_PARASOL_LADY] =			   &gObjectEventGraphicsInfo_ParasolLady,
+	[OBJ_EVENT_GFX_POKEMANIAC] =			   &gObjectEventGraphicsInfo_Pokemaniac,
+	[OBJ_EVENT_GFX_PSYCHIC_F] =				   &gObjectEventGraphicsInfo_PsychicF,
+	[OBJ_EVENT_GFX_RANGER_F] =				   &gObjectEventGraphicsInfo_RangerF,
+	[OBJ_EVENT_GFX_RANGER_M] =				   &gObjectEventGraphicsInfo_RangerM,
+	[OBJ_EVENT_GFX_RUIN_MANIAC] =			   &gObjectEventGraphicsInfo_RuinManiac,
+	[OBJ_EVENT_GFX_SCHOOL_KID_F] =			   &gObjectEventGraphicsInfo_SchoolKidF,
+	[OBJ_EVENT_GFX_SWIMMING_TRIATHLETE_F] =	   &gObjectEventGraphicsInfo_SwimmingTriathleteF,
+	[OBJ_EVENT_GFX_SWIMMING_TRIATHLETE_M] =	   &gObjectEventGraphicsInfo_SwimmingTriathleteM,
+	[OBJ_EVENT_GFX_YOUNG_COUPLE_F] =		   &gObjectEventGraphicsInfo_YoungCoupleF,
+	[OBJ_EVENT_GFX_YOUNG_COUPLE_M] =		   &gObjectEventGraphicsInfo_YoungCoupleM,
+	[OBJ_EVENT_GFX_REGIGIGAS] =	               &gObjectEventGraphicsInfo_Regigigas,
+	[OBJ_EVENT_GFX_ARTICUNO] =                  &gObjectEventGraphicsInfo_Articuno,
+	[OBJ_EVENT_GFX_ZAPDOS] =                   &gObjectEventGraphicsInfo_Zapdos,
+	[OBJ_EVENT_GFX_MOLTRES] =                  &gObjectEventGraphicsInfo_Moltres,
+	//end new overworlds pt.2
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

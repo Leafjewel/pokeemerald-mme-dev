@@ -1184,7 +1184,8 @@ bool8 ScrCmd_setobjectmovementtype(struct ScriptContext *ctx)
 
 bool8 ScrCmd_createvobject(struct ScriptContext *ctx)
 {
-    u8 graphicsId = ScriptReadByte(ctx);
+    //u8 graphicsId = ScriptReadByte(ctx);	//expanded overworlds
+    u16 graphicsId = ScriptReadByte(ctx);
     u8 objectEventId = ScriptReadByte(ctx);
     u16 x = VarGet(ScriptReadHalfword(ctx));
     u32 y = VarGet(ScriptReadHalfword(ctx));
@@ -1888,7 +1889,7 @@ bool8 ScrCmd_pokemart(struct ScriptContext *ctx)
 
     //CreatePokemartMenu(ptr);
     if(!tmShopId)
-    CreatePokemartMenu(ptr);
+        CreatePokemartMenu(ptr);
     else
         CreateTMShopMenu(ptr, tmShopId);	//end tm shops
     ScriptContext1_Stop();

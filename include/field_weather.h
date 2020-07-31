@@ -133,7 +133,8 @@ bool8 IsWeatherNotFadingIn(void);
 void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex);
 void ApplyWeatherGammaShiftToPal(u8 paletteIndex);
 u8 sub_80ABF20(void);
-void LoadCustomWeatherSpritePalette(const u16 *palette);
+//void LoadCustomWeatherSpritePalette(const u16 *palette);	//attempt2
+void LoadCustomWeatherSpritePalette(const struct SpritePalette *palette);
 void ResetDroughtWeatherPaletteLoading(void);
 bool8 LoadDroughtWeatherPalettes(void);
 void sub_80ABFE0(s8 gammaIndex);
@@ -151,6 +152,14 @@ void SetWeatherScreenFadeOut(void);
 void sub_80AC3E4(void);
 void PreservePaletteInWeather(u8 preservedPalIndex);
 void ResetPreservedPalettesInWeather(void);
+// dynamic overworlds 2
+enum
+{
+    GAMMA_NONE,
+    GAMMA_NORMAL,
+    GAMMA_ALT,
+};
+void UpdatePaletteGammaType(u8 index, u8 gammaType);
 
 // field_weather_effect.c
 void Clouds_InitVars(void);

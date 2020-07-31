@@ -5546,21 +5546,25 @@ u8 GetItemEffectType(u16 item)
         return ITEM_EFFECT_PP_MAX;
     else if (itemEffect[4] & (ITEM4_HEAL_PP_ALL | ITEM4_HEAL_PP_ONE))
         return ITEM_EFFECT_HEAL_PP;
+	else if (itemEffect[12] & (ITEM12_IV_MAX_ONE | ITEM12_IV_MAX_ALL))
+		return ITEM_EFFECT_BOOST_STATS;
+	else
+		return ITEM_EFFECT_NONE;
 	//add bottlecaps
     //else
     //    return ITEM_EFFECT_NONE;
-    if (itemEffect[0] & ITEM0_ITEM_ENUM)
+    /*if (itemEffect[0] & ITEM0_ITEM_ENUM)
     {
-        switch(itemEffect[10]) 
+        switch(itemEffect[11]) 
         {
-        case ITEM10_IV_MAX_ONE:
-        case ITEM10_IV_MAX_ALL:
+        case ITEM11_IV_MAX_ONE:
+        case ITEM11_IV_MAX_ALL:
             return ITEM_EFFECT_BOOST_STATS;
         default:
             break;
         }
     }
-    return ITEM_EFFECT_NONE;	//end section
+    return ITEM_EFFECT_NONE;	//end section*/
 }
 
 static void TryTutorSelectedMon(u8 taskId)

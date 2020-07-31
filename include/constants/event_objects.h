@@ -240,8 +240,48 @@
 #define OBJ_EVENT_GFX_LINK_RS_MAY                236
 #define OBJ_EVENT_GFX_LUGIA                      237
 #define OBJ_EVENT_GFX_HOOH                       238
-
-#define NUM_OBJ_EVENT_GFX                        239
+//new overworlds
+#define OBJ_EVENT_GFX_ITEM_BALL_TM               239
+#define OBJ_EVENT_GFX_ROTOM_FAN                  240
+#define OBJ_EVENT_GFX_ROTOM_FRIDGE               241
+#define OBJ_EVENT_GFX_ROTOM_MOWER                242
+#define OBJ_EVENT_GFX_ROTOM_OVEN                 243
+#define OBJ_EVENT_GFX_ROTOM_WASHINGMACHINE       244
+#define OBJ_EVENT_GFX_ROTOM_FAN_PANEL            245
+#define OBJ_EVENT_GFX_ROTOM_FRIDGE_PANEL         246
+#define OBJ_EVENT_GFX_ROTOM_MOWER_PANEL          247
+#define OBJ_EVENT_GFX_ROTOM_OVEN_PANEL           248
+#define OBJ_EVENT_GFX_ROTOM_WASHINGMACHINE_PANEL 249
+#define OBJ_EVENT_GFX_AROMA_LADY                 250
+#define OBJ_EVENT_GFX_BATTLE_GIRL                251
+#define OBJ_EVENT_GFX_BIRD_KEEPER                252
+#define OBJ_EVENT_GFX_BREEDER_F                  253
+#define OBJ_EVENT_GFX_BREEDER_M                  254
+#define OBJ_EVENT_GFX_BUG_MANIAC                 255
+#define OBJ_EVENT_GFX_COOLTRAINER_F              256
+#define OBJ_EVENT_GFX_COOLTRAINER_M              257
+#define OBJ_EVENT_GFX_DRAGON_TAMER               258
+#define OBJ_EVENT_GFX_GUITARIST                  259
+#define OBJ_EVENT_GFX_KINDLER                    260
+#define OBJ_EVENT_GFX_LADY                       261
+#define OBJ_EVENT_GFX_MR_STONE                   262
+#define OBJ_EVENT_GFX_PARASOL_LADY               263
+#define OBJ_EVENT_GFX_POKEMANIAC                 264
+#define OBJ_EVENT_GFX_PSYCHIC_F                  265
+#define OBJ_EVENT_GFX_RANGER_F                   266
+#define OBJ_EVENT_GFX_RANGER_M                   267
+#define OBJ_EVENT_GFX_RUIN_MANIAC                268
+#define OBJ_EVENT_GFX_SCHOOL_KID_F               269
+#define OBJ_EVENT_GFX_SWIMMING_TRIATHLETE_F      270
+#define OBJ_EVENT_GFX_SWIMMING_TRIATHLETE_M      271
+#define OBJ_EVENT_GFX_YOUNG_COUPLE_F             272
+#define OBJ_EVENT_GFX_YOUNG_COUPLE_M             273
+#define OBJ_EVENT_GFX_REGIGIGAS                  274
+#define OBJ_EVENT_GFX_ARTICUNO                   275
+#define OBJ_EVENT_GFX_ZAPDOS                     276
+#define OBJ_EVENT_GFX_MOLTRES                    277
+//end new overworlds, 	max limit now 512
+#define NUM_OBJ_EVENT_GFX                        278 //239
 
 
 // These are dynamic object gfx ids.

@@ -12,13 +12,14 @@
 #include "trig.h"
 #include "constants/field_effects.h"
 #include "constants/songs.h"
-
+#include "palette.h"	//new,2
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF // duplicate of define in event_object_movement.c
 
 static void UpdateObjectReflectionSprite(struct Sprite *);
-static void LoadObjectReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite);
-static void LoadObjectHighBridgeReflectionPalette(struct ObjectEvent *, u8);
-static void LoadObjectRegularReflectionPalette(struct ObjectEvent *, u8);
+//new dynamic overworlds edits,2
+//static void LoadObjectReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite);
+//static void LoadObjectHighBridgeReflectionPalette(struct ObjectEvent *, u8);
+//static void LoadObjectRegularReflectionPalette(struct ObjectEvent *, u8);
 static void sub_81561FC(struct Sprite *, u8, u8);
 static void FadeFootprintsTireTracks_Step0(struct Sprite *);
 static void FadeFootprintsTireTracks_Step1(struct Sprite *);
@@ -30,8 +31,12 @@ static void SynchroniseSurfAnim(struct ObjectEvent *, struct Sprite *);
 static void sub_81556E8(struct ObjectEvent *, struct Sprite *);
 static void CreateBobbingEffect(struct ObjectEvent *, struct Sprite *, struct Sprite *);
 static void sub_8155850(struct Sprite *);
-static u32 ShowDisguiseFieldEffect(u8, u8, u8);
+//static u32 ShowDisguiseFieldEffect(u8, u8, u8);
+static u32 ShowDisguiseFieldEffect(u8, u8);	//new,2
+void LoadSpecialReflectionPalette(struct Sprite *sprite);  //new,2
+void LoadObjectReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 
+extern u16 gReflectionPaletteBuffer[];
 void SetUpReflection(struct ObjectEvent *objectEvent, struct Sprite *sprite, bool8 stillReflection)
 {
     struct Sprite *reflectionSprite;
@@ -39,7 +44,7 @@ void SetUpReflection(struct ObjectEvent *objectEvent, struct Sprite *sprite, boo
     reflectionSprite = &gSprites[CreateCopySpriteAt(sprite, sprite->pos1.x, sprite->pos1.y, 0x98)];
     reflectionSprite->callback = UpdateObjectReflectionSprite;
     reflectionSprite->oam.priority = 3;
-    reflectionSprite->oam.paletteNum = gReflectionEffectPaletteMap[reflectionSprite->oam.paletteNum];
+    //reflectionSprite->oam.paletteNum = gReflectionEffectPaletteMap[reflectionSprite->oam.paletteNum];	//dynamic overworlds
     reflectionSprite->usingSheet = TRUE;
     reflectionSprite->anims = gDummySpriteAnimTable;
     StartSpriteAnim(reflectionSprite, 0);
@@ -60,7 +65,9 @@ static s16 GetReflectionVerticalOffset(struct ObjectEvent *objectEvent)
     return GetObjectEventGraphicsInfo(objectEvent->graphicsId)->height - 2;
 }
 
-static void LoadObjectReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+//static void LoadObjectReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite)	//dynamic overworlds
+#define OBJ_EVENT_PAL_TAG_10 0x1102	//new
+void LoadObjectReflectionPalette(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     u8 bridgeType;
     u16 bridgeReflectionVerticalOffsets[] = { 12, 28, 44 };
@@ -68,15 +75,20 @@ static void LoadObjectReflectionPalette(struct ObjectEvent *objectEvent, struct 
     if (!GetObjectEventGraphicsInfo(objectEvent->graphicsId)->disableReflectionPaletteLoad && ((bridgeType = MetatileBehavior_GetBridgeType(objectEvent->previousMetatileBehavior)) || (bridgeType = MetatileBehavior_GetBridgeType(objectEvent->currentMetatileBehavior))))
     {
         sprite->data[2] = bridgeReflectionVerticalOffsets[bridgeType - 1];
-        LoadObjectHighBridgeReflectionPalette(objectEvent, sprite->oam.paletteNum);
+        //LoadObjectHighBridgeReflectionPalette(objectEvent, sprite->oam.paletteNum);	//dynamic overworlds
+		LoadObjectEventPalette(OBJ_EVENT_PAL_TAG_10);	//new
+        sprite->oam.paletteNum = IndexOfSpritePaletteTag(OBJ_EVENT_PAL_TAG_10);	//new
+		UpdatePaletteGammaType(sprite->oam.paletteNum, GAMMA_NORMAL);	//new
+        UpdateSpritePaletteWithWeather(sprite->oam.paletteNum);	//new
     }
     else
     {
-        LoadObjectRegularReflectionPalette(objectEvent, sprite->oam.paletteNum);
+        //LoadObjectRegularReflectionPalette(objectEvent, sprite->oam.paletteNum);
+		LoadSpecialReflectionPalette(sprite);
     }
 }
-
-static void LoadObjectRegularReflectionPalette(struct ObjectEvent *objectEvent, u8 paletteIndex)
+	//dynamic overworlds
+/*static void LoadObjectRegularReflectionPalette(struct ObjectEvent *objectEvent, u8 paletteIndex)
 {
     const struct ObjectEventGraphicsInfo *graphicsInfo;
 
@@ -97,21 +109,38 @@ static void LoadObjectRegularReflectionPalette(struct ObjectEvent *objectEvent, 
         }
         UpdateSpritePaletteWithWeather(paletteIndex);
     }
-}
+}*/
 
 // When walking on a bridge high above water (Route 120), the reflection is a solid dark blue color.
 // This is so the sprite blends in with the dark water metatile underneath the bridge.
-static void LoadObjectHighBridgeReflectionPalette(struct ObjectEvent *objectEvent, u8 paletteNum)
+//static void LoadObjectHighBridgeReflectionPalette(struct ObjectEvent *objectEvent, u8 paletteNum)
+void LoadSpecialReflectionPalette(struct Sprite *sprite)
 {
-    const struct ObjectEventGraphicsInfo *graphicsInfo;
-
-    graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
+    //const struct ObjectEventGraphicsInfo *graphicsInfo;
+	struct SpritePalette reflectionPalette;
+    /*graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
     if (graphicsInfo->paletteTag2 != OBJ_EVENT_PAL_TAG_NONE)
     {
         PatchObjectPalette(graphicsInfo->paletteTag2, paletteNum);
         UpdateSpritePaletteWithWeather(paletteNum);
-    }
-}
+    }*/
+	CpuCopy16(&gPlttBufferUnfaded[0x100 + sprite->oam.paletteNum * 16], gReflectionPaletteBuffer, 32);
+
+    /*switch (metatileBehaviour)
+        case 0:
+        default:*/
+            TintPalette_CustomTone(gReflectionPaletteBuffer, 16, Q_8_8(1.0), Q_8_8(1.0), Q_8_8(3.5));
+            /* break;
+        case 1;
+    }*/
+
+    reflectionPalette.data = gReflectionPaletteBuffer;
+    reflectionPalette.tag = GetSpritePaletteTagByPaletteNum(sprite->oam.paletteNum) + 0x1000;
+    LoadSpritePalette(&reflectionPalette);
+    sprite->oam.paletteNum = IndexOfSpritePaletteTag(reflectionPalette.tag);
+	UpdatePaletteGammaType(sprite->oam.paletteNum, GAMMA_ALT);
+    UpdateSpritePaletteWithWeather(sprite->oam.paletteNum);
+}	//end section
 
 static void UpdateObjectReflectionSprite(struct Sprite *reflectionSprite)
 {
@@ -126,7 +155,7 @@ static void UpdateObjectReflectionSprite(struct Sprite *reflectionSprite)
     }
     else
     {
-        reflectionSprite->oam.paletteNum = gReflectionEffectPaletteMap[mainSprite->oam.paletteNum];
+        //reflectionSprite->oam.paletteNum = gReflectionEffectPaletteMap[mainSprite->oam.paletteNum];	//dynamic overworlds
         reflectionSprite->oam.shape = mainSprite->oam.shape;
         reflectionSprite->oam.size = mainSprite->oam.size;
         reflectionSprite->oam.matrixNum = mainSprite->oam.matrixNum | ST_OAM_VFLIP;
@@ -166,6 +195,7 @@ u8 CreateWarpArrowSprite(void)
     u8 spriteId;
     struct Sprite *sprite;
 
+	LoadFieldEffectPalette(8);	//new
     spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[8], 0, 0, 0x52);
     if (spriteId != MAX_SPRITES)
     {
@@ -224,6 +254,7 @@ u32 FldEff_Shadow(void)
 
     objectEventId = GetObjectEventIdByLocalIdAndMap(gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
     graphicsInfo = GetObjectEventGraphicsInfo(gObjectEvents[objectEventId].graphicsId);
+    LoadFieldEffectPalette(gShadowEffectTemplateIds[graphicsInfo->shadowSize]);	//new
     spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[gShadowEffectTemplateIds[graphicsInfo->shadowSize]], 0, 0, 0x94);
     if (spriteId != MAX_SPRITES)
     {
@@ -945,12 +976,13 @@ u32 FldEff_SurfBlob(void)
     struct Sprite *sprite;
 
     SetSpritePosToOffsetMapCoords((s16 *)&gFieldEffectArguments[0], (s16 *)&gFieldEffectArguments[1], 8, 8);
+    LoadFieldEffectPalette(7);	//new
     spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[7], gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
-    if (spriteId !=MAX_SPRITES)
+    if (spriteId != MAX_SPRITES)
     {
         sprite = &gSprites[spriteId];
         sprite->coordOffsetEnabled = TRUE;
-        sprite->oam.paletteNum = 0;
+        //sprite->oam.paletteNum = 0;	//dynamic overworlds
         sprite->data[2] = gFieldEffectArguments[2];
         sprite->data[3] = -1;
         sprite->data[6] = -1;
@@ -1004,7 +1036,8 @@ void UpdateSurfBlobFieldEffect(struct Sprite *sprite)
     sprite->oam.priority = linkedSprite->oam.priority;
 }
 
-static void SynchroniseSurfAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+//static void SynchroniseSurfAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite)	//dynamic overworlds
+void SynchroniseSurfAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     u8 surfBlobDirectionAnims[] = {
         [DIR_NONE] = 0,
@@ -1211,13 +1244,14 @@ u32 FldEff_BerryTreeGrowthSparkle(void)
     struct Sprite *sprite;
 
     SetSpritePosToOffsetMapCoords((s16 *)&gFieldEffectArguments[0], (s16 *)&gFieldEffectArguments[1], 8, 4);
+    LoadFieldEffectPalette(22);	//new
     spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[22], gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
     if (spriteId != MAX_SPRITES)
     {
         sprite = &gSprites[spriteId];
         sprite->coordOffsetEnabled = TRUE;
         sprite->oam.priority = gFieldEffectArguments[3];
-        sprite->oam.paletteNum = 5;
+        //sprite->oam.paletteNum = 5;	dynamic overworlds
         sprite->data[0] = FLDEFF_BERRY_TREE_GROWTH_SPARKLE;
     }
     return 0;
@@ -1225,20 +1259,24 @@ u32 FldEff_BerryTreeGrowthSparkle(void)
 
 u32 ShowTreeDisguiseFieldEffect(void)
 {
-    return ShowDisguiseFieldEffect(FLDEFF_TREE_DISGUISE, 24, 4);
+    //return ShowDisguiseFieldEffect(FLDEFF_TREE_DISGUISE, 24, 4);	//dynamic overworlds
+    return ShowDisguiseFieldEffect(FLDEFF_TREE_DISGUISE, 24);
 }
 
 u32 ShowMountainDisguiseFieldEffect(void)
 {
-    return ShowDisguiseFieldEffect(FLDEFF_MOUNTAIN_DISGUISE, 25, 3);
+    //return ShowDisguiseFieldEffect(FLDEFF_MOUNTAIN_DISGUISE, 25, 3);	//dynamic overworlds
+    return ShowDisguiseFieldEffect(FLDEFF_MOUNTAIN_DISGUISE, 25);
 }
 
 u32 ShowSandDisguiseFieldEffect(void)
 {
-    return ShowDisguiseFieldEffect(FLDEFF_SAND_DISGUISE, 28, 2);
+    //return ShowDisguiseFieldEffect(FLDEFF_SAND_DISGUISE, 28, 2);	//dynamic overworlds
+    return ShowDisguiseFieldEffect(FLDEFF_SAND_DISGUISE, 28);
 }
 
-static u32 ShowDisguiseFieldEffect(u8 fldEff, u8 templateIdx, u8 paletteNum)
+//static u32 ShowDisguiseFieldEffect(u8 fldEff, u8 templateIdx, u8 paletteNum)	//dynamic overworlds
+static u32 ShowDisguiseFieldEffect(u8 fldEff, u8 templateIdx)
 {
     u8 spriteId;
     struct Sprite *sprite;
@@ -1248,12 +1286,13 @@ static u32 ShowDisguiseFieldEffect(u8 fldEff, u8 templateIdx, u8 paletteNum)
         FieldEffectActiveListRemove(fldEff);
         return MAX_SPRITES;
     }
+	LoadFieldEffectPalette(templateIdx);	//new
     spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[templateIdx], 0, 0, 0);
     if (spriteId != MAX_SPRITES)
     {
         sprite = &gSprites[spriteId];
         sprite->coordOffsetEnabled ++;
-        sprite->oam.paletteNum = paletteNum;
+        //sprite->oam.paletteNum = paletteNum;	//dynamic overworlds
         sprite->data[1] = fldEff;
         sprite->data[2] = gFieldEffectArguments[0];
         sprite->data[3] = gFieldEffectArguments[1];
@@ -1577,7 +1616,18 @@ static void sub_81561FC(struct Sprite *sprite, u8 z, u8 offset)
         }
     }
 }
+//dynamic overworlds new, 2
+void LoadFieldEffectPalette(u8 fieldEffect)
+{
+    const struct SpriteTemplate *spriteTemplate;
 
+    spriteTemplate = gFieldEffectObjectTemplatePointers[fieldEffect];
+    if (spriteTemplate->paletteTag != 0xffff)
+    {
+		UpdatePaletteGammaType(IndexOfSpritePaletteTag(spriteTemplate->paletteTag), GAMMA_NORMAL);
+        LoadObjectEventPalette(spriteTemplate->paletteTag);
+    }
+}
 // Unused data. Feel free to remove.
 static const u8 gUnknown_085CDC6E[] =
 {

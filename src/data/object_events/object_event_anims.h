@@ -1134,6 +1134,71 @@ const union AffineAnimCmd *const gObjectEventRotScalAnimTable_KyogreGroudon[] = 
     gObjectEventRotScalAnim_8509078,
     gObjectEventRotScalAnim_8509060,
 };
+//allow asymmetric overworlds
+const union AnimCmd gObjectEventImageAnim_FaceEast_Asymmetric[] =
+{
+    ANIMCMD_FRAME(9, 16),
+    ANIMCMD_JUMP(0),
+};
+
+const union AnimCmd gObjectEventImageAnim_GoEast_Asymmetric[] =
+{
+    ANIMCMD_FRAME(10, 8),
+    ANIMCMD_FRAME(9, 8),
+    ANIMCMD_FRAME(11, 8),
+    ANIMCMD_FRAME(9, 8),
+    ANIMCMD_JUMP(0),
+};
+
+const union AnimCmd gObjectEventImageAnim_GoFastEast_Asymmetric[] =
+{
+    ANIMCMD_FRAME(10, 4),
+    ANIMCMD_FRAME(9, 4),
+    ANIMCMD_FRAME(11, 4),
+    ANIMCMD_FRAME(9, 4),
+    ANIMCMD_JUMP(0),
+};
+
+const union AnimCmd gObjectEventImageAnim_GoFasterEast_Asymmetric[] =
+{
+    ANIMCMD_FRAME(10, 2),
+    ANIMCMD_FRAME(9, 2),
+    ANIMCMD_FRAME(11, 2),
+    ANIMCMD_FRAME(9, 2),
+    ANIMCMD_JUMP(0),
+};
+
+const union AnimCmd gObjectEventImageAnim_GoFastestEast_Asymmetric[] =
+{
+    ANIMCMD_FRAME(10, 1),
+    ANIMCMD_FRAME(9, 1),
+    ANIMCMD_FRAME(11, 1),
+    ANIMCMD_FRAME(9, 1),
+    ANIMCMD_JUMP(0),
+};
+
+const union AnimCmd *const gObjectEventImageAnimTable_Standard_Asymmetric[] = {
+    gObjectEventImageAnim_FaceSouth,
+    gObjectEventImageAnim_FaceNorth,
+    gObjectEventImageAnim_FaceWest,
+    gObjectEventImageAnim_FaceEast_Asymmetric,
+    gObjectEventImageAnim_GoSouth,
+    gObjectEventImageAnim_GoNorth,
+    gObjectEventImageAnim_GoWest,
+    gObjectEventImageAnim_GoEast_Asymmetric,
+    gObjectEventImageAnim_GoFastSouth,
+    gObjectEventImageAnim_GoFastNorth,
+    gObjectEventImageAnim_GoFastWest,
+    gObjectEventImageAnim_GoFastEast_Asymmetric,
+    gObjectEventImageAnim_GoFasterSouth,
+    gObjectEventImageAnim_GoFasterNorth,
+    gObjectEventImageAnim_GoFasterWest,
+    gObjectEventImageAnim_GoFasterEast_Asymmetric,
+    gObjectEventImageAnim_GoFastestSouth,
+    gObjectEventImageAnim_GoFastestNorth,
+    gObjectEventImageAnim_GoFastestWest,
+    gObjectEventImageAnim_GoFastestEast_Asymmetric,
+};	//end section
 
 const struct UnkStruct_085094AC gUnknown_085094AC[] = {
     {
@@ -1162,6 +1227,10 @@ const struct UnkStruct_085094AC gUnknown_085094AC[] = {
     },
     {
         .anims = gObjectEventImageAnimTable_Fishing,
+        .animPos = {1, 3, 0, 2},
+    },
+	{	//allow asymmetric overworlds
+        .anims = gObjectEventImageAnimTable_Standard_Asymmetric,
         .animPos = {1, 3, 0, 2},
     },
     {

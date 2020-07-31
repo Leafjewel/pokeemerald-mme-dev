@@ -36,7 +36,7 @@
 #define subsprite_table(ptr) {.subsprites = ptr, .subspriteCount = (sizeof ptr) / (sizeof(struct Subsprite))}
 
 EWRAM_DATA s32 gFieldEffectArguments[8] = {0};
-
+EWRAM_DATA u16 gReflectionPaletteBuffer[0x10] = {0}; //new,2
 // Static type declarations
 
 static void Task_PokecenterHeal(u8 taskId);
@@ -772,6 +772,7 @@ void FieldEffectScript_LoadFadedPalette(u8 **script)
 {
     struct SpritePalette *palette = (struct SpritePalette *)FieldEffectScript_ReadWord(script);
     LoadSpritePalette(palette);
+    UpdatePaletteGammaType(IndexOfSpritePaletteTag(palette->tag), GAMMA_NORMAL);	//new,2
     UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(palette->tag));
     (*script) += 4;
 }
@@ -2982,13 +2983,19 @@ u8 sub_80B8F98(void)
     }
     return spriteId;
 }
-
+//new dynamic overworlds edits, 2
 u8 FldEff_NPCFlyOut(void)
 {
-    u8 spriteId = CreateSprite(gFieldEffectObjectTemplatePointers[26], 0x78, 0, 1);
-    struct Sprite *sprite = &gSprites[spriteId];
+    //u8 spriteId = CreateSprite(gFieldEffectObjectTemplatePointers[26], 0x78, 0, 1);
+    //struct Sprite *sprite = &gSprites[spriteId];
+    u8 spriteId;
+    struct Sprite *sprite;
 
-    sprite->oam.paletteNum = 0;
+    LoadFieldEffectPalette(26);	//new line
+    spriteId = CreateSprite(gFieldEffectObjectTemplatePointers[26], 0x78, 0, 1);
+    sprite = &gSprites[spriteId];
+
+    //sprite->oam.paletteNum = 0;
     sprite->oam.priority = 1;
     sprite->callback = sub_80B9128;
     sprite->data[1] = gFieldEffectArguments[0];
@@ -3158,9 +3165,10 @@ static u8 sub_80B94C4(void)
 {
     u8 spriteId;
     struct Sprite *sprite;
+	LoadFieldEffectPalette(26); //new,2
     spriteId = CreateSprite(gFieldEffectObjectTemplatePointers[26], 0xff, 0xb4, 0x1);
     sprite = &gSprites[spriteId];
-    sprite->oam.paletteNum = 0;
+    //sprite->oam.paletteNum = 0; //new,2
     sprite->oam.priority = 1;
     sprite->callback = sub_80B957C;
     return spriteId;
