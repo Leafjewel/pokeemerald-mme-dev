@@ -315,7 +315,7 @@ static const u8 sContextMenuItems_QuizLady[] = {
     ITEMMENUACTION_CONFIRM_2,   ITEMMENUACTION_CANCEL
 };
 
-static const u8 sContextMenuItems_RegisterMenuActions[] = {		//register lr
+static const u8 sContextMenu_RegisterKeyItem[] = {		//register lr
 	ITEMMENUACTION_SELECT_BUTTON, ITEMMENUACTION_L_BUTTON, 
 	ITEMMENUACTION_DUMMY, ITEMMENUACTION_R_BUTTON
 };
@@ -982,10 +982,10 @@ void BagMenu_ItemPrintCallback(u8 windowId, s32 itemIndex, u8 y, u8 listPos)
 			if (gSaveBlock1Ptr->registeredItemSelect && gSaveBlock1Ptr->registeredItemSelect == itemId)
                 BlitBitmapToWindow(windowId, sSelectButtonGfx, 96, y - 1, 24, 16);
 
-            if (gSaveBlock1Ptr->registeredItemL && gSaveBlock1Ptr->registeredItemL == itemId)
+            if (gSaveBlock2Ptr->registeredItemL && gSaveBlock2Ptr->registeredItemL == itemId)
                 BlitBitmapToWindow(windowId, sLButtonGfx, 96, y - 1, 24, 16);
 
-            if (gSaveBlock1Ptr->registeredItemR && gSaveBlock1Ptr->registeredItemR == itemId)
+            if (gSaveBlock2Ptr->registeredItemR && gSaveBlock2Ptr->registeredItemR == itemId)
                 BlitBitmapToWindow(windowId, sRButtonGfx, 96, y - 1, 24, 16);
 		}	//end section
     }
@@ -1628,23 +1628,35 @@ void OpenContextMenu(u8 unused)
                         break;
                     case KEYITEMS_POCKET:
                         gBagMenu->contextMenuItemsPtr = gBagMenu->contextMenuItemsBuffer;
-                        gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_KeyItemsPocket);
-                        memcpy(&gBagMenu->contextMenuItemsBuffer, &sContextMenuItems_KeyItemsPocket, sizeof(sContextMenuItems_KeyItemsPocket));
-                        //if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId)
-                        //    gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
-                        if (gSpecialVar_ItemId == ITEM_MACH_BIKE || gSpecialVar_ItemId == ITEM_ACRO_BIKE)
-                        {
-                            if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
-                                gBagMenu->contextMenuItemsBuffer[0] = ITEMMENUACTION_WALK;
-                        }
+                        
+						if (sRegisterSubMenu == FALSE)	//register lr
+						{
+							gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_KeyItemsPocket);
+							memcpy(&gBagMenu->contextMenuItemsBuffer, &sContextMenuItems_KeyItemsPocket, sizeof(sContextMenuItems_KeyItemsPocket));
+							//if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId)
+							//    gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
+							
+							// check replacing USE with WALK
+							if (gSpecialVar_ItemId == ITEM_MACH_BIKE || gSpecialVar_ItemId == ITEM_ACRO_BIKE)
+							{
+								if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
+									gBagMenu->contextMenuItemsBuffer[0] = ITEMMENUACTION_WALK;
+							}
+						}
+						else
+						{
+							gBagMenu->contextMenuNumItems = NELEMS(sContextMenu_RegisterKeyItem);
+                            memcpy(&gBagMenu->contextMenuItemsBuffer, &sContextMenu_RegisterKeyItem, sizeof(sContextMenu_RegisterKeyItem));
+                            sRegisterSubMenu = FALSE;
+						}
 
                         if (gSaveBlock1Ptr->registeredItemSelect == gSpecialVar_ItemId)
                             gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
-                        else if (gSaveBlock1Ptr->registeredItemL == gSpecialVar_ItemId)
+                        else if (gSaveBlock2Ptr->registeredItemL == gSpecialVar_ItemId)
                             gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
-                        else if (gSaveBlock1Ptr->registeredItemR == gSpecialVar_ItemId)
+                        else if (gSaveBlock2Ptr->registeredItemR == gSpecialVar_ItemId)
                             gBagMenu->contextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
-                        break;
+                        break;	//end section
                     case BALLS_POCKET:
                         gBagMenu->contextMenuItemsPtr = sContextMenuItems_BallsPocket;
                         gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_BallsPocket);
@@ -2622,10 +2634,10 @@ static void ResetRegisteredItem(u16 item)
 {
     if (gSaveBlock1Ptr->registeredItemSelect == item)
         gSaveBlock1Ptr->registeredItemSelect = ITEM_NONE;
-    else if (gSaveBlock1Ptr->registeredItemL == item)
-        gSaveBlock1Ptr->registeredItemL = ITEM_NONE;
-    else if (gSaveBlock1Ptr->registeredItemR == item)
-        gSaveBlock1Ptr->registeredItemR = ITEM_NONE;
+    else if (gSaveBlock2Ptr->registeredItemL == item)
+        gSaveBlock2Ptr->registeredItemL = ITEM_NONE;
+    else if (gSaveBlock2Ptr->registeredItemR == item)
+        gSaveBlock2Ptr->registeredItemR = ITEM_NONE;
 }
 
 static void ItemMenu_FinishRegister(u8 taskId)
@@ -2672,20 +2684,20 @@ static void ItemMenu_RegisterSelect(u8 taskId)
 
 static void ItemMenu_RegisterL(u8 taskId)
 {
-    if (gSaveBlock1Ptr->registeredItemL == gSpecialVar_ItemId)
-        gSaveBlock1Ptr->registeredItemL = ITEM_NONE;
+    if (gSaveBlock2Ptr->registeredItemL == gSpecialVar_ItemId)
+        gSaveBlock2Ptr->registeredItemL = ITEM_NONE;
     else
-        gSaveBlock1Ptr->registeredItemL = gSpecialVar_ItemId;
+        gSaveBlock2Ptr->registeredItemL = gSpecialVar_ItemId;
 
     gTasks[taskId].func = ItemMenu_FinishRegister;
 }
 
 static void ItemMenu_RegisterR(u8 taskId)
 {
-    if (gSaveBlock1Ptr->registeredItemR == gSpecialVar_ItemId)
-        gSaveBlock1Ptr->registeredItemR = ITEM_NONE;
+    if (gSaveBlock2Ptr->registeredItemR == gSpecialVar_ItemId)
+        gSaveBlock2Ptr->registeredItemR = ITEM_NONE;
     else
-        gSaveBlock1Ptr->registeredItemR = gSpecialVar_ItemId;
+        gSaveBlock2Ptr->registeredItemR = gSpecialVar_ItemId;
 
     gTasks[taskId].func = ItemMenu_FinishRegister;
 }
@@ -2719,10 +2731,10 @@ bool8 UseRegisteredKeyItemOnField(u8 button)
         registeredItem = gSaveBlock1Ptr->registeredItemSelect;
         break;
     case 1:
-        registeredItem = gSaveBlock1Ptr->registeredItemL;
+        registeredItem = gSaveBlock2Ptr->registeredItemL;
         break;
     case 2:
-        registeredItem = gSaveBlock1Ptr->registeredItemR;
+        registeredItem = gSaveBlock2Ptr->registeredItemR;
         break;
     default:
         return FALSE;
@@ -2749,10 +2761,10 @@ bool8 UseRegisteredKeyItemOnField(u8 button)
                 gSaveBlock1Ptr->registeredItemSelect = ITEM_NONE;
                 break;
             case 1:
-                gSaveBlock1Ptr->registeredItemL = ITEM_NONE;
+                gSaveBlock2Ptr->registeredItemL = ITEM_NONE;
                 break;
             case 2:
-                gSaveBlock1Ptr->registeredItemR = ITEM_NONE;
+                gSaveBlock2Ptr->registeredItemR = ITEM_NONE;
                 break;
             }
         }

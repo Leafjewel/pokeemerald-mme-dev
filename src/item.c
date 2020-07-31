@@ -643,8 +643,10 @@ static s32 FindFreePCItemSlot(void)
 
 u8 CountUsedPCItemSlots(void)
 {
-    u8 usedSlots = 0;
-    u8 i;
+    //u8 usedSlots = 0;
+    //u8 i;
+	u16 usedSlots = 0;
+    u16 i;
 
     for (i = 0; i < PC_ITEMS_COUNT; i++)
     {
@@ -656,7 +658,8 @@ u8 CountUsedPCItemSlots(void)
 
 bool8 CheckPCHasItem(u16 itemId, u16 count)
 {
-    u8 i;
+    //u8 i;
+    u16 i;
 
     for (i = 0; i < PC_ITEMS_COUNT; i++)
     {
@@ -668,8 +671,10 @@ bool8 CheckPCHasItem(u16 itemId, u16 count)
 
 bool8 AddPCItem(u16 itemId, u16 count)
 {
-    u8 i;
-    s8 freeSlot;
+    //u8 i;
+    //s8 freeSlot;
+    u16 i;
+    s16 freeSlot;
     u16 ownedCount;
     struct ItemSlot *newItems;
 
@@ -768,23 +773,23 @@ void SwapRegisteredBike(void)
         break;
     }
 	
-	switch (gSaveBlock1Ptr->registeredItemL)
+	switch (gSaveBlock2Ptr->registeredItemL)
     {
     case ITEM_MACH_BIKE:
-        gSaveBlock1Ptr->registeredItemL = ITEM_ACRO_BIKE;
+        gSaveBlock2Ptr->registeredItemL = ITEM_ACRO_BIKE;
         break;
     case ITEM_ACRO_BIKE:
-        gSaveBlock1Ptr->registeredItemL = ITEM_MACH_BIKE;
+        gSaveBlock2Ptr->registeredItemL = ITEM_MACH_BIKE;
         break;
     }
 
-    switch (gSaveBlock1Ptr->registeredItemR)
+    switch (gSaveBlock2Ptr->registeredItemR)
     {
     case ITEM_MACH_BIKE:
-        gSaveBlock1Ptr->registeredItemR = ITEM_ACRO_BIKE;
+        gSaveBlock2Ptr->registeredItemR = ITEM_ACRO_BIKE;
         break;
     case ITEM_ACRO_BIKE:
-        gSaveBlock1Ptr->registeredItemR = ITEM_MACH_BIKE;
+        gSaveBlock2Ptr->registeredItemR = ITEM_MACH_BIKE;
         break;
     }
 }

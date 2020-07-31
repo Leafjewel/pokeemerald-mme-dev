@@ -518,6 +518,8 @@ struct SaveBlock2
     /*0x64C*/ struct BattleFrontier frontier;
 	/*0x???*/ u8 itemFlags[ITEM_FLAGS_COUNT];	//display item on first obtain
 			  u32 tmShopFlags[TMSHOP_COUNT];	//tm shops, u16 originally = 16 items max
+	/*0x???*/ u16 registeredItemL;		//register lr, moved from block1
+    /*0x???*/ u16 registeredItemR;		//register lr, moved from block1
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -1038,8 +1040,6 @@ struct SaveBlock1
     /*0x3???*/ struct SaveTrainerHill trainerHill;  //12 bytes
     #endif
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
-	/*0x3???*/ u16 registeredItemL;		//register lr
-    /*0x3???*/ u16 registeredItemR;		//register lr
     // sizeof: 0x3???
 };
 

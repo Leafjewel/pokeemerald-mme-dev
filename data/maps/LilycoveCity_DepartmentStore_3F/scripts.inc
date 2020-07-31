@@ -47,8 +47,6 @@ LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins: @ 821FC7C
 	.2byte ITEM_SASSY_MINT
 	.2byte ITEM_SERIOUS_MINT
 	.2byte ITEM_TIMID_MINT
-	.2byte ITEM_SILVER_BOTTLECAP
-	.2byte ITEM_GOLD_BOTTLECAP
 	.2byte ITEM_NONE
 	release
 	end
