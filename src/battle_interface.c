@@ -831,6 +831,8 @@ u8 CreateSafariPlayerHealthboxSprites(void)
     gSprites[healthboxLeftSpriteId].oam.affineParam = healthboxRightSpriteId;
     gSprites[healthboxRightSpriteId].hOther_HealthBoxSpriteId = healthboxLeftSpriteId;
 
+    gSprites[healthboxRightSpriteId].hOther_IndicatorSpriteId = 0xFF;
+
     gSprites[healthboxRightSpriteId].callback = SpriteCB_HealthBoxOther;
 
     return healthboxLeftSpriteId;
@@ -1749,7 +1751,7 @@ u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, 
         gBattleSpritesDataPtr->animationData->field_9_x1C++;
     }
 
-    PlaySE12WithPanning(SE_TB_START, 0);
+    PlaySE12WithPanning(SE_BALL_TRAY_ENTER, 0);
     return taskId;
 }
 
@@ -1952,9 +1954,9 @@ static void SpriteCB_StatusSummaryBallsOnBattleStart(struct Sprite *sprite)
             pan = SOUND_PAN_ATTACKER;
 
         if (sprite->data[7] != 0)
-            PlaySE2WithPanning(SE_TB_KARA, pan);
+            PlaySE2WithPanning(SE_BALL_TRAY_EXIT, pan);
         else
-            PlaySE1WithPanning(SE_TB_KON, pan);
+            PlaySE1WithPanning(SE_BALL_TRAY_BALL, pan);
 
         sprite->callback = SpriteCallbackDummy;
     }

@@ -46,7 +46,7 @@ EverGrandeCity_GlaciasRoom_EventScript_Glacia:: @ 8228469
 	end
 
 EverGrandeCity_GlaciasRoom_EventScript_GlaciaEncounter::
-	playbgm MUS_SITENNOU, 0
+	playbgm MUS_ENCOUNTER_ELITE_FOUR, 0
 	@ First battle
 	trainerbattle_single TRAINER_GLACIA, EverGrandeCity_GlaciasRoom_Text_IntroSpeech, EverGrandeCity_GlaciasRoom_Text_Defeat, EverGrandeCity_GlaciasRoom_EventScript_Defeated
 	@ Rematch

@@ -52,7 +52,7 @@ EverGrandeCity_SidneysRoom_EventScript_Sidney:: @ 8227F64
 	end
 
 EverGrandeCity_SidneysRoom_EventScript_SidneyEncounter::
-	playbgm MUS_SITENNOU, 0
+	playbgm MUS_ENCOUNTER_ELITE_FOUR, 0
 	@ First battle
 	trainerbattle_single TRAINER_SIDNEY, EverGrandeCity_SidneysRoom_Text_IntroSpeech, EverGrandeCity_SidneysRoom_Text_Defeat, EverGrandeCity_SidneysRoom_EventScript_Defeated
 	@ Rematch

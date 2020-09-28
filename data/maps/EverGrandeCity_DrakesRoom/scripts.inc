@@ -47,7 +47,7 @@ EverGrandeCity_DrakesRoom_EventScript_Drake:: @ 82286F3
 	end
 
 EverGrandeCity_DrakesRoom_EventScript_DrakeEncounter::
-	playbgm MUS_SITENNOU, 0
+	playbgm MUS_ENCOUNTER_ELITE_FOUR, 0
 	@ First battle
 	trainerbattle_single TRAINER_DRAKE, EverGrandeCity_DrakesRoom_Text_IntroSpeech, EverGrandeCity_DrakesRoom_Text_Defeat, EverGrandeCity_DrakesRoom_EventScript_Defeated
 	@ Rematch

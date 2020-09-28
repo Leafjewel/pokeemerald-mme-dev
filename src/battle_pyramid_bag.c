@@ -403,7 +403,7 @@ static void sub_81C501C(void)
     RunTasks();
     AnimateSprites();
     BuildOamBuffer();
-    do_scheduled_bg_tilemap_copies_to_vram();
+    DoScheduledBgTilemapCopiesToVram();
     UpdatePaletteFade();
 }
 
@@ -425,7 +425,7 @@ static bool8 sub_81C5078(void)
     {
         case 0:
             SetVBlankHBlankCallbacksToNull();
-            clear_scheduled_bg_copies_to_vram();
+            ClearScheduledBgCopiesToVram();
             gMain.state++;
             break;
         case 1:
@@ -841,7 +841,7 @@ static void Task_HandlePyramidBagInput(u8 taskId)
     s16 *data = gTasks[taskId].data;
     if (MenuHelpers_CallLinkSomething() != TRUE && !gPaletteFade.active)
     {
-        if (gMain.newKeys & SELECT_BUTTON)
+        if (JOY_NEW(SELECT_BUTTON))
         {
             if (gPyramidBagCursorData.unk4 != 2)
             {
@@ -967,45 +967,45 @@ static void HandleMenuActionInput(u8 taskId)
     if (MenuHelpers_CallLinkSomething() != TRUE)
     {
         s8 id = Menu_GetCursorPos();
-        if (gMain.newKeys & DPAD_UP)
+        if (JOY_NEW(DPAD_UP))
         {
             if (id > 0 && IsValidMenuAction(id - 2))
             {
                 PlaySE(SE_SELECT);
-                sub_8199134(0, -1);
+                ChangeListMenuCursorPosition(MENU_CURSOR_DELTA_NONE, MENU_CURSOR_DELTA_UP);
             }
         }
-        else if (gMain.newKeys & DPAD_DOWN)
+        else if (JOY_NEW(DPAD_DOWN))
         {
             if (id < gPyramidBagResources->menuActionsCount - 2 && IsValidMenuAction(id + 2))
             {
                 PlaySE(SE_SELECT);
-                sub_8199134(0, 1);
+                ChangeListMenuCursorPosition(MENU_CURSOR_DELTA_NONE, MENU_CURSOR_DELTA_DOWN);
             }
         }
-        else if (gMain.newKeys & DPAD_LEFT || GetLRKeysPressed() == MENU_L_PRESSED)
+        else if (JOY_NEW(DPAD_LEFT) || GetLRKeysPressed() == MENU_L_PRESSED)
         {
             if (id & 1 && IsValidMenuAction(id - 1))
             {
                 PlaySE(SE_SELECT);
-                sub_8199134(-1, 0);
+                ChangeListMenuCursorPosition(MENU_CURSOR_DELTA_LEFT, MENU_CURSOR_DELTA_NONE);
             }
         }
-        else if (gMain.newKeys & DPAD_RIGHT || GetLRKeysPressed() == MENU_R_PRESSED)
+        else if (JOY_NEW(DPAD_RIGHT) || GetLRKeysPressed() == MENU_R_PRESSED)
         {
             if (!(id & 1) && IsValidMenuAction(id + 1))
             {
                 PlaySE(SE_SELECT);
-                sub_8199134(1, 0);
+                ChangeListMenuCursorPosition(MENU_CURSOR_DELTA_RIGHT, MENU_CURSOR_DELTA_NONE);
             }
         }
-        else if (gMain.newKeys & A_BUTTON)
+        else if (JOY_NEW(A_BUTTON))
         {
             PlaySE(SE_SELECT);
             if (sMenuActions[gPyramidBagResources->menuActionIds[id]].func.void_u8 != NULL)
                 sMenuActions[gPyramidBagResources->menuActionIds[id]].func.void_u8(taskId);
         }
-        else if (gMain.newKeys & B_BUTTON)
+        else if (JOY_NEW(B_BUTTON))
         {
             PlaySE(SE_SELECT);
             sMenuActions[ACTION_CANCEL].func.void_u8(taskId);
@@ -1145,7 +1145,7 @@ static void sub_81C64B4(u8 taskId)
     {
         sub_81C645C(data[8]);
     }
-    else if (gMain.newKeys & A_BUTTON)
+    else if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
         ClearStdWindowAndFrameToTransparent(3, 0);
@@ -1153,7 +1153,7 @@ static void sub_81C64B4(u8 taskId)
         ScheduleBgCopyTilemapToVram(1);
         sub_81C6350(taskId);
     }
-    else if (gMain.newKeys & B_BUTTON)
+    else if (JOY_NEW(B_BUTTON))
     {
         PlaySE(SE_SELECT);
         ClearStdWindowAndFrameToTransparent(3, 0);
@@ -1181,7 +1181,7 @@ static void sub_81C65CC(u8 taskId)
     u16 *scrollOffset = &gPyramidBagCursorData.scrollPosition;
     u16 *selectedRow = &gPyramidBagCursorData.cursorPosition;
 
-    if (gMain.newKeys & (A_BUTTON | B_BUTTON))
+    if (JOY_NEW(A_BUTTON | B_BUTTON))
     {
         PlaySE(SE_SELECT);
         RemovePyramidBagItem(gSpecialVar_ItemId, data[8]);
@@ -1222,7 +1222,7 @@ static void sub_81C66AC(u8 taskId)
 
 static void sub_81C66EC(u8 taskId)
 {
-    if (gMain.newKeys & A_BUTTON)
+    if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
         Task_CloseBattlePyramidBagMessage(taskId);
@@ -1279,7 +1279,7 @@ static void Task_ItemSwapHandleInput(u8 taskId)
     s16 *data = gTasks[taskId].data;
     if (MenuHelpers_CallLinkSomething() != TRUE)
     {
-        if (gMain.newKeys & SELECT_BUTTON)
+        if (JOY_NEW(SELECT_BUTTON))
         {
             PlaySE(SE_SELECT);
             ListMenuGetScrollAndRow(data[0], &gPyramidBagCursorData.scrollPosition, &gPyramidBagCursorData.cursorPosition);
@@ -1297,7 +1297,7 @@ static void Task_ItemSwapHandleInput(u8 taskId)
                 break;
             case LIST_CANCEL:
                 PlaySE(SE_SELECT);
-                if (gMain.newKeys & A_BUTTON)
+                if (JOY_NEW(A_BUTTON))
                     PerformItemSwap(taskId);
                 else
                     sub_81C6A14(taskId);

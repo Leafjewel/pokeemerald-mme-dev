@@ -46,7 +46,7 @@ EverGrandeCity_PhoebesRoom_EventScript_Phoebe:: @ 82281CB
 	end
 
 EverGrandeCity_PhoebesRoom_EventScript_PhoebeEncounter::
-	playbgm MUS_SITENNOU, 0
+	playbgm MUS_ENCOUNTER_ELITE_FOUR, 0
     @ First battle
 	trainerbattle_single TRAINER_PHOEBE, EverGrandeCity_PhoebesRoom_Text_IntroSpeech, EverGrandeCity_PhoebesRoom_Text_Defeat, EverGrandeCity_PhoebesRoom_EventScript_Defeated
 	@ Rematch
