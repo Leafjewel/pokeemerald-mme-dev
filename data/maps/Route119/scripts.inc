@@ -158,15 +158,18 @@ Route119_EventScript_GiveFlyHM:: @ 81F45FF
 
 Route119_EventScript_GiveSceptilite::
 	giveitem ITEM_SCEPTILITE
-	return
+	goto Route119_EventScript_RivalExitScottArrive
+	end
 
 Route119_EventScript_GiveBlazikenite::
 	giveitem ITEM_BLAZIKENITE
-	return
+	goto Route119_EventScript_RivalExitScottArrive
+	end
 
 Route119_EventScript_GiveSwampertite::
 	giveitem ITEM_SWAMPERTITE
-	return
+	goto Route119_EventScript_RivalExitScottArrive
+	end
 
 Route119_EventScript_RivalExitScottArrive:: @ 81F460F
 	closemessage

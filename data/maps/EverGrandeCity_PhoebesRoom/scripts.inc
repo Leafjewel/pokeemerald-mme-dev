@@ -40,7 +40,7 @@ EverGrandeCity_PhoebesRoom_EventScript_CloseDoor:: @ 82281C5
 EverGrandeCity_PhoebesRoom_EventScript_Phoebe:: @ 82281CB
 	lock
 	faceplayer
-	goto_if_unset FLAG_DEFEATED_ELITE_4_PHOEBE, EverGrandeCity_PhoebesRoom_EventScript_PhoebeEncounter
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EverGrandeCity_PhoebesRoom_EventScript_PhoebeEncounter
 	goto_if_set TRAINER_PHOEBE_2, EverGrandeCity_PhoebesRoom_EventScript_RematchPostBattleSpeech
 	goto EverGrandeCity_PhoebesRoom_EventScript_PostBattleSpeech
 	end

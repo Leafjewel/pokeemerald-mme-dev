@@ -355,14 +355,22 @@ const u16 sLevelCapFlags[NUM_SOFT_CAPS] =
 
 const u16 sLevelCaps[NUM_SOFT_CAPS] = { 20, 25, 32, 40, 45, 51, 60, 65 };
 const double sLevelCapReduction[7] = { .5, .33, .25, .20, .15, .10, .05 };
-const double sRelativePartyScaling[27] =
+/*const double sRelativePartyScaling[27] =
 {
     3.00, 2.75, 2.50, 2.33, 2.25,
     2.00, 1.80, 1.70, 1.60, 1.50,
     1.40, 1.30, 1.20, 1.10, 1.00,
     0.90, 0.80, 0.75, 0.66, 0.50,
     0.40, 0.33, 0.25, 0.20, 0.15,
-    0.10, 0.05,
+    0.10, 0.05,*/
+const double sRelativePartyScaling[29] =
+{
+    3.00, 2.75, 2.50, 2.33, 2.25,
+    2.00, 1.80, 1.70, 1.60, 1.50,
+    1.40, 1.30, 1.20, 1.10, 1.00,
+    1.00, 1.00, 0.90, 0.80, 0.75,
+    0.66, 0.50, 0.40, 0.33, 0.25,
+    0.20, 0.15, 0.10, 0.05,
 };	//end section
 
 void (* const gBattleScriptingCommandsTable[])(void) =
@@ -3412,7 +3420,7 @@ u8 GetTeamLevel(void)
 {
     u8 i;
     u16 partyLevel = 0;
-    u16 threshold = 0;
+    //u16 threshold = 0;
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
@@ -3423,7 +3431,7 @@ u8 GetTeamLevel(void)
     }
     partyLevel /= i;
 
-    threshold = partyLevel * .8;
+    /* threshold = partyLevel * .8;
     partyLevel = 0;
 
     for (i = 0; i < PARTY_SIZE; i++)
@@ -3436,7 +3444,7 @@ u8 GetTeamLevel(void)
         else
             break;
     }
-    partyLevel /= i;
+    partyLevel /= i; */
 
     return partyLevel;
 }
@@ -3464,8 +3472,10 @@ double GetPkmnExpMultiplier(u8 level)
     // multiply the usual exp yield by the party level multiplier
     avgDiff = level - GetTeamLevel();
 
-    if (avgDiff >= 12)
-        avgDiff = 12;
+    //if (avgDiff >= 12)
+        //avgDiff = 12;
+	if (avgDiff >= 14)
+        avgDiff = 14;
     else if (avgDiff <= -14)
         avgDiff = -14;
 
@@ -5976,6 +5986,8 @@ static void Cmd_yesnoboxlearnmove(void)
                         RemoveBattleMonPPBonus(&gBattleMons[2], movePosition);
                         SetBattleMonMoveSlot(&gBattleMons[2], gMoveToLearn, movePosition);
                     } */
+				gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+				PREPARE_MOVE_BUFFER(gBattleTextBuff2, moveId);
 				RemoveMonPPBonus(&gPlayerParty[gBattleStruct->expGetterMonId], movePosition);
                 SetMonMoveSlot(&gPlayerParty[gBattleStruct->expGetterMonId], gMoveToLearn, movePosition);
 

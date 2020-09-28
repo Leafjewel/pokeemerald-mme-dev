@@ -41,7 +41,7 @@ EverGrandeCity_DrakesRoom_EventScript_CloseDoor:: @ 82286ED
 EverGrandeCity_DrakesRoom_EventScript_Drake:: @ 82286F3
 	lock
 	faceplayer
-	goto_if_unset FLAG_DEFEATED_ELITE_4_DRAKE, EverGrandeCity_DrakesRoom_EventScript_DrakeEncounter
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EverGrandeCity_DrakesRoom_EventScript_DrakeEncounter
 	goto_if_set TRAINER_DRAKE_2, EverGrandeCity_DrakesRoom_EventScript_RematchPostBattleSpeech
 	goto EverGrandeCity_DrakesRoom_EventScript_PostBattleSpeech
 	end
