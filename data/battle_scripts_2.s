@@ -14,36 +14,6 @@
 
 	.align 2
 gBattlescriptsForBallThrow:: @ 82DBD08
-<<<<<<< HEAD
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_SafariBallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-	.4byte BattleScript_BallThrow
-=======
 	.4byte BattleScript_BallThrow        @ ITEM_NONE
 	.4byte BattleScript_BallThrow        @ ITEM_MASTER_BALL
 	.4byte BattleScript_BallThrow        @ ITEM_ULTRA_BALL
@@ -57,7 +27,21 @@ gBattlescriptsForBallThrow:: @ 82DBD08
 	.4byte BattleScript_BallThrow        @ ITEM_TIMER_BALL
 	.4byte BattleScript_BallThrow        @ ITEM_LUXURY_BALL
 	.4byte BattleScript_BallThrow        @ ITEM_PREMIER_BALL
->>>>>>> 97d06431103d78022db970aeed70179d63190939
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
+	.4byte BattleScript_BallThrow
 
 	.align 2
 gBattlescriptsForUsingItem:: @ 82DBD3C
