@@ -3933,7 +3933,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Kayla[] = {
     {
     .iv = 0,
     .lvl = 47,
-    .species = SPECIES_KADABRA,
+    .species = SPECIES_MUNNA,
     .abilityNums = 0,
 	.evs = {0, 0, 0, 0, 0, 0},
     }
@@ -10939,7 +10939,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Eric[] = {
     {
     .iv = 0,
     .lvl = 29,
-    .species = SPECIES_GEODUDE,
+    .species = SPECIES_MINIOR,
     .abilityNums = 0,
 	.evs = {0, 0, 0, 0, 0, 0},
     },
@@ -16113,7 +16113,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Alvaro[] = {
     {
     .iv = 0,
     .lvl = 60,
-    .species = SPECIES_KADABRA,
+    .species = SPECIES_ALAKAZAM,
     .abilityNums = 0,
 	.evs = {0, 0, 0, 0, 0, 0},
     }
