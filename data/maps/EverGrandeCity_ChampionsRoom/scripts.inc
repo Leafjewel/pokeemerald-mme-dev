@@ -42,8 +42,8 @@ EverGrandeCity_ChampionsRoom_Movement_PlayerApproachWallace: @ 8228A42
 	step_end
 
 EverGrandeCity_ChampionsRoom_EventScript_Wallace:: @ 8228A45
-	playbgm MUS_DAIGO, 0
-	goto_if_set TRAINER_WALLACE, EverGrandeCity_ChampionsRoom_EventScript_WallaceRematch
+	playbgm MUS_ENCOUNTER_CHAMPION, 0
+	goto_if_set FLAG_SYS_GAME_CLEAR, EverGrandeCity_ChampionsRoom_EventScript_WallaceRematch
 	@ First battle
 	msgbox EverGrandeCity_ChampionsRoom_Text_IntroSpeech, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_WALLACE, EverGrandeCity_ChampionsRoom_Text_Defeat
@@ -80,11 +80,11 @@ EverGrandeCity_ChampionsRoom_EventScript_Defeated:: @ 8228A61
 	end
 
 EverGrandeCity_ChampionsRoom_EventScript_PlayMayMusic:: @ 8228ABC
-	playbgm MUS_GIRL_SUP, 0
+	playbgm MUS_ENCOUNTER_MAY, 0
 	return
 
 EverGrandeCity_ChampionsRoom_EventScript_PlayBrendanMusic:: @ 8228AC1
-	playbgm MUS_BOY_SUP, 0
+	playbgm MUS_ENCOUNTER_BRENDAN, 0
 	return
 
 EverGrandeCity_ChampionsRoom_EventScript_MayAdvice:: @ 8228AC6

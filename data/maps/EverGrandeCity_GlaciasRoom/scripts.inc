@@ -40,13 +40,13 @@ EverGrandeCity_GlaciasRoom_EventScript_CloseDoor:: @ 8228463
 EverGrandeCity_GlaciasRoom_EventScript_Glacia:: @ 8228469
 	lock
 	faceplayer
-	goto_if_unset FLAG_DEFEATED_ELITE_4_GLACIA, EverGrandeCity_GlaciasRoom_EventScript_GlaciaEncounter
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EverGrandeCity_GlaciasRoom_EventScript_GlaciaEncounter
 	goto_if_set TRAINER_GLACIA_2, EverGrandeCity_GlaciasRoom_EventScript_RematchPostBattleSpeech
 	goto EverGrandeCity_GlaciasRoom_EventScript_PostBattleSpeech
 	end
 
 EverGrandeCity_GlaciasRoom_EventScript_GlaciaEncounter::
-	playbgm MUS_SITENNOU, 0
+	playbgm MUS_ENCOUNTER_ELITE_FOUR, 0
 	@ First battle
 	trainerbattle_single TRAINER_GLACIA, EverGrandeCity_GlaciasRoom_Text_IntroSpeech, EverGrandeCity_GlaciasRoom_Text_Defeat, EverGrandeCity_GlaciasRoom_EventScript_Defeated
 	@ Rematch

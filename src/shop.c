@@ -672,7 +672,7 @@ static void CB2_BuyMenu(void)
     RunTasks();
     AnimateSprites();
     BuildOamBuffer();
-    do_scheduled_bg_tilemap_copies_to_vram();
+    DoScheduledBgTilemapCopiesToVram();
     UpdatePaletteFade();
 }
 
@@ -702,7 +702,7 @@ static void CB2_InitBuyMenu(void)
         ResetPaletteFade();
         ResetSpriteData();
         ResetTasks();
-        clear_scheduled_bg_copies_to_vram();
+        ClearScheduledBgCopiesToVram();
         gShopDataPtr = AllocZeroed(sizeof(struct ShopData));
         gShopDataPtr->scrollIndicatorsTaskId = 0xFF;
         gShopDataPtr->itemSpriteIds[0] = 0xFF;
@@ -1355,7 +1355,7 @@ static void Task_BuyHowManyDialogueHandleInput(u8 taskId)
     }
     else
     {
-        if (gMain.newKeys & A_BUTTON)
+        if (JOY_NEW(A_BUTTON))
         {
             PlaySE(SE_SELECT);
             ClearStdWindowAndFrameToTransparent(4, 0);
@@ -1369,7 +1369,7 @@ static void Task_BuyHowManyDialogueHandleInput(u8 taskId)
             ConvertIntToDecimalStringN(gStringVar3, gShopDataPtr->totalCost, STR_CONV_MODE_LEFT_ALIGN, 7);
             BuyMenuDisplayMessage(taskId, gText_Var1AndYouWantedVar2, BuyMenuConfirmPurchase);
         }
-        else if (gMain.newKeys & B_BUTTON)
+        else if (JOY_NEW(B_BUTTON))
         {
             PlaySE(SE_SELECT);
             ClearStdWindowAndFrameToTransparent(4, 0);
@@ -1443,7 +1443,7 @@ static void BuyMenuSubtractMoney(u8 taskId)
 {
     IncrementGameStat(GAME_STAT_SHOPPED);
     RemoveMoney(&gSaveBlock1Ptr->money, gShopDataPtr->totalCost);
-    PlaySE(SE_REGI);
+    PlaySE(SE_SHOP);
     PrintMoneyAmountInMoneyBox(0, GetMoney(&gSaveBlock1Ptr->money), 0);
 
     if (gMartInfo.martType == MART_TYPE_NORMAL)
@@ -1464,7 +1464,7 @@ static void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
 
-    if (gMain.newKeys & (A_BUTTON | B_BUTTON))
+    if (JOY_NEW(A_BUTTON | B_BUTTON))
     {
         PlaySE(SE_SELECT);
 		//LGPE Premier Balls
@@ -1509,7 +1509,7 @@ static void Task_ReturnToItemListAfterTMShopPurchase(u8 taskId)	//start tm shops
 
 static void Task_ReturnToItemListAfterDecorationPurchase(u8 taskId)
 {
-    if (gMain.newKeys & (A_BUTTON | B_BUTTON))
+    if (JOY_NEW(A_BUTTON | B_BUTTON))
     {
         PlaySE(SE_SELECT);
         BuyMenuReturnToItemList(taskId);

@@ -26,6 +26,7 @@ LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins: @ 821FC7C
 	.2byte ITEM_GUARD_SPEC
 	.2byte ITEM_X_ACCURACY
 	.2byte ITEM_ABILITY_CAPSULE
+	.2byte ITEM_HEART_SCALE
 	.2byte ITEM_ADAMANT_MINT
 	.2byte ITEM_BOLD_MINT
 	.2byte ITEM_BRAVE_MINT

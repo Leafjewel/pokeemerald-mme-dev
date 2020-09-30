@@ -1019,12 +1019,12 @@ static void Chat_HandleInput(void)
     switch (sChat->funcState)
     {
     case 0:
-        if (gMain.newKeys & START_BUTTON)
+        if (JOY_NEW(START_BUTTON))
         {
             if (sChat->bufferCursorPos)
                 SetChatFunction(CHAT_FUNC_SEND);
         }
-        else if (gMain.newKeys & SELECT_BUTTON)
+        else if (JOY_NEW(SELECT_BUTTON))
         {
             SetChatFunction(CHAT_FUNC_SWITCH);
         }
@@ -1041,14 +1041,14 @@ static void Chat_HandleInput(void)
                 SetChatFunction(CHAT_FUNC_ASK_QUIT);
             }
         }
-        else if (gMain.newKeys & A_BUTTON)
+        else if (JOY_NEW(A_BUTTON))
         {
             AppendTextToMessage();
             StartDisplaySubtask(CHATDISPLAY_FUNC_UPDATE_MSG, 0);
             StartDisplaySubtask(CHATDISPLAY_FUNC_CURSOR_BLINK, 1);
             sChat->funcState = 1;
         }
-        else if (gMain.newKeys & R_BUTTON)
+        else if (JOY_NEW(R_BUTTON))
         {
             if (sChat->currentPage != UNION_ROOM_KB_PAGE_REGISTER)
             {
@@ -1102,7 +1102,7 @@ static void Chat_Switch(void)
                 shouldSwitchPages = FALSE;
             break;
         case MENU_NOTHING_CHOSEN:
-            if (gMain.newKeys & SELECT_BUTTON)
+            if (JOY_NEW(SELECT_BUTTON))
             {
                 PlaySE(SE_SELECT);
                 Menu_MoveCursor(1);
@@ -1269,7 +1269,7 @@ static void Chat_Exit(void)
     case 5:
         if (IsLinkTaskFinished() && !sub_8011A9C())
         {
-            sub_800AC34();
+            SetCloseLinkCallback();
             sChat->exitDelayTimer = 0;
             sChat->funcState++;
         }
@@ -1304,7 +1304,7 @@ static void Chat_Drop(void)
     case 1:
         if (!IsDisplaySubtaskActive(0) && IsLinkTaskFinished() && !sub_8011A9C())
         {
-            sub_800AC34();
+            SetCloseLinkCallback();
             sChat->exitDelayTimer = 0;
             sChat->funcState++;
         }
@@ -1350,7 +1350,7 @@ static void Chat_Disbanded(void)
     case 2:
         if (IsDisplaySubtaskActive(0) != TRUE && IsLinkTaskFinished() && !sub_8011A9C())
         {
-            sub_800AC34();
+            SetCloseLinkCallback();
             sChat->exitDelayTimer = 0;
             sChat->funcState++;
         }
@@ -1422,13 +1422,13 @@ static void Chat_Register(void)
         }
         break;
     case 1:
-        if (gMain.newKeys & A_BUTTON)
+        if (JOY_NEW(A_BUTTON))
         {
             RegisterTextAtRow();
             StartDisplaySubtask(CHATDISPLAY_FUNC_RETURN_TO_KB, 0);
             sChat->funcState = 3;
         }
-        else if (gMain.newKeys & B_BUTTON)
+        else if (JOY_NEW(B_BUTTON))
         {
             StartDisplaySubtask(CHATDISPLAY_FUNC_CANCEL_REGISTER, 0);
             sChat->funcState = 4;
@@ -1459,7 +1459,7 @@ static void Chat_Register(void)
             sChat->funcState = 6;
         break;
     case 6:
-        if (gMain.newKeys & (A_BUTTON | B_BUTTON))
+        if (JOY_NEW(A_BUTTON | B_BUTTON))
         {
             StartDisplaySubtask(CHATDISPLAY_FUNC_DESTROY_YESNO, 0);
             sChat->funcState = 4;
@@ -1593,7 +1593,7 @@ static bool32 HandleDPadInput(void)
 {
     do
     {
-        if (gMain.newAndRepeatedKeys & DPAD_UP)
+        if (JOY_REPEAT(DPAD_UP))
         {
             if (sChat->currentRow > 0)
                 sChat->currentRow--;
@@ -1601,7 +1601,7 @@ static bool32 HandleDPadInput(void)
                 sChat->currentRow = sKeyboardPageMaxRow[sChat->currentPage];
             break;
         }
-        if (gMain.newAndRepeatedKeys & DPAD_DOWN)
+        if (JOY_REPEAT(DPAD_DOWN))
         {
             if (sChat->currentRow < sKeyboardPageMaxRow[sChat->currentPage])
                 sChat->currentRow++;
@@ -1611,7 +1611,7 @@ static bool32 HandleDPadInput(void)
         }
         if (sChat->currentPage != UNION_ROOM_KB_PAGE_REGISTER)
         {
-            if (gMain.newAndRepeatedKeys & DPAD_LEFT)
+            if (JOY_REPEAT(DPAD_LEFT))
             {
                 if (sChat->currentCol > 0)
                     sChat->currentCol--;
@@ -1619,7 +1619,7 @@ static bool32 HandleDPadInput(void)
                     sChat->currentCol = 4;
                 break;
             }
-            else if (gMain.newAndRepeatedKeys & DPAD_RIGHT)
+            else if (JOY_REPEAT(DPAD_RIGHT))
             {
                 if (sChat->currentCol < 4)
                     sChat->currentCol++;
@@ -1648,7 +1648,7 @@ static void AppendTextToMessage(void)
         charsStr = sUnionRoomKeyboardText[sChat->currentPage][sChat->currentRow];
         for (i = 0; i < sChat->currentCol; i++)
         {
-            if (*charsStr == CHAR_SPECIAL_F9)
+            if (*charsStr == CHAR_EXTRA_SYMBOL)
                 charsStr++;
             charsStr++;
         }
@@ -1672,7 +1672,7 @@ static void AppendTextToMessage(void)
     str = GetEndOfMessagePtr();
     while (--strLength != -1 && sChat->bufferCursorPos < MAX_MESSAGE_LENGTH)
     {
-        if (*charsStr == CHAR_SPECIAL_F9)
+        if (*charsStr == CHAR_EXTRA_SYMBOL)
         {
             *str = *charsStr;
             charsStr++;
@@ -1707,7 +1707,7 @@ static void SwitchCaseOfLastMessageCharacter(void)
 
     sChat->lastBufferCursorPos = sChat->bufferCursorPos - 1;
     str = GetLastCharOfMessagePtr();
-    if (*str != CHAR_SPECIAL_F9)
+    if (*str != CHAR_EXTRA_SYMBOL)
     {
         character = sCaseToggleTable[*str];
         if (character)
@@ -1767,7 +1767,7 @@ static u8 *GetLastCharOfMessagePtr(void)
     while (*currChar != EOS)
     {
         lastChar = currChar;
-        if (*currChar == CHAR_SPECIAL_F9)
+        if (*currChar == CHAR_EXTRA_SYMBOL)
             currChar++;
         currChar++;
     }
@@ -1788,7 +1788,7 @@ static u16 GetNumOverflowCharsInMessage(void)
         strLength -= 10;
         for (i = 0; i < strLength; i++)
         {
-            if (*str == CHAR_SPECIAL_F9)
+            if (*str == CHAR_EXTRA_SYMBOL)
                 str++;
 
             str++;
@@ -1929,7 +1929,7 @@ static u8 *GetLimitedMessageStartPtr(void)
     u8 *str = sChat->messageEntryBuffer;
     for (i = 0; i < numChars; i++)
     {
-        if (*str == CHAR_SPECIAL_F9)
+        if (*str == CHAR_EXTRA_SYMBOL)
             *str++;
 
         str++;
@@ -1946,7 +1946,7 @@ static u16 GetLimitedMessageStartPos(void)
     u8 *str = sChat->messageEntryBuffer;
     for (count = 0, i = 0; i < numChars; count++, i++)
     {
-        if (*str == CHAR_SPECIAL_F9)
+        if (*str == CHAR_EXTRA_SYMBOL)
             str++;
 
         str++;
@@ -2127,7 +2127,7 @@ static void Task_ReceiveChatMessage(u8 taskId)
 
 static bool8 TryAllocDisplay(void)
 {
-    sDisplay = Alloc(sizeof(*sDisplay));
+    sDisplay = Alloc(sizeof(struct UnionRoomChatDisplay));
     if (sDisplay && TryAllocSprites())
     {
         ResetBgsAndClearDma3BusyFlags(0);

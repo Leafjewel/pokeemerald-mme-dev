@@ -98,7 +98,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_RATTATA] =
     {
         .size = 0x44,
-        .y_offset = 4,
+        .y_offset = 2,
     },
     [SPECIES_RATICATE] =
     {
@@ -958,7 +958,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_SUNKERN] =
     {
         .size = 0x44,
-        .y_offset = 4,
+        .y_offset = 2,
     },
     [SPECIES_SUNFLORA] =
     {
@@ -1168,7 +1168,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_STANTLER] =
     {
         .size = 0x88,
-        .y_offset = 2,
+        .y_offset = 0,
     },
     [SPECIES_SMEARGLE] =
     {
@@ -1503,7 +1503,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_CORPHISH] =
     {
         .size = 0x66,
-        .y_offset = 8,
+        .y_offset = 0,
     },
     [SPECIES_CRAWDAUNT] =
     {
@@ -1568,7 +1568,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_NUMEL] =
     {
         .size = 0x65,
-        .y_offset = 5,
+        .y_offset = 4,
     },
     [SPECIES_CAMERUPT] =
     {
@@ -1578,7 +1578,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_SPHEAL] =
     {
         .size = 0x65,
-        .y_offset = 8,
+        .y_offset = 6,
     },
     [SPECIES_SEALEO] =
     {
@@ -1693,7 +1693,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_SLAKOTH] =
     {
         .size = 0x74,
-        .y_offset = 6,
+        .y_offset = 4,
     },
     [SPECIES_VIGOROTH] =
     {

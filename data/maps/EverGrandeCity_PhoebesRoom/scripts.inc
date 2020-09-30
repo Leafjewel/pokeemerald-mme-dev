@@ -40,13 +40,13 @@ EverGrandeCity_PhoebesRoom_EventScript_CloseDoor:: @ 82281C5
 EverGrandeCity_PhoebesRoom_EventScript_Phoebe:: @ 82281CB
 	lock
 	faceplayer
-	goto_if_unset FLAG_DEFEATED_ELITE_4_PHOEBE, EverGrandeCity_PhoebesRoom_EventScript_PhoebeEncounter
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EverGrandeCity_PhoebesRoom_EventScript_PhoebeEncounter
 	goto_if_set TRAINER_PHOEBE_2, EverGrandeCity_PhoebesRoom_EventScript_RematchPostBattleSpeech
 	goto EverGrandeCity_PhoebesRoom_EventScript_PostBattleSpeech
 	end
 
 EverGrandeCity_PhoebesRoom_EventScript_PhoebeEncounter::
-	playbgm MUS_SITENNOU, 0
+	playbgm MUS_ENCOUNTER_ELITE_FOUR, 0
     @ First battle
 	trainerbattle_single TRAINER_PHOEBE, EverGrandeCity_PhoebesRoom_Text_IntroSpeech, EverGrandeCity_PhoebesRoom_Text_Defeat, EverGrandeCity_PhoebesRoom_EventScript_Defeated
 	@ Rematch

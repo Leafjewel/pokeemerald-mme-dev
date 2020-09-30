@@ -41,13 +41,13 @@ EverGrandeCity_DrakesRoom_EventScript_CloseDoor:: @ 82286ED
 EverGrandeCity_DrakesRoom_EventScript_Drake:: @ 82286F3
 	lock
 	faceplayer
-	goto_if_unset FLAG_DEFEATED_ELITE_4_DRAKE, EverGrandeCity_DrakesRoom_EventScript_DrakeEncounter
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EverGrandeCity_DrakesRoom_EventScript_DrakeEncounter
 	goto_if_set TRAINER_DRAKE_2, EverGrandeCity_DrakesRoom_EventScript_RematchPostBattleSpeech
 	goto EverGrandeCity_DrakesRoom_EventScript_PostBattleSpeech
 	end
 
 EverGrandeCity_DrakesRoom_EventScript_DrakeEncounter::
-	playbgm MUS_SITENNOU, 0
+	playbgm MUS_ENCOUNTER_ELITE_FOUR, 0
 	@ First battle
 	trainerbattle_single TRAINER_DRAKE, EverGrandeCity_DrakesRoom_Text_IntroSpeech, EverGrandeCity_DrakesRoom_Text_Defeat, EverGrandeCity_DrakesRoom_EventScript_Defeated
 	@ Rematch

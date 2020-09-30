@@ -46,13 +46,13 @@ EverGrandeCity_SidneysRoom_EventScript_WalkInCloseDoor:: @ 8227F57
 EverGrandeCity_SidneysRoom_EventScript_Sidney:: @ 8227F64
 	lock
 	faceplayer
-	goto_if_unset FLAG_DEFEATED_ELITE_4_SIDNEY, EverGrandeCity_SidneysRoom_EventScript_SidneyEncounter
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EverGrandeCity_SidneysRoom_EventScript_SidneyEncounter
 	goto_if_set TRAINER_SIDNEY_2, EverGrandeCity_SidneysRoom_EventScript_RematchPostBattleSpeech
 	goto EverGrandeCity_SidneysRoom_EventScript_PostBattleSpeech
 	end
 
 EverGrandeCity_SidneysRoom_EventScript_SidneyEncounter::
-	playbgm MUS_SITENNOU, 0
+	playbgm MUS_ENCOUNTER_ELITE_FOUR, 0
 	@ First battle
 	trainerbattle_single TRAINER_SIDNEY, EverGrandeCity_SidneysRoom_Text_IntroSpeech, EverGrandeCity_SidneysRoom_Text_Defeat, EverGrandeCity_SidneysRoom_EventScript_Defeated
 	@ Rematch
