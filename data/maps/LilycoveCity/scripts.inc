@@ -165,7 +165,8 @@ LilycoveCity_EventScript_MysticTicket::
 	msgbox LilycoveCity_Text_OnlyOneTicket, MSGBOX_NPC
 	giveitem ITEM_MYSTIC_TICKET
 	setflag FLAG_ENABLE_SHIP_NAVEL_ROCK
-	return
+	applymovement LOCALID_WOMAN_1, Common_Movement_FaceOriginalDirection
+	end
 
 LilycoveCity_EventScript_CitySign:: @ 81E2CFF
 	msgbox LilycoveCity_Text_CitySign, MSGBOX_SIGN

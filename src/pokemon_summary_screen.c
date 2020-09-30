@@ -3500,7 +3500,7 @@ static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n)
 //show Vs on summary
 static void BufferIvOrEvStats(u8 mode)
 {
-    u8 hp, hp2, atk, def, spA, spD, spe;
+    u16 hp, hp2, atk, def, spA, spD, spe;
     u8 *currHPString = Alloc(20);
     const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
 

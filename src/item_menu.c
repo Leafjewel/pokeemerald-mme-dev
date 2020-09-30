@@ -930,7 +930,8 @@ void BagMenu_MoveCursorCallback(s32 itemIndex, bool8 onInit, struct ListMenu *li
 {
     if (onInit != TRUE)
     {
-        PlaySE(SE_SELECT);
+        //PlaySE(SE_SELECT);
+		PlaySE(SE_RG_BAG_CURSOR);
         ShakeBagSprite();
     }
     if (gBagMenu->itemOriginalLocation == 0xFF)
@@ -1318,12 +1319,14 @@ static u8 GetSwitchBagPocketDirection(void)
     LRKeys = GetLRKeysPressed();
     if (JOY_NEW(DPAD_LEFT) || LRKeys == MENU_L_PRESSED)
     {
-        PlaySE(SE_SELECT);
+        //PlaySE(SE_SELECT);
+		PlaySE(SE_RG_BAG_POCKET);
         return SWITCH_POCKET_LEFT;
     }
     if (JOY_NEW(DPAD_RIGHT) || LRKeys == MENU_R_PRESSED)
     {
-        PlaySE(SE_SELECT);
+        //PlaySE(SE_SELECT);
+		PlaySE(SE_RG_BAG_POCKET);
         return SWITCH_POCKET_RIGHT;
     }
     return SWITCH_POCKET_NONE;
@@ -3470,7 +3473,7 @@ static void Task_SortFinish(u8 taskId)
     {
         //BagPrintTextOnWindow(ShowBagWindow(6, 3), 2, gStringVar4, 0, 2, 1, 0, 0, 1);
         SortItemsInBag(gBagPositionStruct.pocket, tSortType);
-        bag_menu_RemoveBagItem_message_window(4);
+        BagMenu_RemoveBagItemMessageindow(4);
         DestroyListMenuTask(data[0], scrollPos, cursorPos);
         SetInitialScrollAndCursorPositions(gBagPositionStruct.pocket);
         LoadBagItemListBuffers(gBagPositionStruct.pocket);

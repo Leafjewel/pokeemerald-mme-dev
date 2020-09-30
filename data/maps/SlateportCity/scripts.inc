@@ -384,7 +384,7 @@ SlateportCity_EventScript_PokefanF:: @ 81DCFF7
 
 SlateportCity_EventScript_CheckLatiStatus::
 	goto_if_unset FLAG_ENABLE_SHIP_SOUTHERN_ISLAND, SlateportCity_EventScript_EonTicket
-	return
+	end
 
 SlateportCity_EventScript_EonTicket::
 	msgbox SlateportCity_Text_LikeThisTicket, MSGBOX_NPC

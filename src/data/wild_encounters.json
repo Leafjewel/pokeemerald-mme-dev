@@ -2116,12 +2116,12 @@
               {
                 "min_level": 22,
                 "max_level": 29,
-                "species": "SPECIES_CUBONE"
+                "species": "SPECIES_MUNNA"
               },
               {
                 "min_level": 22,
                 "max_level": 29,
-                "species": "SPECIES_CUBONE"
+                "species": "SPECIES_MUNNA"
               }
             ]
           }
@@ -2545,12 +2545,12 @@
               {
                 "min_level": 14,
                 "max_level": 16,
-                "species": "SPECIES_MAGMAR"
+                "species": "SPECIES_MINIOR"
               },
               {
                 "min_level": 14,
                 "max_level": 16,
-                "species": "SPECIES_MAGMAR"
+                "species": "SPECIES_MINIOR"
               }
             ]
           }
@@ -7572,22 +7572,22 @@
               {
                 "min_level": 14,
                 "max_level": 20,
-                "species": "SPECIES_LUNATONE"
+                "species": "SPECIES_GOTHITA"
               },
               {
                 "min_level": 14,
                 "max_level": 20,
-                "species": "SPECIES_SOLROCK"
+                "species": "SPECIES_SOLOSIS"
               },
               {
                 "min_level": 14,
                 "max_level": 20,
-                "species": "SPECIES_CLEFFA"
+                "species": "SPECIES_MUNNA"
               },
               {
                 "min_level": 14,
                 "max_level": 20,
-                "species": "SPECIES_IGGLYBUFF"
+                "species": "SPECIES_MUNNA"
               },
               {
                 "min_level": 14,
@@ -7716,22 +7716,22 @@
               {
                 "min_level": 33,
                 "max_level": 40,
-                "species": "SPECIES_GOTHITA"
+                "species": "SPECIES_GOTHORITA"
               },
               {
                 "min_level": 33,
                 "max_level": 40,
-                "species": "SPECIES_SOLOSIS"
+                "species": "SPECIES_DUOSION"
               },
               {
                 "min_level": 33,
                 "max_level": 40,
-                "species": "SPECIES_GOTHITA"
+                "species": "SPECIES_SOLROCK"
               },
               {
                 "min_level": 33,
                 "max_level": 40,
-                "species": "SPECIES_SOLOSIS"
+                "species": "SPECIES_LUNATONE"
               },
               {
                 "min_level": 33,
@@ -7860,7 +7860,7 @@
               {
                 "min_level": 33,
                 "max_level": 40,
-                "species": "SPECIES_GOLBAT"
+                "species": "SPECIES_MINIOR"
               },
               {
                 "min_level": 33,
