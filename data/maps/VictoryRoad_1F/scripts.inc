@@ -82,24 +82,44 @@ VictoryRoad_1F_Movement_WallyApproachPlayer2: @ 8235E21
 
 VictoryRoad_1F_EventScript_WallyGiveStone::
 	msgbox VictoryRoad_1F_Text_WallyGivesStone, MSGBOX_DEFAULT
+	setflag FLAG_WEAKER_STARTER_STONE_GET
 	switch VAR_STARTER_MON				@give out mega stone for starter weak to player's
 	case 0, VictoryRoad_1F_EventScript_GiveSwampertite
 	case 1, VictoryRoad_1F_EventScript_GiveSceptilite
 	case 2, VictoryRoad_1F_EventScript_GiveBlazikenite
-	setflag FLAG_WEAKER_STARTER_STONE_GET
-	return
+	clearflag FLAG_HIDE_VICTORY_ROAD_ENTRANCE_WALLY
+	copyobjectxytoperm LOCALID_WALLY_ENTRANCE
+	setflag FLAG_DEFEATED_WALLY_VICTORY_ROAD
+	copyvar VAR_VICTORY_ROAD_1F_STATE, VAR_0x8008
+	releaseall
+	end
 
 VictoryRoad_1F_EventScript_GiveSceptilite::
 	giveitem ITEM_SCEPTILITE
-	return
+	clearflag FLAG_HIDE_VICTORY_ROAD_ENTRANCE_WALLY
+	copyobjectxytoperm LOCALID_WALLY_ENTRANCE
+	setflag FLAG_DEFEATED_WALLY_VICTORY_ROAD
+	copyvar VAR_VICTORY_ROAD_1F_STATE, VAR_0x8008
+	releaseall
+	end
 
 VictoryRoad_1F_EventScript_GiveBlazikenite::
 	giveitem ITEM_BLAZIKENITE
-	return
+	clearflag FLAG_HIDE_VICTORY_ROAD_ENTRANCE_WALLY
+	copyobjectxytoperm LOCALID_WALLY_ENTRANCE
+	setflag FLAG_DEFEATED_WALLY_VICTORY_ROAD
+	copyvar VAR_VICTORY_ROAD_1F_STATE, VAR_0x8008
+	releaseall
+	end
 
 VictoryRoad_1F_EventScript_GiveSwampertite::
 	giveitem ITEM_SWAMPERTITE
-	return
+	clearflag FLAG_HIDE_VICTORY_ROAD_ENTRANCE_WALLY
+	copyobjectxytoperm LOCALID_WALLY_ENTRANCE
+	setflag FLAG_DEFEATED_WALLY_VICTORY_ROAD
+	copyvar VAR_VICTORY_ROAD_1F_STATE, VAR_0x8008
+	releaseall
+	end
 
 @ This Wally appears near the entrance once his battle is triggered and remains there until the Hall of Fame is entered
 VictoryRoad_1F_EventScript_EntranceWally:: @ 8235E2C
