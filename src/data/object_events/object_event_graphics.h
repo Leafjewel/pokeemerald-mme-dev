@@ -374,6 +374,7 @@ const u16 gObjectEventPalette31[] = INCBIN_U16("graphics/object_events/palettes/
 //Newly added overworlds and palettes
 //pokemon
 const u16 gObjectEventPalette_Pikachu[] = INCBIN_U16("graphics/object_events/pics/pokemon/pikachu.gbapal");
+const u16 gObjectEventPalette_Azumarill[] = INCBIN_U16("graphics/object_events/pics/pokemon/azumarill.gbapal");
 const u32 gObjectEventPic_Articuno[] = INCBIN_U32("graphics/object_events/pics/pokemon/articuno.4bpp");
 const u16 gObjectEventPalette_Articuno[] = INCBIN_U16("graphics/object_events/pics/pokemon/articuno.gbapal");
 const u32 gObjectEventPic_Zapdos[] = INCBIN_U32("graphics/object_events/pics/pokemon/zapdos.4bpp");

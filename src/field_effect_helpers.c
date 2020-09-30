@@ -1279,7 +1279,7 @@ u32 ShowSandDisguiseFieldEffect(void)
 }
 
 //static u32 ShowDisguiseFieldEffect(u8 fldEff, u8 fldEffObj, u8 paletteNum)	//dynamic overworlds
-static u32 ShowDisguiseFieldEffect(u8 fldEff, u8 templateIdx)
+static u32 ShowDisguiseFieldEffect(u8 fldEff, u8 fldEffObj)
 {
     u8 spriteId;
     struct Sprite *sprite;
@@ -1289,8 +1289,8 @@ static u32 ShowDisguiseFieldEffect(u8 fldEff, u8 templateIdx)
         FieldEffectActiveListRemove(fldEff);
         return MAX_SPRITES;
     }
-	LoadFieldEffectPalette(templateIdx);	//new
-    //spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[templateIdx], 0, 0, 0);
+	//LoadFieldEffectPalette(templateIdx);	//new
+	LoadFieldEffectPalette(fldEffObj);	//new
     spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[fldEffObj], 0, 0, 0);
     if (spriteId != MAX_SPRITES)
     {

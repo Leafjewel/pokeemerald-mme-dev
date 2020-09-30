@@ -598,7 +598,8 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_MAY_UNDERWATER 0x11C0
 #define OBJ_EVENT_PAL_MAUVILLE_OLD_MAN_1 0x11C1
 #define OBJ_EVENT_PAL_MAUVILLE_OLD_MAN_2 0x11C2
-//end new overworld palettes - 196 used, 159 added, 59 unused/free
+#define OBJ_EVENT_PAL_AZUMARILL 0x11C3
+//end new overworld palettes - 197 used, 160 added, 58 unused/free
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF
 
 #include "data/object_events/object_event_graphics_info_pointers.h"
@@ -801,6 +802,7 @@ const struct SpritePalette sObjectEventSpritePalettes[] = {
 	{gObjectEventPalette_MayUnderwater, OBJ_EVENT_PAL_MAY_UNDERWATER},
 	//end new palettes for people
 	{gObjectEventPalette_Pikachu, OBJ_EVENT_PAL_PIKACHU},
+	{gObjectEventPalette_Azumarill, OBJ_EVENT_PAL_AZUMARILL},
 	{gObjectEventPalette_Regirock, OBJ_EVENT_PAL_REGIROCK},
 	{gObjectEventPalette_Regice, OBJ_EVENT_PAL_REGICE},
 	{gObjectEventPalette_Registeel, OBJ_EVENT_PAL_REGISTEEL},

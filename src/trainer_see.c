@@ -21,7 +21,8 @@
 #include "field_weather.h"	//dynamic overworlds, take 3
 
 extern const struct SpritePalette sEventObjectSpritePalettes[];		//new, 3
-extern const struct SpritePalette gFieldEffectObjectPaletteInfo0;	//new, 3
+//extern const struct SpritePalette gFieldEffectObjectPaletteInfo0;	//new, 3
+extern const struct SpritePalette gSpritePalette_GeneralFieldEffect0;	//new, 3
 // this file's functions
 static u8 CheckTrainer(u8 objectEventId);
 static u8 GetTrainerApproachDistance(struct ObjectEvent *trainerObj);
@@ -716,7 +717,8 @@ u8 FldEff_HeartIcon(void)
     //u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HeartIcon, 0, 0, 0x52);	//dynamic overworlds
     u8 spriteId;
 
-    LoadSpritePalette(&gFieldEffectObjectPaletteInfo0);	//new, 3
+    //LoadSpritePalette(&gFieldEffectObjectPaletteInfo0);	//new, 3
+    LoadSpritePalette(&gSpritePalette_GeneralFieldEffect0);	//new, 3
     UpdatePaletteGammaType(IndexOfSpritePaletteTag(0x1004), GAMMA_ALT);	//new, 3
     UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(0x1004));	//new, 3
     spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HeartIcon, 0, 0, 0x52);	//new, 3
