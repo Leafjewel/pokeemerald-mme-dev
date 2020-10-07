@@ -3418,7 +3418,9 @@ static void Cmd_jumpbasedontype(void)
     }
 }
 //soft level caps
-u8 GetTeamLevel(void)
+
+//Calculates average team level except for one (as determined by param)
+u8 GetTeamLevel(u8 level)
 {
     u8 i;
     u16 partyLevel = 0;
@@ -3431,7 +3433,10 @@ u8 GetTeamLevel(void)
         else
             break;
     }
-    partyLevel /= i;
+    if (i == 1) //if only one mon
+    	return partyLevel;
+    partyLevel -= level;
+    partyLevel /= --i;
 
     /* threshold = partyLevel * .8;
     partyLevel = 0;
@@ -3472,7 +3477,7 @@ double GetPkmnExpMultiplier(u8 level)
     }
 
     // multiply the usual exp yield by the party level multiplier
-    avgDiff = level - GetTeamLevel();
+    avgDiff = level - GetTeamLevel(level);
 
     //if (avgDiff >= 12)
         //avgDiff = 12;
